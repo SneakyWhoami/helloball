@@ -9,10 +9,17 @@
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
 
+NSString *const BLQModelBridgeBallsChangedNotification;
+
+
 @interface BLQModelBridge : NSObject
 
 - (BOOL)startEngine;
 
 - (void)hitTest:(CGPoint)point;
+
+- (void)mouseDown:(CGPoint)point;
+- (void)mouseMove:(CGPoint)delta;
+- (void)mouseUp:(CGPoint)point;
 
 @end

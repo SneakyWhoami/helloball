@@ -16,5 +16,6 @@
 @property (nonatomic) NSInteger color;
 
 - (instancetype)initBallWithPosition:(CGPoint)pos radius:(CGFloat)radius color:(NSInteger)color;
+- (instancetype)initBallWithDictionary:(NSDictionary *)d;
 
 @end

@@ -15,6 +15,7 @@
 @property NSMutableArray *ballLayers;
 
 - (void)updateBallLayer:(CAShapeLayer *)layer withBall:(BLQBall *)ball;
+- (UIColor *)colorFromInt:(int)color;
 
 @end
 
@@ -47,6 +48,10 @@
 
 - (void)updateBallLayer:(CAShapeLayer *)layer withBall:(BLQBall *)ball
 {
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanTrue
+                     forKey:kCATransactionDisableActions];
+    
     CGMutablePathRef path = CGPathCreateMutable();
     CGPathAddArc(path, NULL, 0, 0, ball.radius, 0, M_PI * 2, NO);
     layer.path = path;
@@ -54,8 +59,18 @@
     
     layer.position = ball.position;
     layer.borderWidth = 1; // to test
-    layer.fillColor = [UIColor redColor].CGColor; // TODO take it from ball
+    layer.fillColor = [self colorFromInt:ball.color].CGColor;
     layer.strokeColor = [UIColor blackColor].CGColor;
+
+    [CATransaction commit];
+}
+
+- (UIColor *)colorFromInt:(int)color
+{
+    CGFloat r = ((color >> 16) & 0xFF) / 255.;
+    CGFloat g = ((color >> 8) & 0xFF) / 255.;
+    CGFloat b = (color & 0xFF) / 255.;
+    return [UIColor colorWithRed:r green:g blue:b alpha:1];
 }
 
 @end
