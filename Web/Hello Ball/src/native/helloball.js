@@ -1,24 +1,22 @@
 (function () {
     'use strict';
 
-    var getRandInt = function (min, max) {
-        return Math.floor(Math.random() * (max - min)) + min;
-    };
-
-    var ballNumber = 1000;
-    var ballMinRadius = 2;
-    var ballMaxRadius = 10;
-    var screenWidth = 800;
-    var screenHeight = 600;
-
     var model;
     var svgroot = document.getElementById('svgmain');
-    var selectionID = -1;
+    var selectionID;
 
-    var main = function () {
+    var populateModel = function (model) {
+        var getRandInt = function (min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        };
 
-        model = new Model();
+        var ballNumber = 50;
+        var ballMinRadius = 10;
+        var ballMaxRadius = 40;
+        var screenWidth = 800;
+        var screenHeight = 600;
         var i, ball;
+
         for (i = 0; i < ballNumber; i += 1) {
             var radius = getRandInt(ballMinRadius, ballMaxRadius);
             ball = new Ball(
@@ -29,25 +27,29 @@
             );
             model.addBall(ball);
         }
+    };
 
-        model.ballChanged = function (ballIDs) {
-            renderDisplayList(svgroot, model.getDisplayList(ballIDs));
-        };
+    var main = function () {
+
+        model = new Model();
+        populateModel(model);
+
+        // Keyboard Events: UP and DOWN ARROWS only...
+        Rx.Observable.fromEvent(window, 'keydown')
+            .filter(function (kev) {
+                return [38, 40].indexOf(kev.keyCode) !== -1 ? kev : null;
+            })
+            .subscribe(function (data) {
+                if (data.keyCode === 38) {
+                    model.modBallRadius(selectionID, 4);
+                } else {
+                    model.modBallRadius(selectionID, -4);
+                }
+            });
 
         var mouseup = Rx.Observable.fromEvent(document, 'mouseup');
         var mousemove = Rx.Observable.fromEvent(document, 'mousemove');
         var mousedown = Rx.Observable.fromEvent(document, 'mousedown');
-        var keypress = Rx.Observable.fromEvent(window, 'keydown');
-        var arrowKeyPress = keypress.filter(function (kev) {
-            return [38, 40].indexOf(kev.keyCode) !== -1 ? kev : null;
-        });
-        arrowKeyPress.subscribe(function (data) {
-            if (data.keyCode === 38) {
-                model.modBallRadius(selectionID, 4);
-            } else {
-                model.modBallRadius(selectionID, -4);
-            }
-        });
 
         var mousedrag = mousedown.selectMany(function (md) {
             var ballIDs = model.hitTest(md.offsetX, md.offsetY);
@@ -63,25 +65,34 @@
             // calculate offsets when mouse down
             var startX = md.offsetX, startY = md.offsetY;
             // Calculate delta with mousemove until mouseup
-            return mousemove.select(function (mm) {
+            return mousemove.map(function (mm) {
                 (mm.preventDefault) ? mm.preventDefault() : event.returnValue = false;
                 return {
-                    x: mm.clientX - startX,
-                    y: mm.clientY - startY,
-                    target: target,
                     targetID: ballIDs[0],
-                    circleX: circleX,
-                    circleY:circleY
+                    newX: mm.clientX - startX + circleX,
+                    newY: mm.clientY - startY + circleY
                 };
             }).takeUntil(mouseup);
         });
 
         // Update position
-        var subscription = mousedrag.subscribe(function (data) {
-            model.setBallPosition(data.targetID, (data.x + data.circleX), (data.y + data.circleY));
+        mousedrag.subscribe(function (data) {
+            model.setBallPosition(data.targetID, data.newX, data.newY);
         });
 
-        renderDisplayList(svgroot, model.getDisplayList());
+        var displayListStartStream = Rx.Observable.just(model.getDisplayList());
+        var ballsChangedStream = Rx.Observable.create(function (observer) {
+            var handler = function (ballIDs) {
+                observer.onNext(ballIDs);
+            };
+            model.ballChanged = handler;
+        });
+
+        var displayListStream = ballsChangedStream.map(function (ballIDs) {
+            return model.getDisplayList(ballIDs);
+        }).merge(displayListStartStream);
+
+        displayListStream.subscribe(renderDisplayList.bind(undefined, svgroot));
     };
 
     main();
