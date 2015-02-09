@@ -42,7 +42,6 @@
 
 - (void)updateBalls:(NSDictionary *)balls
 {
-    NSLog(@"updateBalls: %d balls", balls.count);
     for (NSString *ballIndex in balls) {
         NSInteger ballIndexInt = ballIndex.integerValue;
         BLQBall *ball = [[BLQBall alloc] initBallWithDictionary:[balls objectForKey:ballIndex]];

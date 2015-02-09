@@ -20,6 +20,7 @@ NSString *const BLQModelBridgeBallCountChangedNotification = @"BLQModelBridgeBal
 - (void)ballCountChanged:(NSNumber *)count;
 - (void)displayListChanged:(NSDictionary *)displayList;
 - (void)eventsPerSecond:(NSNumber *)eps;
+- (void)log:(NSString *)str;
 
 @end
 
@@ -85,6 +86,11 @@ NSString *const BLQModelBridgeBallCountChangedNotification = @"BLQModelBridgeBal
 - (void)ballCountChanged:(NSNumber *)count
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:BLQModelBridgeBallCountChangedNotification object:self userInfo:@{ @"ballCount": count }];
+}
+
+- (void)log:(NSString *)str
+{
+    NSLog(@"JS: %@", str);
 }
 
 @end
