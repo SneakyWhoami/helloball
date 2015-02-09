@@ -1,5 +1,8 @@
 'use strict';
 
+var BALL_COUNT = 100;
+var PENETRATION_TEST_ENABLED = true;
+
 var Ball = function (x, y, radius) {
     this.x = x;
     this.y = y;
@@ -130,11 +133,13 @@ Controller.prototype.mouseDown = function (x, y) {
 }
 
 Controller.prototype.mouseMove = function (x, y) {
+    var currentTime = Date.now();
     if (this.mouseIsDown && this.selectedBallIndex) {
         this.model.setBallPosition(this.selectedBallIndex, x, y);
         this.makeDisplayList();
     }
     this.eps.countEvent();
+//    this.delegate.log("diff time: " + (Date.now() - currentTime));
 }
 
 Controller.prototype.mouseUp = function (x, y) {
@@ -146,7 +151,7 @@ Controller.prototype.mouseUp = function (x, y) {
 }
 
 Controller.prototype.makeDisplayList = function () {
-    var penetrationResults = penetrationTest(this.model.balls);
+    var penetrationResults = PENETRATION_TEST_ENABLED ? penetrationTest(this.model.balls) : null;
     
     var i;
     var color;
@@ -159,7 +164,7 @@ Controller.prototype.makeDisplayList = function () {
                 color = 0x00BB00;
             }
         } else {
-            numHits = penetrationResults[i].length;
+            numHits = PENETRATION_TEST_ENABLED ? penetrationResults[i].length : 0;
             if (numHits == 0) {
                 color = 0x0000FF;
             } else if (numHits == 1) {
@@ -183,7 +188,7 @@ var populateModel = function (model, viewWidth, viewHeight) {
         return Math.floor(Math.random() * (max - min)) + min;
     };
     
-    var ballCount = 500;
+    var ballCount = BALL_COUNT;
     var ballMinRadius = 18;
     var ballMaxRadius = 44;
     var i, ball;
