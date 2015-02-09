@@ -22,28 +22,27 @@
 
 @implementation BLQBallsView
 
-- (void)setBalls:(NSArray *)balls
+- (void)setBallCount:(NSInteger)ballCount
 {
-    _balls = balls;
-    
-    if (!_ballLayers || (_ballLayers.count != _balls.count)) {
+    if (!_ballLayers || (_ballLayers.count != ballCount)) {
         if (_ballLayers) {
             for (CALayer *layer in _ballLayers) {
                 [layer removeFromSuperlayer];
             }
         }
         
-        _ballLayers = [NSMutableArray arrayWithCapacity:_balls.count];
-        for (NSInteger i = 0; i < _balls.count; i++) {
+        _ballLayers = [NSMutableArray arrayWithCapacity:ballCount];
+        for (NSInteger i = 0; i < ballCount; i++) {
             CAShapeLayer *layer = [CAShapeLayer layer];
             [self.layer addSublayer:layer];
             [_ballLayers addObject:layer];
         }
     }
+}
 
-    for (NSInteger i = 0; i < _balls.count; i++) {
-        [self updateBallLayer:[_ballLayers objectAtIndex:i] withBall:[_balls objectAtIndex:i]];
-    }
+- (void)updateBalls:(NSDictionary *)balls
+{
+    
 }
 
 - (void)updateBallLayer:(CAShapeLayer *)layer withBall:(BLQBall *)ball
@@ -51,10 +50,12 @@
     [CATransaction begin];
     [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
     
-    CGMutablePathRef path = CGPathCreateMutable();
-    CGPathAddArc(path, NULL, 0, 0, ball.radius, 0, M_PI * 2, NO);
-    layer.path = path;
-    CGPathRelease(path);
+    if (layer.path == nil) {
+        CGMutablePathRef path = CGPathCreateMutable();
+        CGPathAddArc(path, NULL, 0, 0, ball.radius, 0, M_PI * 2, NO);
+        layer.path = path;
+        CGPathRelease(path);
+    }
     
     layer.position = ball.position;
     layer.borderWidth = 1; // to test

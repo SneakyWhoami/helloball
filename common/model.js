@@ -31,16 +31,16 @@ Model.prototype.setBallRadius = function (ballIndex, radius) {
     this.balls[ballIndex].setRadius(radius);
 };
 
-Model.prototype.hitTest = function (x, y) {
+var hitTest = function (balls, x, y) {
     var ballsHit = [];
     var i;
-    for (i = 0; i < this.balls.length; i++) {
-        if (Math.pow((x - this.balls[i].x), 2) + Math.pow((y - this.balls[i].y), 2) < Math.pow(this.balls[i].radius, 2)) {
+    for (i = 0; i < balls.length; i++) {
+        if (Math.pow((x - balls[i].x), 2) + Math.pow((y - balls[i].y), 2) < Math.pow(balls[i].radius, 2)) {
             ballsHit.push(i);
         }
     }
     return ballsHit;
-};
+}
 
 var penetrationTest = function (balls) {
     var results = [];
@@ -57,40 +57,6 @@ var penetrationTest = function (balls) {
         }
     }
     return results;
-}
-
-var makeDisplayList = function (balls, penetrationResults, selectedBallIndex, mouseDown) {
-    var displayList = [];
-    var i;
-    var color;
-    var numHits;
-    for (i = 0; i < balls.length; i++) {
-        if (selectedBallIndex == i) {
-            if (mouseDown) {
-                color = 0x44FF44;
-            } else {
-                color = 0x00BB00;
-            }
-        } else {
-            numHits = penetrationResults[i].length;
-            if (numHits == 0) {
-                color = 0x0000FF;
-            } else if (numHits == 1) {
-                color = 0xFF0000;
-            } else if (numHits == 2) {
-                color = 0xFF6666;
-            } else {
-                color = 0xFFBBBB;
-            }
-        }
-        displayList.push({
-                         x: balls[i].x,
-                         y: balls[i].y,
-                         radius: balls[i].radius,
-                         color: color
-        });
-    }
-    return displayList;
 }
 
 var EventsCounter = function (delegate) {
@@ -112,16 +78,47 @@ EventsCounter.prototype.countEvent = function () {
     }
 }
 
+var DisplayList = function (ballCount) {
+    this.items = [];
+    this.itemsChanged = {};
+    var i = 0;
+    for (i = 0; i < ballCount; i++) {
+        this.items.push({ x: -1, y: -1, radius: -1, color: -1 });
+    }
+}
+
+DisplayList.prototype.setBall = function (ballIndex, x, y, radius, color) {
+    var newObj = { x: x, y: y, radius: radius, color: color };
+    var oldObj = this.items[ballIndex];
+    for (var key in newObj) {
+        if (newObj[key] != oldObj[key]) {
+            this.items[ballIndex] = newObj;
+            this.itemsChanged[ballIndex] = true;
+            break;
+        }
+    }
+}
+
+DisplayList.prototype.getChangedItems = function () {
+    var result = {};
+    for (var ballIndex in this.itemsChanged) {
+        result[ballIndex] = this.items[ballIndex];
+    }
+    this.itemsChanged = {};
+    return result;
+}
+
 var Controller = function (model, delegate) {
     this.delegate = delegate;
     this.model = model;
     this.selectedBallIndex = -1;
     this.mouseIsDown = false;
     this.eps = new EventsCounter(delegate);
+    this.displayList = new DisplayList(this.model.balls.length);
 }
 
 Controller.prototype.mouseDown = function (x, y) {
-    var ballsHit = this.model.hitTest(x, y);
+    var ballsHit = hitTest(this.model.balls, x, y);
     if (ballsHit.length > 0) {
         this.selectedBallIndex = ballsHit[ballsHit.length - 1];
     } else {
@@ -150,9 +147,34 @@ Controller.prototype.mouseUp = function (x, y) {
 
 Controller.prototype.makeDisplayList = function () {
     var penetrationResults = penetrationTest(this.model.balls);
-    var displayList = makeDisplayList(this.model.balls, penetrationResults, this.selectedBallIndex, this.mouseIsDown);
+    
+    var i;
+    var color;
+    var numHits;
+    for (i = 0; i < this.model.balls.length; i++) {
+        if (this.selectedBallIndex == i) {
+            if (mouseDown) {
+                color = 0x44FF44;
+            } else {
+                color = 0x00BB00;
+            }
+        } else {
+            numHits = penetrationResults[i].length;
+            if (numHits == 0) {
+                color = 0x0000FF;
+            } else if (numHits == 1) {
+                color = 0xFF0000;
+            } else if (numHits == 2) {
+                color = 0xFF6666;
+            } else {
+                color = 0xFFBBBB;
+            }
+        }
+        this.displayList.setBall(i, this.model.balls[i].x, this.model.balls[i].y, this.model.balls[i].radius, color);
+    }
+
     if (this.delegate) {
-        this.delegate.displayListChanged(displayList);
+        this.delegate.displayListChanged(this.displayList.getChangedItems());
     }
 }
 
@@ -161,7 +183,7 @@ var populateModel = function (model, viewWidth, viewHeight) {
         return Math.floor(Math.random() * (max - min)) + min;
     };
     
-    var ballCount = 50;
+    var ballCount = 500;
     var ballMinRadius = 18;
     var ballMaxRadius = 44;
     var i, ball;

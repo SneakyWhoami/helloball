@@ -16,7 +16,7 @@ NSString *const BLQModelBridgeEPSChangedNotification = @"BLQModelBridgeEPSChange
 
 @protocol BLQModelDelegate <JSExport>
 
-- (void)displayListChanged:(NSArray *)displayList;
+- (void)displayListChanged:(NSDictionary *)displayList;
 - (void)eventsPerSecond:(NSNumber *)eps;
 
 @end
@@ -70,13 +70,9 @@ NSString *const BLQModelBridgeEPSChangedNotification = @"BLQModelBridgeEPSChange
 //    JSGarbageCollect(_context.JSGlobalContextRef);
 }
 
-- (void)displayListChanged:(NSArray *)displayList
+- (void)displayListChanged:(NSDictionary *)displayList
 {
-    NSMutableArray *a = [NSMutableArray arrayWithCapacity:displayList.count];
-    for (NSDictionary *d in displayList) {
-        [a addObject:[[BLQBall alloc] initBallWithDictionary:d]];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:BLQModelBridgeBallsChangedNotification object:self userInfo:@{ @"balls": a }];
+    [[NSNotificationCenter defaultCenter] postNotificationName:BLQModelBridgeBallsChangedNotification object:self userInfo:@{ @"balls": displayList }];
 }
 
 - (void)eventsPerSecond:(NSNumber *)eps

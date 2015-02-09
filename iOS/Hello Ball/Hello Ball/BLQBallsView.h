@@ -10,6 +10,8 @@
 
 @interface BLQBallsView : UIView
 
-@property (nonatomic) NSArray *balls; // BLQBall
+@property (nonatomic) NSInteger ballCount;
+
+- (void)updateBalls:(NSDictionary *)balls;
 
 @end
