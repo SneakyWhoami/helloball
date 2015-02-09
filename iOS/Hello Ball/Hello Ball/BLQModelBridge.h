@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
 
-NSString *const BLQModelBridgeBallsChangedNotification;
+NSString *const BLQModelBridgeDisplayListChangedNotification;
 NSString *const BLQModelBridgeEPSChangedNotification;
+NSString *const BLQModelBridgeBallCountChangedNotification;
 
 
 @interface BLQModelBridge : NSObject

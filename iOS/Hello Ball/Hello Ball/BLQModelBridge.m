@@ -10,12 +10,14 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 #import "BLQBall.h"
 
-NSString *const BLQModelBridgeBallsChangedNotification = @"BLQModelBridgeBallsChangedNotification";
+NSString *const BLQModelBridgeDisplayListChangedNotification = @"BLQModelBridgeBallsChangedNotification";
 NSString *const BLQModelBridgeEPSChangedNotification = @"BLQModelBridgeEPSChangedNotification";
+NSString *const BLQModelBridgeBallCountChangedNotification = @"BLQModelBridgeBallCountChangedNotification";
 
 
 @protocol BLQModelDelegate <JSExport>
 
+- (void)ballCountChanged:(NSNumber *)count;
 - (void)displayListChanged:(NSDictionary *)displayList;
 - (void)eventsPerSecond:(NSNumber *)eps;
 
@@ -72,12 +74,17 @@ NSString *const BLQModelBridgeEPSChangedNotification = @"BLQModelBridgeEPSChange
 
 - (void)displayListChanged:(NSDictionary *)displayList
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:BLQModelBridgeBallsChangedNotification object:self userInfo:@{ @"balls": displayList }];
+    [[NSNotificationCenter defaultCenter] postNotificationName:BLQModelBridgeDisplayListChangedNotification object:self userInfo:@{ @"balls": displayList }];
 }
 
 - (void)eventsPerSecond:(NSNumber *)eps
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:BLQModelBridgeEPSChangedNotification object:self userInfo:@{ @"eps": eps }];
+}
+
+- (void)ballCountChanged:(NSNumber *)count
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:BLQModelBridgeBallCountChangedNotification object:self userInfo:@{ @"ballCount": count }];
 }
 
 @end

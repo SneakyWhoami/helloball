@@ -42,7 +42,12 @@
 
 - (void)updateBalls:(NSDictionary *)balls
 {
-    
+    NSLog(@"updateBalls: %d balls", balls.count);
+    for (NSString *ballIndex in balls) {
+        NSInteger ballIndexInt = ballIndex.integerValue;
+        BLQBall *ball = [[BLQBall alloc] initBallWithDictionary:[balls objectForKey:ballIndex]];
+        [self updateBallLayer:[_ballLayers objectAtIndex:ballIndexInt] withBall:ball];
+    }
 }
 
 - (void)updateBallLayer:(CAShapeLayer *)layer withBall:(BLQBall *)ball
@@ -50,12 +55,10 @@
     [CATransaction begin];
     [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
     
-    if (layer.path == nil) {
-        CGMutablePathRef path = CGPathCreateMutable();
-        CGPathAddArc(path, NULL, 0, 0, ball.radius, 0, M_PI * 2, NO);
-        layer.path = path;
-        CGPathRelease(path);
-    }
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathAddArc(path, NULL, 0, 0, ball.radius, 0, M_PI * 2, NO);
+    layer.path = path;
+    CGPathRelease(path);
     
     layer.position = ball.position;
     layer.borderWidth = 1; // to test

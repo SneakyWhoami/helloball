@@ -16,6 +16,7 @@
 
 - (void)onModelBallsChanged:(NSNotification *)n;
 - (void)onModelEPSChanged:(NSNotification *)n;
+- (void)onModelBallCountChanged:(NSNotification *)n;
 
 @end
 
@@ -26,8 +27,9 @@
     [super viewDidLoad];
     
     _model = [BLQModelBridge alloc];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onModelBallsChanged:) name:BLQModelBridgeBallsChangedNotification object:_model];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onModelBallsChanged:) name:BLQModelBridgeDisplayListChangedNotification object:_model];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onModelEPSChanged:) name:BLQModelBridgeEPSChangedNotification object:_model];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onModelBallCountChanged:) name:BLQModelBridgeBallCountChangedNotification object:_model];
 
     [_model startEngineWithViewSize:self.view.bounds.size];
 }
@@ -64,6 +66,11 @@
 - (void)onModelBallsChanged:(NSNotification *)n
 {
     [_ballsView updateBalls:[n.userInfo objectForKey:@"balls"]];
+}
+
+- (void)onModelBallCountChanged:(NSNotification *)n
+{
+    _ballsView.ballCount = ((NSNumber *)[n.userInfo objectForKey:@"ballCount"]).integerValue;
 }
 
 - (void)onModelEPSChanged:(NSNotification *)n
