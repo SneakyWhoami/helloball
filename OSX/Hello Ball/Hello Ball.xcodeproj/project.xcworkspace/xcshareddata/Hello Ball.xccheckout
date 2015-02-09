@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>F007F41C-A34D-4C2A-AA03-3B6871104446</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Hello Ball</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>48803F890284C626A64E3A6D6026B32CEDEB91F0</key>
+		<string>https://github.com/balsamiq/helloball.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>OSX/Hello Ball/Hello Ball.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>48803F890284C626A64E3A6D6026B32CEDEB91F0</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/balsamiq/helloball.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>48803F890284C626A64E3A6D6026B32CEDEB91F0</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>48803F890284C626A64E3A6D6026B32CEDEB91F0</string>
+			<key>IDESourceControlWCCName</key>
+			<string>helloball</string>
+		</dict>
+	</array>
+</dict>
+</plist>
