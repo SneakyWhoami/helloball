@@ -46,11 +46,11 @@
 		93ACADA21A83BC8D00CCC448 /* Hello_BallTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Hello_BallTests.m; sourceTree = "<group>"; };
 		93ACADAC1A83BF4800CCC448 /* BLQBallsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLQBallsView.h; sourceTree = "<group>"; };
 		93ACADAD1A83BF4800CCC448 /* BLQBallsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLQBallsView.m; sourceTree = "<group>"; };
-		93ACADAF1A83BFAA00CCC448 /* BLQBall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLQBall.h; sourceTree = "<group>"; };
-		93ACADB01A83BFAA00CCC448 /* BLQBall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLQBall.m; sourceTree = "<group>"; };
-		93ACADB21A83CAD300CCC448 /* BLQModelBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLQModelBridge.h; sourceTree = "<group>"; };
-		93ACADB31A83CAD300CCC448 /* BLQModelBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLQModelBridge.m; sourceTree = "<group>"; };
-		93E03E901A88D09D00E4F12B /* model.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = model.js; path = ../../../common/model.js; sourceTree = "<group>"; };
+		93ACADAF1A83BFAA00CCC448 /* BLQBall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLQBall.h; path = ../../../common/objc/BLQBall.h; sourceTree = "<group>"; };
+		93ACADB01A83BFAA00CCC448 /* BLQBall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLQBall.m; path = ../../../common/objc/BLQBall.m; sourceTree = "<group>"; };
+		93ACADB21A83CAD300CCC448 /* BLQModelBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLQModelBridge.h; path = ../../../common/objc/BLQModelBridge.h; sourceTree = "<group>"; };
+		93ACADB31A83CAD300CCC448 /* BLQModelBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLQModelBridge.m; path = ../../../common/objc/BLQModelBridge.m; sourceTree = "<group>"; };
+		93E03E901A88D09D00E4F12B /* model.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = model.js; path = ../../../common/js/model.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
