@@ -10,11 +10,12 @@
 #import <CoreGraphics/CoreGraphics.h>
 
 NSString *const BLQModelBridgeBallsChangedNotification;
+NSString *const BLQModelBridgeEPSChangedNotification;
 
 
 @interface BLQModelBridge : NSObject
 
-- (BOOL)startEngine;
+- (BOOL)startEngineWithViewSize:(CGSize)size;
 
 - (void)mouseDown:(CGPoint)point;
 - (void)mouseMove:(CGPoint)delta;

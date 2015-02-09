@@ -11,11 +11,13 @@
 #import "BLQBall.h"
 
 NSString *const BLQModelBridgeBallsChangedNotification = @"BLQModelBridgeBallsChangedNotification";
+NSString *const BLQModelBridgeEPSChangedNotification = @"BLQModelBridgeEPSChangedNotification";
 
 
 @protocol BLQModelDelegate <JSExport>
 
 - (void)displayListChanged:(NSArray *)displayList;
+- (void)eventsPerSecond:(NSNumber *)eps;
 
 @end
 
@@ -34,7 +36,7 @@ NSString *const BLQModelBridgeBallsChangedNotification = @"BLQModelBridgeBallsCh
     _context = nil;
 }
 
-- (BOOL)startEngine
+- (BOOL)startEngineWithViewSize:(CGSize)size
 {
     _context = [[JSContext alloc] initWithVirtualMachine:[[JSVirtualMachine alloc] init]];
     
@@ -43,7 +45,8 @@ NSString *const BLQModelBridgeBallsChangedNotification = @"BLQModelBridgeBallsCh
         NSString *code = [NSString stringWithContentsOfURL:codeURL encoding:NSUTF8StringEncoding error:nil];
         [_context evaluateScript:code withSourceURL:codeURL];
         _context[@"bridge"] = self;
-        [_context evaluateScript:@"var controller = initApp(768, 1024, bridge);"];
+        NSString *script = [NSString stringWithFormat:@"var controller = initApp(%d, %d, bridge);", (int)size.width, (int)size.height];
+        [_context evaluateScript:script];
     }
     return (_context != nil);
 }
@@ -74,6 +77,11 @@ NSString *const BLQModelBridgeBallsChangedNotification = @"BLQModelBridgeBallsCh
         [a addObject:[[BLQBall alloc] initBallWithDictionary:d]];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:BLQModelBridgeBallsChangedNotification object:self userInfo:@{ @"balls": a }];
+}
+
+- (void)eventsPerSecond:(NSNumber *)eps
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:BLQModelBridgeEPSChangedNotification object:self userInfo:@{ @"eps": eps }];
 }
 
 @end

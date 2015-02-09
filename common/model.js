@@ -93,11 +93,31 @@ var makeDisplayList = function (balls, penetrationResults, selectedBallIndex, mo
     return displayList;
 }
 
+var EventsCounter = function (delegate) {
+    this.eventsCount = 0;
+    this.lastTime = 0;
+    this.delegate = delegate;
+}
+
+EventsCounter.prototype.countEvent = function () {
+    this.eventsCount += 1;
+    var diffTime = Date.now() - this.lastTime;
+    if (diffTime > 200) {
+        if (this.delegate) {
+            var eps = this.eventsCount * 1000 / diffTime;
+            this.delegate.eventsPerSecond(eps);
+        }
+        this.lastTime = Date.now();
+        this.eventsCount = 0;
+    }
+}
+
 var Controller = function (model, delegate) {
     this.delegate = delegate;
     this.model = model;
     this.selectedBallIndex = -1;
     this.mouseIsDown = false;
+    this.eps = new EventsCounter(delegate);
 }
 
 Controller.prototype.mouseDown = function (x, y) {
@@ -109,6 +129,7 @@ Controller.prototype.mouseDown = function (x, y) {
     }
     this.mouseIsDown = true;
     this.makeDisplayList();
+    this.eps.countEvent();
 }
 
 Controller.prototype.mouseMove = function (x, y) {
@@ -116,6 +137,7 @@ Controller.prototype.mouseMove = function (x, y) {
         this.model.setBallPosition(this.selectedBallIndex, x, y);
         this.makeDisplayList();
     }
+    this.eps.countEvent();
 }
 
 Controller.prototype.mouseUp = function (x, y) {
@@ -123,6 +145,7 @@ Controller.prototype.mouseUp = function (x, y) {
     if (this.selectedBallIndex) {
         this.makeDisplayList();
     }
+    this.eps.countEvent();
 }
 
 Controller.prototype.makeDisplayList = function () {

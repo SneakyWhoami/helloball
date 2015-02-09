@@ -12,6 +12,7 @@
 @interface ViewController : UIViewController
 
 @property (assign) IBOutlet BLQBallsView *ballsView;
+@property (assign) IBOutlet UILabel *epsLabel;
 
 @end
 

@@ -15,6 +15,7 @@
 @property (nonatomic) BLQModelBridge *model;
 
 - (void)onModelBallsChanged:(NSNotification *)n;
+- (void)onModelEPSChanged:(NSNotification *)n;
 
 @end
 
@@ -26,8 +27,9 @@
     
     _model = [BLQModelBridge alloc];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onModelBallsChanged:) name:BLQModelBridgeBallsChangedNotification object:_model];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onModelEPSChanged:) name:BLQModelBridgeEPSChangedNotification object:_model];
 
-    [_model startEngine];
+    [_model startEngineWithViewSize:_ballsView.bounds.size];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,6 +64,12 @@
 - (void)onModelBallsChanged:(NSNotification *)n
 {
     _ballsView.balls = [n.userInfo objectForKey:@"balls"];
+}
+
+- (void)onModelEPSChanged:(NSNotification *)n
+{
+    NSNumber *eps = [n.userInfo objectForKey:@"eps"];
+    _epsLabel.text = [NSString stringWithFormat:@"EPS: %d", eps.integerValue];
 }
 
 @end
