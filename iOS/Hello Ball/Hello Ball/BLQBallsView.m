@@ -49,8 +49,7 @@
 - (void)updateBallLayer:(CAShapeLayer *)layer withBall:(BLQBall *)ball
 {
     [CATransaction begin];
-    [CATransaction setValue:(id)kCFBooleanTrue
-                     forKey:kCATransactionDisableActions];
+    [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
     
     CGMutablePathRef path = CGPathCreateMutable();
     CGPathAddArc(path, NULL, 0, 0, ball.radius, 0, M_PI * 2, NO);
