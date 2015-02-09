@@ -17,7 +17,7 @@
 		93ACADAE1A83BF4800CCC448 /* BLQBallsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93ACADAD1A83BF4800CCC448 /* BLQBallsView.m */; };
 		93ACADB11A83BFAA00CCC448 /* BLQBall.m in Sources */ = {isa = PBXBuildFile; fileRef = 93ACADB01A83BFAA00CCC448 /* BLQBall.m */; };
 		93ACADB41A83CAD300CCC448 /* BLQModelBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 93ACADB31A83CAD300CCC448 /* BLQModelBridge.m */; };
-		93ACADB61A83CE5500CCC448 /* model.js in Resources */ = {isa = PBXBuildFile; fileRef = 93ACADB51A83CE5500CCC448 /* model.js */; };
+		93E03E911A88D09D00E4F12B /* model.js in Resources */ = {isa = PBXBuildFile; fileRef = 93E03E901A88D09D00E4F12B /* model.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +50,7 @@
 		93ACADB01A83BFAA00CCC448 /* BLQBall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLQBall.m; sourceTree = "<group>"; };
 		93ACADB21A83CAD300CCC448 /* BLQModelBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLQModelBridge.h; sourceTree = "<group>"; };
 		93ACADB31A83CAD300CCC448 /* BLQModelBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLQModelBridge.m; sourceTree = "<group>"; };
-		93ACADB51A83CE5500CCC448 /* model.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = model.js; sourceTree = "<group>"; };
+		93E03E901A88D09D00E4F12B /* model.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = model.js; path = ../../../common/model.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,9 +103,9 @@
 				93ACADAD1A83BF4800CCC448 /* BLQBallsView.m */,
 				93ACADB21A83CAD300CCC448 /* BLQModelBridge.h */,
 				93ACADB31A83CAD300CCC448 /* BLQModelBridge.m */,
-				93ACADB51A83CE5500CCC448 /* model.js */,
 				93ACAD931A83BC8D00CCC448 /* Images.xcassets */,
 				93ACAD951A83BC8D00CCC448 /* LaunchScreen.xib */,
+				93E03E901A88D09D00E4F12B /* model.js */,
 				93ACAD861A83BC8D00CCC448 /* Supporting Files */,
 			);
 			path = "Hello Ball";
@@ -218,9 +218,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93ACADB61A83CE5500CCC448 /* model.js in Resources */,
 				93ACAD921A83BC8D00CCC448 /* Main.storyboard in Resources */,
 				93ACAD971A83BC8D00CCC448 /* LaunchScreen.xib in Resources */,
+				93E03E911A88D09D00E4F12B /* model.js in Resources */,
 				93ACAD941A83BC8D00CCC448 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

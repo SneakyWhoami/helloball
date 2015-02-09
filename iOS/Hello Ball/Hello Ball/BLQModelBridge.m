@@ -15,8 +15,7 @@ NSString *const BLQModelBridgeBallsChangedNotification = @"BLQModelBridgeBallsCh
 
 @protocol BLQModelDelegate <JSExport>
 
-- (void)ballsChanged:(NSArray *)balls;
-- (void)selectedBallChanged:(int)index;
+- (void)displayListChanged:(NSArray *)displayList;
 
 @end
 
@@ -44,50 +43,37 @@ NSString *const BLQModelBridgeBallsChangedNotification = @"BLQModelBridgeBallsCh
         NSString *code = [NSString stringWithContentsOfURL:codeURL encoding:NSUTF8StringEncoding error:nil];
         [_context evaluateScript:code withSourceURL:codeURL];
         _context[@"bridge"] = self;
-        [_context evaluateScript:@"model.setDelegate(bridge);"];
+        [_context evaluateScript:@"var controller = initApp(768, 1024, bridge);"];
     }
     return (_context != nil);
 }
 
-- (void)hitTest:(CGPoint)point
-{
-    NSString *script = [NSString stringWithFormat:@"model.hitTest(%f, %f);", point.x, point.y];
-    JSValue *val = [_context evaluateScript:script];
-    NSLog(@"value: %@", val.toString);
-}
-
 - (void)mouseDown:(CGPoint)point
 {
-    NSString *script = [NSString stringWithFormat:@"model.mouseDown(%f, %f);", point.x, point.y];
+    NSString *script = [NSString stringWithFormat:@"controller.mouseDown(%f, %f);", point.x, point.y];
     [_context evaluateScript:script];
 }
 
 - (void)mouseMove:(CGPoint)delta
 {
-    NSString *script = [NSString stringWithFormat:@"model.mouseMove(%f, %f);", delta.x, delta.y];
+    NSString *script = [NSString stringWithFormat:@"controller.mouseMove(%f, %f);", delta.x, delta.y];
     [_context evaluateScript:script];
 }
 
 - (void)mouseUp:(CGPoint)point
 {
-    NSString *script = [NSString stringWithFormat:@"model.mouseUp(%f, %f);", point.x, point.y];
+    NSString *script = [NSString stringWithFormat:@"controller.mouseUp(%f, %f);", point.x, point.y];
     [_context evaluateScript:script];
 //    JSGarbageCollect(_context.JSGlobalContextRef);
 }
 
-- (void)ballsChanged:(NSArray *)balls
+- (void)displayListChanged:(NSArray *)displayList
 {
-//    NSLog(@"ballsChanged: %@", balls);
-    NSMutableArray *a = [NSMutableArray arrayWithCapacity:balls.count];
-    for (NSDictionary *d in balls) {
+    NSMutableArray *a = [NSMutableArray arrayWithCapacity:displayList.count];
+    for (NSDictionary *d in displayList) {
         [a addObject:[[BLQBall alloc] initBallWithDictionary:d]];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:BLQModelBridgeBallsChangedNotification object:self userInfo:@{ @"balls": a }];
-}
-
-- (void)selectedBallChanged:(int)index
-{
-    
 }
 
 @end

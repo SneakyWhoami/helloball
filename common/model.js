@@ -1,13 +1,9 @@
 'use strict';
 
-var Ball = function (x, y, radius, color) {
+var Ball = function (x, y, radius) {
     this.x = x;
     this.y = y;
     this.radius = radius;
-    this.color = color;
-    this.index;
-    this.hits = [];
-    this.numHits = 0;
 };
 
 Ball.prototype.setPosition = function (x, y) {
@@ -15,103 +11,153 @@ Ball.prototype.setPosition = function (x, y) {
     this.y = y;
 };
 
-Ball.prototype.modRadius = function (radiusDelta) {
-    this.radius += radiusDelta;
-};
-
-Ball.prototype.setColor = function (color) {
+Ball.prototype.setRadius = function (radius) {
     this.radius = radius;
 };
 
 var Model = function () {
     this.balls = [];
-    this.ballChanged = null;
 };
 
 Model.prototype.addBall = function (ball) {
-    ball.index = this.balls.length + '';
     this.balls.push(ball);
-    var changed = this.penetrationTest();
-    changed.push(ball.index);
-    if (this.ballChanged) {
-        this.ballChanged(changed);
-    }
-};
-
-Model.prototype.removeBallAtIndex = function (index) {
-    this.balls.splice(index, 1);
-    this.penetrationTest();
 };
 
 Model.prototype.setBallPosition = function (ballIndex, x, y) {
     this.balls[ballIndex].setPosition(x, y);
-    var changed = this.penetrationTest();
-    changed.push(ballIndex);
-    if (this.ballChanged) {
-        this.ballChanged(changed);
-    }
 };
 
-Model.prototype.modBallRadius = function (ballIndex, radiusDelta) {
-    this.balls[ballIndex].modRadius(radiusDelta);
-    var changed = this.penetrationTest();
-    changed.push(ballIndex);
-    if (this.ballChanged) {
-        this.ballChanged(changed);
-    }
-};
-
-Model.prototype.setBallColor = function (ballIndex, color) {
-    this.balls[ballIndex].setColor(color);
-    if (this.ballChanged) {
-        this.ballChanged(ballIndex);
-    }
+Model.prototype.setBallRadius = function (ballIndex, radius) {
+    this.balls[ballIndex].setRadius(radius);
 };
 
 Model.prototype.hitTest = function (x, y) {
-    return this.balls.filter(function (ball) {
-        return Math.pow((x - ball.x), 2) + Math.pow((y - ball.y), 2) < Math.pow(ball.radius, 2);
-    }).map(function (ball) {
-        return ball.index;
-    });
+    var ballsHit = [];
+    var i;
+    for (i = 0; i < this.balls.length; i++) {
+        if (Math.pow((x - this.balls[i].x), 2) + Math.pow((y - this.balls[i].y), 2) < Math.pow(this.balls[i].radius, 2)) {
+            ballsHit.push(i);
+        }
+    }
+    return ballsHit;
 };
 
-Model.prototype.penetrationTest = function () {
-    var changed = [];
-    this.balls.forEach(function (ball) {
-        ball.hits = [];
-    });
-    var firstIdx = 0, secondIdx = 1;
-    for (firstIdx = 0; firstIdx < this.balls.length - 1; firstIdx += 1) {
-        var ball1 = this.balls[firstIdx];
-        for (secondIdx = firstIdx + 1; secondIdx < this.balls.length; secondIdx += 1) {
-            var ball2 = this.balls[secondIdx];
-            if (Math.pow((ball1.x - ball2.x), 2) + Math.pow((ball1.y - ball2.y), 2) < Math.pow(ball1.radius + ball2.radius, 2)) {
-                ball1.hits.push(ball2.index);
-                ball2.hits.push(ball1.index);
+var penetrationTest = function (balls) {
+    var results = [];
+    var i, j;
+    for (i = 0; i < balls.length; i++) {
+        results.push([]);
+    }
+    for (i = 0; i < balls.length - 1; i++) {
+        for (j = i + 1; j < balls.length; j++) {
+            if (Math.pow((balls[i].x - balls[j].x), 2) + Math.pow((balls[i].y - balls[j].y), 2) < Math.pow(balls[i].radius + balls[j].radius, 2)) {
+                results[i].push(j);
+                results[j].push(i);
             }
         }
     }
+    return results;
+}
 
-    this.balls.forEach(function (ball) {
-        if (ball.hits.length !== ball.numHits) {
-            ball.numHits = ball.hits.length;
-            changed.push(ball.index);
+var makeDisplayList = function (balls, penetrationResults, selectedBallIndex, mouseDown) {
+    var displayList = [];
+    var i;
+    var color;
+    var numHits;
+    for (i = 0; i < balls.length; i++) {
+        if (selectedBallIndex == i) {
+            if (mouseDown) {
+                color = 0x44FF44;
+            } else {
+                color = 0x00BB00;
+            }
+        } else {
+            numHits = penetrationResults[i].length;
+            if (numHits == 0) {
+                color = 0x0000FF;
+            } else if (numHits == 1) {
+                color = 0xFF0000;
+            } else if (numHits == 2) {
+                color = 0xFF6666;
+            } else {
+                color = 0xFFBBBB;
+            }
         }
-    });
-    return changed;
-};
-
-Model.prototype.getDisplayList = function (ballIndex) {
-    var res;
-    if (typeof ballIndex === 'Number') {
-        res = [this.balls[ballIndex]];
-    } if (typeof ballIndex === 'Array') {
-        res = this.balls.filter(function (ball) {
-            return ballIndex.indexOf(ball.index) !== -1;
+        displayList.push({
+                         x: balls[i].x,
+                         y: balls[i].y,
+                         radius: balls[i].radius,
+                         color: color
         });
-    } else {
-        res = this.balls;
     }
-    return res;
-};
+    return displayList;
+}
+
+var Controller = function (model, delegate) {
+    this.delegate = delegate;
+    this.model = model;
+    this.selectedBallIndex = -1;
+    this.mouseIsDown = false;
+}
+
+Controller.prototype.mouseDown = function (x, y) {
+    var ballsHit = this.model.hitTest(x, y);
+    if (ballsHit.length > 0) {
+        this.selectedBallIndex = ballsHit[ballsHit.length - 1];
+    } else {
+        this.selectedBallIndex = -1;
+    }
+    this.mouseIsDown = true;
+    this.makeDisplayList();
+}
+
+Controller.prototype.mouseMove = function (x, y) {
+    if (this.mouseIsDown && this.selectedBallIndex) {
+        this.model.setBallPosition(this.selectedBallIndex, x, y);
+        this.makeDisplayList();
+    }
+}
+
+Controller.prototype.mouseUp = function (x, y) {
+    this.mouseIsDown = false;
+    if (this.selectedBallIndex) {
+        this.makeDisplayList();
+    }
+}
+
+Controller.prototype.makeDisplayList = function () {
+    var penetrationResults = penetrationTest(this.model.balls);
+    var displayList = makeDisplayList(this.model.balls, penetrationResults, this.selectedBallIndex, this.mouseIsDown);
+    if (this.delegate) {
+        this.delegate.displayListChanged(displayList);
+    }
+}
+
+var populateModel = function (model, viewWidth, viewHeight) {
+    var getRandInt = function (min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    };
+    
+    var ballCount = 50;
+    var ballMinRadius = 18;
+    var ballMaxRadius = 44;
+    var i, ball;
+    
+    for (i = 0; i < ballCount; i += 1) {
+        var radius = getRandInt(ballMinRadius, ballMaxRadius);
+        ball = new Ball(
+                        getRandInt(radius, viewWidth - radius),
+                        getRandInt(radius, viewHeight - radius),
+                        radius
+        );
+        model.addBall(ball);
+    }
+}
+
+var initApp = function (viewWidth, viewHeight, delegate) {
+    var model = new Model();
+    populateModel(model, viewWidth, viewHeight);
+    var controller = new Controller(model, delegate);
+    controller.makeDisplayList();
+    return controller;
+}

@@ -16,8 +16,6 @@ NSString *const BLQModelBridgeBallsChangedNotification;
 
 - (BOOL)startEngine;
 
-- (void)hitTest:(CGPoint)point;
-
 - (void)mouseDown:(CGPoint)point;
 - (void)mouseMove:(CGPoint)delta;
 - (void)mouseUp:(CGPoint)point;
