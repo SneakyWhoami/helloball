@@ -153,7 +153,7 @@ Controller.prototype.makeDisplayList = function () {
     var numHits;
     for (i = 0; i < this.model.balls.length; i++) {
         if (this.selectedBallIndex == i) {
-            if (mouseDown) {
+            if (this.mouseIsDown) {
                 color = 0x44FF44;
             } else {
                 color = 0x00BB00;
@@ -202,6 +202,7 @@ var populateModel = function (model, viewWidth, viewHeight) {
 var initApp = function (viewWidth, viewHeight, delegate) {
     var model = new Model();
     populateModel(model, viewWidth, viewHeight);
+    delegate.ballCountChanged(model.balls.length);
     var controller = new Controller(model, delegate);
     controller.makeDisplayList();
     return controller;
