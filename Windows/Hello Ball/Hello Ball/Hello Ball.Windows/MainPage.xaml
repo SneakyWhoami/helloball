@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
     <Canvas Name="canvas" PointerPressed="Canvas_PointerPressed" PointerReleased="Canvas_PointerReleased" Background="Cornsilk">
-        <Canvas Name="balls" Background="White">
+        <Canvas Name="balls">
         </Canvas>
         <TextBlock Name="eps" Text="EPS" Foreground="Black" FontSize="16" Canvas.Left="10" Canvas.Top="20"/>
         <Button Content="Move them" Click="Button_Click" Canvas.Left="184" Canvas.Top="4" Background="CadetBlue"/>

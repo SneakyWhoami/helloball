@@ -25,7 +25,6 @@ namespace Hello_Ball
         public MainPage()
         {
             this.InitializeComponent();
-            this.canvas.Background = new SolidColorBrush(Colors.Red);
             this.SizeChanged += MainPage_SizeChanged;
             this.Loaded += MainPage_Loaded;
         }
