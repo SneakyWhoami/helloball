@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Grid Name="grid" Background="LightBlue">
+        <Canvas Name="canvas" PointerPressed="Canvas_PointerPressed" PointerReleased="Canvas_PointerReleased" Background="Cornsilk"></Canvas>
     </Grid>
 </Page>

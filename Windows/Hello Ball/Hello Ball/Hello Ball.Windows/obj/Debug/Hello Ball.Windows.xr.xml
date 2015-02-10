@@ -6,9 +6,16 @@
       <RootProperty Name="Content" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Grid">
+      <RootProperty Name="Name" />
       <RootProperty Name="Background" />
+      <RootProperty Name="Children" />
     </RootType>
-    <RootType FullName="Microsoft.Xaml.Tools.DirectUI.ProxyTypes.ThemeResourceExtension" />
+    <RootType FullName="Windows.UI.Xaml.Controls.Canvas">
+      <RootProperty Name="Name" />
+      <RootProperty Name="Background" />
+      <RootEvent Name="PointerPressed" />
+      <RootEvent Name="PointerReleased" />
+    </RootType>
     <RootType FullName="Hello_Ball.MainPage" />
   </Roots.RootTypes>
 </Roots>

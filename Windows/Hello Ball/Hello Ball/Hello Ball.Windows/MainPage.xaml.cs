@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,6 +26,20 @@ namespace Hello_Ball
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+        private void Canvas_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            Color c = Colors.LightBlue;
+            SolidColorBrush b = new SolidColorBrush(c);
+            this.canvas.Background = b;
+        }
+
+        private void Canvas_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            Color c = Colors.Cornsilk;
+            SolidColorBrush b = new SolidColorBrush(c);
+            this.canvas.Background = b;
         }
     }
 }
