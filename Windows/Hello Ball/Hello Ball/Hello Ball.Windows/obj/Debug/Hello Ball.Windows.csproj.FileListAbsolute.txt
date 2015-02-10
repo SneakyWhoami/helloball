@@ -1,0 +1,32 @@
+C:\Users\Pepo\Builds\Hello Ball\Windows\Debug\App.xbf
+C:\Users\Pepo\Builds\Hello Ball\Windows\Debug\MainPage.xbf
+C:\Users\Pepo\Builds\Hello Ball\Windows\Debug\Hello Ball.Windows.xr.xml
+C:\Users\Pepo\Builds\Hello Ball\Windows\Debug\Hello Ball.Windows.exe
+C:\Users\Pepo\Builds\Hello Ball\Windows\Debug\Hello Ball.Windows.pdb
+C:\Users\Pepo\Builds\Hello Ball\Windows\Debug\resources.pri
+C:\Users\Pepo\Builds\Hello Ball\Windows\Debug\AppxManifest.xml
+C:\Users\Pepo\Builds\Hello Ball\Windows\Debug\Hello Ball.Windows.build.appxrecipe
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\App.g.i.cs
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\App.g.cs
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\MainPage.g.i.cs
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\MainPage.g.cs
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\XamlTypeInfo.g.cs
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\App.xaml
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\MainPage.xaml
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\App.xbf
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\MainPage.xbf
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\XamlSaveStateFile.xml
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\Hello Ball.Windows.exe
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\Hello Ball.Windows.pdb
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\priconfig.xml
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\priconfig.xml.intermediate
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\layout.resfiles
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\layout.resfiles.intermediate
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\resources.resfiles
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\resources.resfiles.intermediate
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\pri.resfiles
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\pri.resfiles.intermediate
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\qualifiers.txt
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\qualifiers.txt.intermediate
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\MultipleQualifiersPerDimensionFound.txt
+E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.Windows\obj\Debug\ProjectArchitectures.txt
