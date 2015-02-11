@@ -3,6 +3,7 @@ package com.balsamiq.HelloBall;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.provider.CalendarContract;
 import android.util.AttributeSet;
@@ -44,6 +45,12 @@ public class BallsDrawingView extends View {
         // fill the background
         canvas.drawPaint(mBackgroundPaint);
 
+        Matrix matrix = new Matrix();
+        float scaleX = (float)canvas.getWidth()/(float)Model.LOGICAL_CANVAS_SIZE;
+        float scaleY = (float)canvas.getHeight()/(float)Model.LOGICAL_CANVAS_SIZE;
+        float scale = (scaleX > scaleY ? scaleY : scaleX);
+        matrix.setScale(scale,scale);
+        canvas.setMatrix(matrix);
         for (Ball ball : _balls) {
             Paint p = new Paint();
             p.setColor(0xff000000 + Integer.parseInt(Integer.toHexString(ball.getColor()), 16));

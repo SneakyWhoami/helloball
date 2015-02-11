@@ -12,6 +12,7 @@ public class Model {
 
     Context cx;
     Scriptable scope;
+    public static final int LOGICAL_CANVAS_SIZE = 1000;
 
     public Model(Activity activity, IModelObserver observer) {
         cx = Context.enter();
@@ -33,7 +34,7 @@ public class Model {
                 ScriptableObject.defineClass(scope, ModelNativeDelegate.class);
                 Object [] params = { cx.javaToJS(observer, scope) };
                 Scriptable myModelObserver = cx.newObject(scope, "ModelObserver", params);
-                Object functionArgs[] = {"500", "500", myModelObserver};
+                Object functionArgs[] = {"" + LOGICAL_CANVAS_SIZE, "" + LOGICAL_CANVAS_SIZE, myModelObserver};
                 Function f = (Function) fObj;
                 // result will be an object with methods mouseUp, mouseMove, mouseDown
                 result = f.call(cx, scope, scope, functionArgs);
