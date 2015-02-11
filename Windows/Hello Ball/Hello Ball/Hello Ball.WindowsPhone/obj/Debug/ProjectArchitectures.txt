@@ -1,1 +1,0 @@
-E:\helloball\Windows\Hello Ball\Hello Ball\Hello Ball.WindowsPhone\Hello Ball.WindowsPhone.csproj;neutral

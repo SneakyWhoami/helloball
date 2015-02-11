@@ -1,3 +1,6 @@
 gen
 out
 .idea
+obj
+*.suo
+
