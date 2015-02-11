@@ -134,7 +134,7 @@ Controller.prototype.mouseDown = function (x, y) {
 
 Controller.prototype.mouseMove = function (x, y) {
     var currentTime = Date.now();
-    if (this.mouseIsDown && this.selectedBallIndex) {
+    if (this.mouseIsDown && this.selectedBallIndex !== -1) {
         this.model.setBallPosition(this.selectedBallIndex, x, y);
         this.makeDisplayList();
     }
@@ -144,7 +144,7 @@ Controller.prototype.mouseMove = function (x, y) {
 
 Controller.prototype.mouseUp = function (x, y) {
     this.mouseIsDown = false;
-    if (this.selectedBallIndex) {
+    if (this.selectedBallIndex !== -1) {
         this.makeDisplayList();
     }
     this.eps.countEvent();

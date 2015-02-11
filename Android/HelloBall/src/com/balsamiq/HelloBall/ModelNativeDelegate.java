@@ -33,7 +33,7 @@ public class ModelNativeDelegate extends ScriptableObject {
     }
 
     public void jsFunction_ballCountChanged(int number) {
-        Log.d("ModelObserver", "" + number);
+        Log.d("ModelObserver", "ballCountChanged: " + number);
     }
 
     public void jsFunction_displayListChanged(Scriptable scriptable) {
@@ -53,14 +53,15 @@ public class ModelNativeDelegate extends ScriptableObject {
             }
         }
         _observer.displayListChanged(balls);
-        Log.d("ModelObserver", "!");
     }
 
     public void jsFunction_eventsPerSecond(int events) {
-        Log.d("ModelObserver", "" + events);
+        
+        _observer.eventsPerSecond(events);
     }
 
     public void jsFunction_log(String message) {
+        
         Log.d("ModelObserver", message);
     }
 }

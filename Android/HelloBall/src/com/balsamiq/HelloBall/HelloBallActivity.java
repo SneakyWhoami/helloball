@@ -3,11 +3,14 @@ package com.balsamiq.HelloBall;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.SparseArray;
+import android.view.ViewTreeObserver;
+import android.widget.TextView;
 
-public class HelloBallActivity extends Activity implements IModelObserver {
+public class HelloBallActivity extends Activity  implements IModelObserver {
     
-    Model _model;
+    JavaModelWrapper _model;
     BallsDrawingView _view;
+    TextView _fps;
     
     /**
      * Called when the activity is first created.
@@ -17,7 +20,19 @@ public class HelloBallActivity extends Activity implements IModelObserver {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         _view = (BallsDrawingView) findViewById(R.id.drawing_view);
-        _model = new Model(this, this);
+        _fps = (TextView) findViewById(R.id.fps);
+        _model = new JavaModelWrapper(this, this);
+        ViewTreeObserver viewTreeObserver = _view.getViewTreeObserver();
+        if (viewTreeObserver.isAlive()) {
+            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    _view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    IModelController modelController = _model.start(_view.getWidth(), _view.getHeight());
+                    _view.setModelController(modelController);
+                }
+            });
+        }
     }
 
     @Override
@@ -26,17 +41,27 @@ public class HelloBallActivity extends Activity implements IModelObserver {
     }
 
     @Override
-    public void displayListChanged(SparseArray<Ball> balls) {
-        _view.displayListChanged(balls);
-    }
-
-    @Override
     public void eventsPerSecond(int events) {
-
+        _fps.setText("" + events);
     }
 
     @Override
     public void log(String message) {
 
+    }
+    
+    public void displayListChanged(SparseArray<Ball> balls) {
+        _view.displayListChanged(balls);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+//        _model.finish();
     }
 }
