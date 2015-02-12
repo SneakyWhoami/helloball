@@ -45,7 +45,7 @@
 
     Rx.Observable.fromEvent(document, 'mousemove')
         .subscribe(function (mm) {
-            controller.mouseMove(mm.clientX, mm.clientY)
+            controller.mouseMove(mm.offsetX, mm.offsetY)
         });
 
     Rx.Observable.fromEvent(document, 'mouseup')
