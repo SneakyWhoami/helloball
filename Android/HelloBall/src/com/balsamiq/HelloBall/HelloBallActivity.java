@@ -1,6 +1,8 @@
 package com.balsamiq.HelloBall;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.ViewTreeObserver;
@@ -27,12 +29,26 @@ public class HelloBallActivity extends Activity  implements IModelObserver {
             viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
                 public void onGlobalLayout() {
-                    _view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    if (Build.VERSION.SDK_INT<16) {
+                        removeLayoutListenerPre16(_view,this);
+                    } else {
+                        removeLayoutListenerPost16(_view, this);
+                    }
                     IModelController modelController = _model.start(_view.getWidth(), _view.getHeight());
                     _view.setModelController(modelController);
                 }
             });
         }
+    }
+
+    @SuppressWarnings("deprecation")
+    private void removeLayoutListenerPre16(BallsDrawingView view, ViewTreeObserver.OnGlobalLayoutListener listener){
+        view.getViewTreeObserver().removeGlobalOnLayoutListener(listener);
+    }
+
+    @TargetApi(16)
+    private void removeLayoutListenerPost16(BallsDrawingView view, ViewTreeObserver.OnGlobalLayoutListener listener){
+        view.getViewTreeObserver().removeOnGlobalLayoutListener(listener);
     }
 
     @Override

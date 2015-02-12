@@ -42,12 +42,17 @@ public class BallsDrawingView extends View  {
     @Override
     protected void onDraw(Canvas canvas) {
         // fill the background
-        
+        SparseArray<Paint> paintSparseArray = new SparseArray<Paint>();
         canvas.drawPaint(mBackgroundPaint);
         if (_balls != null) {
             for (Ball ball : _balls) {
-                Paint p = new Paint();
-                p.setColor(0xff000000 + Integer.parseInt(Integer.toHexString(ball.getColor()), 16));
+                Paint p = paintSparseArray.get(ball.getColor());
+                if (p == null) {
+                    p = new Paint();
+                    p.setColor(0xff000000 + Integer.parseInt(Integer.toHexString(ball.getColor()), 16));
+                    paintSparseArray.put(ball.getColor(), p);
+                }
+                
                 canvas.drawCircle(ball.getX(), ball.getY(), ball.getRadius(), p);
             }
         }
