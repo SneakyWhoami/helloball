@@ -1,13 +1,18 @@
 'use strict';
 
+var int2color = function (p_color) {
+    var hexStr = (+p_color).toString(16);
+    return '#' + '000000'.substring(0, 6 - hexStr.length) + hexStr;
+};
+
 var renderDisplayList = function (svgRootNode, displayList) {
-    displayList.forEach(function (displayElement) {
-        var node = svgRootNode.getElementById("ball" + displayElement.index);
+    var displayElement;
+    for (var index in displayList) {
+        displayElement = displayList[index];
+        var node = svgRootNode.getElementById("ball" + index);
         if (!node) {
             node = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            node.id = 'ball' + displayElement.index;
-
-            node.setAttributeNS(null, 'fill', '#' + displayElement.color.toString(16));
+            node.id = 'ball' + index;
             node.setAttributeNS(null, 'stroke-width', '3px');
             node.setAttributeNS(null, 'stroke-dasharray', '10,5');
             svgRootNode.appendChild(node);
@@ -15,11 +20,22 @@ var renderDisplayList = function (svgRootNode, displayList) {
         node.setAttributeNS(null, 'r', displayElement.radius);
         node.setAttributeNS(null, 'cx', displayElement.x);
         node.setAttributeNS(null, 'cy', displayElement.y);
-        if (displayElement.hits.length) {
-            node.setAttributeNS(null, 'stroke', 'red');
-        } else {
-            node.setAttributeNS(null, 'stroke', 'none');
-        }
-    });
+        node.setAttributeNS(null, 'fill', int2color(displayElement.color));
+    };
+};
 
+var renderEps = function (svgRootNode, eps) {
+    var node = svgRootNode.getElementById("eps");
+    if (!node) {
+        node = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        node.id = "eps";
+        node.setAttributeNS(null,"x", 12);
+        node.setAttributeNS(null,"y", 16);
+        node.setAttributeNS(null,"font-size","18");
+        var textNode = document.createTextNode("EPS: " + Math.round(eps));
+        node.appendChild(textNode);
+        svgRootNode.appendChild(node);
+    } else {
+        node.textContent = "EPS: " + Math.round(eps);
+    }
 };
