@@ -23,7 +23,16 @@
         delegate.eventsPerSecond = handler;
     }).subscribe(renderEps.bind(undefined, svgroot));
 
-    var controller = initApp(800, 600, delegate);
+    var rootRect = svgroot.getBoundingClientRect();
+    var controller = initApp(rootRect.width, rootRect.height, delegate);
+
+    var getOffset = function (e, touch) {
+        var target = e.target || e.srcElement;
+        var rect = svgroot.getBoundingClientRect();
+        var offsetX = (e.clientX || e.touches[0].clientX) - rect.left;
+        var offsetY = (e.clientY || e.touches[0].clientY) - rect.top;
+        return {x: offsetX, y: offsetY};
+    }
 
     // Keyboard Events: UP and DOWN ARROWS only...
     Rx.Observable.fromEvent(window, 'keydown')
@@ -40,17 +49,41 @@
 
     Rx.Observable.fromEvent(document, 'mousedown')
         .subscribe(function (ev) {
-            controller.mouseDown(ev.offsetX, ev.offsetY);
+            var res = getOffset(ev);
+            controller.mouseDown(res.x, res.y);
+        });
+
+    Rx.Observable.fromEvent(document, 'touchstart')
+        .subscribe(function (ev) {
+            var res = getOffset(ev, true);
+            controller.mouseDown(res.x, res.y);
         });
 
     Rx.Observable.fromEvent(document, 'mousemove')
         .subscribe(function (mm) {
-            controller.mouseMove(mm.offsetX, mm.offsetY)
+            var res = getOffset(mm);
+            controller.mouseMove(res.x, res.y);
+        });
+
+    Rx.Observable.fromEvent(document, 'touchmove')
+        .subscribe(function (mm) {
+            var res = getOffset(mm, true);
+            controller.mouseMove(res.x, res.y);
         });
 
     Rx.Observable.fromEvent(document, 'mouseup')
         .subscribe(function (mm) {
-            controller.mouseUp(mm.clientX, mm.clientY)
+            controller.mouseUp()
+        });
+
+    Rx.Observable.fromEvent(document, 'touchend')
+        .subscribe(function (mm) {
+            controller.mouseUp()
+        });
+
+    Rx.Observable.fromEvent(document, 'touchcancel')
+        .subscribe(function (mm) {
+            controller.mouseUp()
         });
 
 }());
