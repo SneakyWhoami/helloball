@@ -2,66 +2,72 @@ package com.balsamiq.HelloBall;
 
 import android.util.Log;
 import android.util.SparseArray;
-import org.mozilla.javascript.Context;
-import org.mozilla.javascript.NativeObject;
-import org.mozilla.javascript.Scriptable;
-import org.mozilla.javascript.ScriptableObject;
+import android.webkit.JavascriptInterface;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
 
 /**
  * Created by morsini on 10/02/15.
  */
-public class ModelNativeDelegate extends ScriptableObject {
-    private static final long serialVersionUID = 438270592527335642L;
+public class ModelNativeDelegate {
     protected IModelObserver _observer;
 
     // The zero-argument constructor used by Rhino runtime to create instances
-    public ModelNativeDelegate() {
+    public ModelNativeDelegate(IModelObserver observer) {
+        _observer = observer;
     }
 
-    // Method jsConstructor defines the JavaScript constructor
-    public void jsConstructor(Object observer) {
-        _observer = (IModelObserver)Context.jsToJava(observer, IModelObserver.class);;
-    }
-
-    // The class name is defined by the getClassName method
-    @Override
-    public String getClassName() {
-        return "ModelObserver";
-    }
-
-    public void jsFunction_ballCountChanged(int number) {
+    @JavascriptInterface
+    public void ballCountChanged(int number) {
         Log.d("ModelObserver", "ballCountChanged: " + number);
     }
 
-    public void jsFunction_displayListChanged(Scriptable scriptable) {
-        Object[] propIds = scriptable.getIds();
-        SparseArray<Ball> balls = new SparseArray<Ball>();
-        for (int i = 0; i < propIds.length; i++) {
-            Object propId = propIds[i];
-            if (propId instanceof Integer) {
-                Integer key = (Integer) propId;
-                NativeObject value = (NativeObject) scriptable.get(key, scriptable);
-                double x = (Double) NativeObject.getProperty(value, "x");
-                double y = (Double) NativeObject.getProperty(value, "y");
-                double radius = (Double) NativeObject.getProperty(value, "radius");
-                int color = (int)Math.round((Double)NativeObject.getProperty(value, "color"));
-                Ball ball = new Ball((float)x, (float) y, (float) radius, color);
-                balls.put(key, ball);
+    @JavascriptInterface
+    public void displayListChanged(String json) {
+
+        try {
+            SparseArray<Ball> balls = new SparseArray<Ball>();
+            JSONObject jsonObject = new JSONObject(json);
+            Iterator<?> iterator = jsonObject.keys();
+            while (iterator.hasNext()) {
+                String key = (String) iterator.next();
+                JSONObject ballDL = (JSONObject) jsonObject.get(key);
+                double x = toDouble(ballDL.get("x"));
+                double y = toDouble(ballDL.get("y"));
+                double radius = toDouble(ballDL.get("radius"));
+                int color = (Integer) ballDL.get("color");
+                Ball ball = new Ball((float) x, (float) y, (float) radius, color);
+                balls.put(Integer.parseInt(key), ball);
+
             }
+
+            _observer.displayListChanged(balls);
+        } catch (JSONException exception) {
+            //silent
         }
-        _observer.displayListChanged(balls);
     }
 
-    public void jsFunction_eventsPerSecond(int events) {
-        
+    protected double toDouble(Object x) {
+        if (x instanceof Double) {
+            return (Double) x;
+        } else if (x instanceof Integer) {
+            return (int) (Integer) x;
+        }
+
+        throw new Error("not a double value: " + x.toString());
+    }
+
+    @JavascriptInterface
+    public void eventsPerSecond(int events) {
+
         _observer.eventsPerSecond(events);
     }
 
-    public void jsFunction_log(String message) {
-        
+    @JavascriptInterface
+    public void log(String message) {
+
         Log.d("ModelObserver", message);
     }
 }

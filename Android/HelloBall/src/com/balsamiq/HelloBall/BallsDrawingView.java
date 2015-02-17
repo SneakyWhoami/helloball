@@ -3,9 +3,12 @@ package com.balsamiq.HelloBall;
 import android.content.Context;
 import android.graphics.*;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
+
+import java.util.Date;
 
 public class BallsDrawingView extends View  {
     private static final String TAG = "BoxDrawingView";
@@ -36,12 +39,19 @@ public class BallsDrawingView extends View  {
             _balls[balls.keyAt(i)] = balls.get(balls.keyAt(i));
         }
 
-        invalidate();
+        Log.d("BallsDrawingView", "" + new Date().getTime());
+        post(new Runnable() {
+            @Override
+            public void run() {
+                invalidate();
+            }
+        });
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         // fill the background
+        Log.d("BallsDrawingView.onDraw", "" + new Date().getTime());
         SparseArray<Paint> paintSparseArray = new SparseArray<Paint>();
         canvas.drawPaint(mBackgroundPaint);
         if (_balls != null) {
@@ -61,6 +71,10 @@ public class BallsDrawingView extends View  {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         PointF curr = new PointF(event.getX(), event.getY());
+        if (_controller == null) {
+            return true;
+        }
+        
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 // reset our drawing state

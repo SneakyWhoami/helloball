@@ -179,7 +179,7 @@ Controller.prototype.makeDisplayList = function () {
     }
 
     if (this.delegate) {
-        this.delegate.displayListChanged(this.displayList.getChangedItems());
+        this.delegate.displayListChanged(JSON.stringify(this.displayList.getChangedItems()));
     }
 }
 
@@ -210,5 +210,12 @@ var initApp = function (viewWidth, viewHeight, delegate) {
     delegate.ballCountChanged(model.balls.length);
     var controller = new Controller(model, delegate);
     controller.makeDisplayList();
+    ModelObserver.controller = controller;
     return controller;
+};
+
+var vai = function(viewWidth, viewHeight)
+{
+    return initApp(viewWidth, viewHeight, ModelObserver);
 }
+
