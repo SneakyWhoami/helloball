@@ -15,7 +15,7 @@
         <Button Grid.Row="1" Click="Button_Click">Execute</Button>
         <TextBox Name="outputText" Grid.Row="2"></TextBox>
         <Canvas x:Name="canvas" Grid.Row="3">
-            <Canvas Name="balls" Background="YellowGreen" Width="{Binding ActualWidth, ElementName=canvas, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=canvas, Mode=OneWay}"></Canvas>
+            <Canvas Name="balls" Background="YellowGreen" Width="{Binding ActualWidth, ElementName=canvas, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=canvas, Mode=OneWay}" ClipToBounds="True"></Canvas>
             <TextBlock Name="eps" Text="EPS" Foreground="Black" FontSize="16" Canvas.Left="10" Canvas.Top="20"/>
         </Canvas>
     </Grid>

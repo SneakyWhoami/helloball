@@ -233,10 +233,12 @@ namespace Hello_Ball_WPF
                 double x = (double)data["x"];
                 double y = (double)data["y"];
                 double radius = (double)data["radius"];
+                int color = (int)(double)data["color"];
                 Path ball = (Path)balls.Children[index];
                 ball.Data = MakeBall(radius, 0);
                 ball.Width = radius * 2;
                 ball.Height = radius * 2;
+                ball.Fill = new SolidColorBrush(int2Color(color));
                 Canvas.SetLeft(ball, x - radius);
                 Canvas.SetTop(ball, y - radius);
                 //Debug.WriteLine("ball index: " + entry.Key);
@@ -257,7 +259,7 @@ namespace Hello_Ball_WPF
 
                 path.Fill = new SolidColorBrush(Colors.Blue);
                 path.Stroke = new SolidColorBrush(Colors.Black);
-                path.StrokeThickness = 2;
+                path.StrokeThickness = 1;
 
                 Canvas.SetLeft(path, width / (ballCount + 1) * (i + 1) - radius);
                 Canvas.SetTop(path, height / (ballCount + 1) * (i + 1) - radius);
@@ -324,6 +326,14 @@ namespace Hello_Ball_WPF
             //path.Height = radius * 2;
 
             return p;
+        }
+
+        private static Color int2Color (int color)
+        {
+            byte r = (byte)((color >> 16) & 0xFF);
+            byte g = (byte)((color >> 8) & 0xFF);
+            byte b = (byte)(color & 0xFF);
+            return Color.FromRgb(r, g, b);
         }
     }
 }
