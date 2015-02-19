@@ -15,7 +15,8 @@ public class BallsDrawingView extends View  {
     Ball [] _balls;
     private Paint mBackgroundPaint;
     JavaModelWrapper _controller;
-    
+//    JavaModel _controller;
+
     // used when creating the view in code
     public BallsDrawingView(Context context) {
         this(context, null);
@@ -93,5 +94,9 @@ public class BallsDrawingView extends View  {
     {
         _controller = controller;
     }
+//    public void setModelWrapper(JavaModel controller)
+//    {
+//        _controller = controller;
+//    }
 }
 

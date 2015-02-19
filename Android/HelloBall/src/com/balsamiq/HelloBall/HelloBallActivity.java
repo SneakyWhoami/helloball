@@ -13,6 +13,7 @@ public class HelloBallActivity extends Activity implements IModelObserver {
     BallsDrawingView _view;
     TextView _fps;
     JavaModelWrapper _model;
+//    JavaModel _model;
 
     /**
      * Called when the activity is first created.
@@ -22,6 +23,7 @@ public class HelloBallActivity extends Activity implements IModelObserver {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         _view = (BallsDrawingView) findViewById(R.id.drawing_view);
+//        _model = new JavaModel(this, this);
         _model = new JavaModelWrapper(this, this);
         _view.setModelWrapper(_model);
         _fps = (TextView) findViewById(R.id.fps);

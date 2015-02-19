@@ -29,8 +29,8 @@ public class JavaModelWrapper {
     
     static {
         System.loadLibrary("model");
-        
     }
+    
     public JavaModelWrapper(Activity activity, IModelObserver observer) {
         _observer = observer;
         initialize();
