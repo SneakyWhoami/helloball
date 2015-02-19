@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		932232A71A95EA6E008CF727 /* BLQEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 932232A61A95EA6E008CF727 /* BLQEvent.m */; };
 		93E03EA21A893EEC00E4F12B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E03EA11A893EEC00E4F12B /* AppDelegate.m */; };
 		93E03EA41A893EEC00E4F12B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E03EA31A893EEC00E4F12B /* main.m */; };
 		93E03EA71A893EEC00E4F12B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E03EA61A893EEC00E4F12B /* ViewController.m */; };
@@ -30,6 +31,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		932232A51A95EA6E008CF727 /* BLQEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLQEvent.h; path = ../../../common/objc/BLQEvent.h; sourceTree = "<group>"; };
+		932232A61A95EA6E008CF727 /* BLQEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLQEvent.m; path = ../../../common/objc/BLQEvent.m; sourceTree = "<group>"; };
 		93E03E9B1A893EEC00E4F12B /* Hello Ball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hello Ball.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93E03E9F1A893EEC00E4F12B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93E03EA01A893EEC00E4F12B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -100,6 +103,8 @@
 				93E03EC21A89400A00E4F12B /* BLQBall.m */,
 				93E03EC31A89400A00E4F12B /* BLQModelBridge.h */,
 				93E03EC41A89400A00E4F12B /* BLQModelBridge.m */,
+				932232A51A95EA6E008CF727 /* BLQEvent.h */,
+				932232A61A95EA6E008CF727 /* BLQEvent.m */,
 				93E03EC71A89401400E4F12B /* model.js */,
 				93E03EA81A893EEC00E4F12B /* Images.xcassets */,
 				93E03EAA1A893EEC00E4F12B /* Main.storyboard */,
@@ -237,6 +242,7 @@
 				93E03EA71A893EEC00E4F12B /* ViewController.m in Sources */,
 				93E03ECB1A89404700E4F12B /* BLQBallsView.m in Sources */,
 				93E03EA41A893EEC00E4F12B /* main.m in Sources */,
+				932232A71A95EA6E008CF727 /* BLQEvent.m in Sources */,
 				93E03EC51A89400A00E4F12B /* BLQBall.m in Sources */,
 				93E03EA21A893EEC00E4F12B /* AppDelegate.m in Sources */,
 				93E03EC61A89400A00E4F12B /* BLQModelBridge.m in Sources */,
@@ -426,6 +432,7 @@
 				93E03EBD1A893EEC00E4F12B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		93E03EBE1A893EEC00E4F12B /* Build configuration list for PBXNativeTarget "Hello BallTests" */ = {
 			isa = XCConfigurationList;
@@ -434,6 +441,7 @@
 				93E03EC01A893EEC00E4F12B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

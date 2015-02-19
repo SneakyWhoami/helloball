@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "BLQBall.h"
 #import "BLQModelBridge.h"
+#import "BLQEvent.h"
 
 @interface ViewController ()
 
@@ -42,25 +43,29 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *t = touches.anyObject;
-    [_model mouseDown:[t locationInView:_ballsView]];
+    BLQMouseEvent *e = [[BLQMouseEvent alloc] initWithType:BLQMouseDown location:[t locationInView:_ballsView]];
+    [_model performSelectorOnMainThread:@selector(handleEvent:) withObject:e waitUntilDone:NO];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *t = touches.anyObject;
-    [_model mouseMove:[t locationInView:_ballsView]];
+    BLQMouseEvent *e = [[BLQMouseEvent alloc] initWithType:BLQMouseMove location:[t locationInView:_ballsView]];
+    [_model performSelectorOnMainThread:@selector(handleEvent:) withObject:e waitUntilDone:NO];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *t = touches.anyObject;
-    [_model mouseUp:[t locationInView:_ballsView]];
+    BLQMouseEvent *e = [[BLQMouseEvent alloc] initWithType:BLQMouseUp location:[t locationInView:_ballsView]];
+    [_model performSelectorOnMainThread:@selector(handleEvent:) withObject:e waitUntilDone:NO];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *t = touches.anyObject;
-    [_model mouseUp:[t locationInView:_ballsView]];
+    BLQMouseEvent *e = [[BLQMouseEvent alloc] initWithType:BLQMouseUp location:[t locationInView:_ballsView]];
+    [_model performSelectorOnMainThread:@selector(handleEvent:) withObject:e waitUntilDone:NO];
 }
 
 - (void)onModelBallsChanged:(NSNotification *)n

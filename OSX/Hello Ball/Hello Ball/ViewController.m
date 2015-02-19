@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "BLQModelBridge.h"
+#import "BLQEvent.h"
 
 
 @interface ViewController ()
@@ -49,17 +50,20 @@
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
-    [_model mouseDown:theEvent.locationInWindow];
+    BLQMouseEvent *e = [[BLQMouseEvent alloc] initWithType:BLQMouseDown location:theEvent.locationInWindow];
+    [_model performSelectorOnMainThread:@selector(handleEvent:) withObject:e waitUntilDone:NO];
 }
 
 - (void)mouseDragged:(NSEvent *)theEvent
 {
-    [_model mouseMove:theEvent.locationInWindow];
+    BLQMouseEvent *e = [[BLQMouseEvent alloc] initWithType:BLQMouseMove location:theEvent.locationInWindow];
+    [_model performSelectorOnMainThread:@selector(handleEvent:) withObject:e waitUntilDone:NO];
 }
 
 - (void)mouseUp:(NSEvent *)theEvent
 {
-    [_model mouseUp:theEvent.locationInWindow];
+    BLQMouseEvent *e = [[BLQMouseEvent alloc] initWithType:BLQMouseUp location:theEvent.locationInWindow];
+    [_model performSelectorOnMainThread:@selector(handleEvent:) withObject:e waitUntilDone:NO];
 }
 
 - (void)onModelBallsChanged:(NSNotification *)n

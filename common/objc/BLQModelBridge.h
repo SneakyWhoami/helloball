@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
+#import "BLQEvent.h"
 
 NSString *const BLQModelBridgeDisplayListChangedNotification;
 NSString *const BLQModelBridgeEPSChangedNotification;
@@ -18,8 +19,6 @@ NSString *const BLQModelBridgeBallCountChangedNotification;
 
 - (BOOL)startEngineWithViewSize:(CGSize)size;
 
-- (void)mouseDown:(CGPoint)point;
-- (void)mouseMove:(CGPoint)delta;
-- (void)mouseUp:(CGPoint)point;
+- (void)handleEvent:(BLQEvent *)event;
 
 @end

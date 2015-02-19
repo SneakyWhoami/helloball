@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		932232AA1A95F416008CF727 /* BLQEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 932232A91A95F416008CF727 /* BLQEvent.m */; };
 		93ACAD891A83BC8D00CCC448 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93ACAD881A83BC8D00CCC448 /* main.m */; };
 		93ACAD8C1A83BC8D00CCC448 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93ACAD8B1A83BC8D00CCC448 /* AppDelegate.m */; };
 		93ACAD8F1A83BC8D00CCC448 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93ACAD8E1A83BC8D00CCC448 /* ViewController.m */; };
@@ -31,6 +32,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		932232A81A95F416008CF727 /* BLQEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLQEvent.h; path = ../../../common/objc/BLQEvent.h; sourceTree = "<group>"; };
+		932232A91A95F416008CF727 /* BLQEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLQEvent.m; path = ../../../common/objc/BLQEvent.m; sourceTree = "<group>"; };
 		93ACAD831A83BC8D00CCC448 /* Hello Ball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hello Ball.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93ACAD871A83BC8D00CCC448 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93ACAD881A83BC8D00CCC448 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -102,6 +105,8 @@
 				93ACADAD1A83BF4800CCC448 /* BLQBallsView.m */,
 				93ACADB21A83CAD300CCC448 /* BLQModelBridge.h */,
 				93ACADB31A83CAD300CCC448 /* BLQModelBridge.m */,
+				932232A81A95F416008CF727 /* BLQEvent.h */,
+				932232A91A95F416008CF727 /* BLQEvent.m */,
 				93ACAD931A83BC8D00CCC448 /* Images.xcassets */,
 				93ACAD901A83BC8D00CCC448 /* Main.storyboard */,
 				93ACAD951A83BC8D00CCC448 /* LaunchScreen.xib */,
@@ -242,6 +247,7 @@
 				93ACAD8F1A83BC8D00CCC448 /* ViewController.m in Sources */,
 				93ACADB11A83BFAA00CCC448 /* BLQBall.m in Sources */,
 				93ACADAE1A83BF4800CCC448 /* BLQBallsView.m in Sources */,
+				932232AA1A95F416008CF727 /* BLQEvent.m in Sources */,
 				93ACAD8C1A83BC8D00CCC448 /* AppDelegate.m in Sources */,
 				93ACADB41A83CAD300CCC448 /* BLQModelBridge.m in Sources */,
 				93ACAD891A83BC8D00CCC448 /* main.m in Sources */,

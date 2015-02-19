@@ -29,6 +29,10 @@ NSString *const BLQModelBridgeBallCountChangedNotification = @"BLQModelBridgeBal
 
 @property (nonatomic) JSContext *context;
 
+- (void)mouseDown:(CGPoint)point;
+- (void)mouseMove:(CGPoint)delta;
+- (void)mouseUp:(CGPoint)point;
+
 @end
 
 
@@ -54,6 +58,22 @@ NSString *const BLQModelBridgeBallCountChangedNotification = @"BLQModelBridgeBal
     return (_context != nil);
 }
 
+- (void)handleEvent:(BLQEvent *)event
+{
+    if ([event isKindOfClass:[BLQMouseEvent class]]) {
+        BLQMouseEvent *e = (BLQMouseEvent *)event;
+        NSString *script;
+        if (e.type == BLQMouseDown) {
+            script = [NSString stringWithFormat:@"controller.mouseDown(%f, %f);", e.location.x, e.location.y];
+        } else if (e.type == BLQMouseMove) {
+            script = [NSString stringWithFormat:@"controller.mouseMove(%f, %f);", e.location.x, e.location.y];
+        } else if (e.type == BLQMouseUp) {
+            script = [NSString stringWithFormat:@"controller.mouseUp(%f, %f);", e.location.x, e.location.y];
+        }
+        [_context evaluateScript:script];
+    }
+}
+
 - (void)mouseDown:(CGPoint)point
 {
     NSString *script = [NSString stringWithFormat:@"controller.mouseDown(%f, %f);", point.x, point.y];
@@ -75,17 +95,23 @@ NSString *const BLQModelBridgeBallCountChangedNotification = @"BLQModelBridgeBal
 
 - (void)displayListChanged:(NSDictionary *)displayList
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:BLQModelBridgeDisplayListChangedNotification object:self userInfo:@{ @"balls": displayList }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:BLQModelBridgeDisplayListChangedNotification object:self userInfo:@{ @"balls": displayList }];
+    });
 }
 
 - (void)eventsPerSecond:(NSNumber *)eps
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:BLQModelBridgeEPSChangedNotification object:self userInfo:@{ @"eps": eps }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:BLQModelBridgeEPSChangedNotification object:self userInfo:@{ @"eps": eps }];
+    });
 }
 
 - (void)ballCountChanged:(NSNumber *)count
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:BLQModelBridgeBallCountChangedNotification object:self userInfo:@{ @"ballCount": count }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:BLQModelBridgeBallCountChangedNotification object:self userInfo:@{ @"ballCount": count }];
+    });
 }
 
 - (void)log:(NSString *)str
