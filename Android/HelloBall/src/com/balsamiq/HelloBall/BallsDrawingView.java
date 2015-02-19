@@ -14,7 +14,7 @@ public class BallsDrawingView extends View  {
     private static final String TAG = "BoxDrawingView";
     Ball [] _balls;
     private Paint mBackgroundPaint;
-    IModelController _controller;
+    JavaModelWrapper _controller;
     
     // used when creating the view in code
     public BallsDrawingView(Context context) {
@@ -40,12 +40,7 @@ public class BallsDrawingView extends View  {
         }
 
         Log.d("BallsDrawingView", "" + new Date().getTime());
-        post(new Runnable() {
-            @Override
-            public void run() {
-                invalidate();
-            }
-        });
+        invalidate();
     }
 
     @Override
@@ -94,7 +89,7 @@ public class BallsDrawingView extends View  {
         return true;
     }
 
-    public void setModelController(IModelController controller)
+    public void setModelWrapper(JavaModelWrapper controller)
     {
         _controller = controller;
     }

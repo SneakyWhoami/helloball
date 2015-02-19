@@ -1,5 +1,3 @@
-'use strict';
-
 var BALL_COUNT = 100;
 var PENETRATION_TEST_ENABLED = true;
 
@@ -210,12 +208,20 @@ var initApp = function (viewWidth, viewHeight, delegate) {
     delegate.ballCountChanged(model.balls.length);
     var controller = new Controller(model, delegate);
     controller.makeDisplayList();
-    ModelObserver.controller = controller;
     return controller;
-};
-
-var vai = function(viewWidth, viewHeight)
-{
-    return initApp(viewWidth, viewHeight, ModelObserver);
 }
 
+function modelStart(viewWidth, viewHeight) {
+    ModelObserver.modelController = initApp(viewWidth, viewHeight, ModelObserver);
+    appController = ModelObserver.modelController;
+    ModelObserver.appController = {};
+    ModelObserver.appController.mouseDown = function(x,y) {
+        ModelObserver.modelController.mouseDown(x,y);
+    };
+    ModelObserver.appController.mouseUp = function(x,y) {
+        ModelObserver.modelController.mouseUp(x,y);
+    };
+    ModelObserver.appController.mouseMove = function(x,y) {
+        ModelObserver.modelController.mouseMove(x,y);
+    };
+}
