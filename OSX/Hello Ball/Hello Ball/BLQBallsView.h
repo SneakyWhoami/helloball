@@ -11,6 +11,7 @@
 @interface BLQBallsView : NSView
 
 @property (nonatomic) NSInteger ballCount;
+@property (nonatomic) CGFloat backgroundPhase;
 
 - (void)updateBalls:(NSDictionary *)balls;
 

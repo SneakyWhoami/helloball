@@ -13,6 +13,7 @@
 NSString *const BLQModelBridgeDisplayListChangedNotification;
 NSString *const BLQModelBridgeEPSChangedNotification;
 NSString *const BLQModelBridgeBallCountChangedNotification;
+NSString *const BLQModelBridgePhaseChangedNotification;
 
 
 @interface BLQModelBridge : NSObject

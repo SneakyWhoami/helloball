@@ -18,8 +18,10 @@
 - (void)onModelBallsChanged:(NSNotification *)n;
 - (void)onModelEPSChanged:(NSNotification *)n;
 - (void)onModelBallCountChanged:(NSNotification *)n;
+- (void)onModelBallPhaseChanged:(NSNotification *)n;
 
-- (void)timer:(NSTimer *)timer;
+- (void)timerAfterLoad:(NSTimer *)timer;
+- (void)taskTimer:(NSTimer *)timer;
 
 @end
 
@@ -33,13 +35,21 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onModelBallsChanged:) name:BLQModelBridgeDisplayListChangedNotification object:_model];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onModelEPSChanged:) name:BLQModelBridgeEPSChangedNotification object:_model];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onModelBallCountChanged:) name:BLQModelBridgeBallCountChangedNotification object:_model];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onModelBallPhaseChanged:) name:BLQModelBridgePhaseChangedNotification object:_model];
     
-    [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timer:) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerAfterLoad:) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:(1. / 60.) target:self selector:@selector(taskTimer:) userInfo:nil repeats:YES];
 }
 
-- (void)timer:(NSTimer *)timer
+- (void)timerAfterLoad:(NSTimer *)timer
 {
     [_model startEngineWithViewSize:self.view.bounds.size];
+}
+
+- (void)taskTimer:(NSTimer *)timer
+{
+    BLQTimerEvent *e = [BLQTimerEvent new];
+    [_model performSelectorOnMainThread:@selector(handleEvent:) withObject:e waitUntilDone:NO];
 }
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -80,6 +90,11 @@
 {
     NSNumber *eps = [n.userInfo objectForKey:@"eps"];
     _epsLabel.stringValue = [NSString stringWithFormat:@"EPS: %ld", (long)eps.integerValue];
+}
+
+- (void)onModelBallPhaseChanged:(NSNotification *)n
+{
+    _ballsView.backgroundPhase = ((NSNumber *)[n.userInfo objectForKey:@"phase"]).floatValue;
 }
 
 @end

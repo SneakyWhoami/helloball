@@ -40,6 +40,11 @@
     }
 }
 
+- (void)setBackgroundPhase:(CGFloat)backgroundPhase
+{
+    self.layer.backgroundColor = [UIColor colorWithWhite:backgroundPhase alpha:1].CGColor;
+}
+
 - (void)updateBalls:(NSDictionary *)balls
 {
     for (NSString *ballIndex in balls) {

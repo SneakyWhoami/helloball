@@ -29,3 +29,8 @@ typedef enum {
 - (instancetype)initWithType:(BLQMouseEventType)type location:(CGPoint)location;
 
 @end
+
+
+@interface BLQTimerEvent : BLQEvent
+
+@end

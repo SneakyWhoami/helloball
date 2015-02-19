@@ -13,13 +13,14 @@
 NSString *const BLQModelBridgeDisplayListChangedNotification = @"BLQModelBridgeBallsChangedNotification";
 NSString *const BLQModelBridgeEPSChangedNotification = @"BLQModelBridgeEPSChangedNotification";
 NSString *const BLQModelBridgeBallCountChangedNotification = @"BLQModelBridgeBallCountChangedNotification";
-
+NSString *const BLQModelBridgePhaseChangedNotification = @"BLQModelBridgePhaseChangedNotification";
 
 @protocol BLQModelDelegate <JSExport>
 
 - (void)ballCountChanged:(NSNumber *)count;
 - (void)displayListChanged:(NSDictionary *)displayList;
 - (void)eventsPerSecond:(NSNumber *)eps;
+- (void)phaseChanged:(NSNumber *)phase;
 - (void)log:(NSString *)str;
 
 @end
@@ -60,9 +61,10 @@ NSString *const BLQModelBridgeBallCountChangedNotification = @"BLQModelBridgeBal
 
 - (void)handleEvent:(BLQEvent *)event
 {
+    NSString *script;
+    
     if ([event isKindOfClass:[BLQMouseEvent class]]) {
         BLQMouseEvent *e = (BLQMouseEvent *)event;
-        NSString *script;
         if (e.type == BLQMouseDown) {
             script = [NSString stringWithFormat:@"controller.mouseDown(%f, %f);", e.location.x, e.location.y];
         } else if (e.type == BLQMouseMove) {
@@ -70,6 +72,11 @@ NSString *const BLQModelBridgeBallCountChangedNotification = @"BLQModelBridgeBal
         } else if (e.type == BLQMouseUp) {
             script = [NSString stringWithFormat:@"controller.mouseUp(%f, %f);", e.location.x, e.location.y];
         }
+    } else if ([event isKindOfClass:[BLQTimerEvent class]]) {
+        script = @"controller.task();";
+    }
+    
+    if (script) {
         [_context evaluateScript:script];
     }
 }
@@ -111,6 +118,13 @@ NSString *const BLQModelBridgeBallCountChangedNotification = @"BLQModelBridgeBal
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:BLQModelBridgeBallCountChangedNotification object:self userInfo:@{ @"ballCount": count }];
+    });
+}
+
+- (void)phaseChanged:(NSNumber *)phase
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:BLQModelBridgePhaseChangedNotification object:self userInfo:@{ @"phase": phase }];
     });
 }
 

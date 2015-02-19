@@ -23,3 +23,8 @@
 }
 
 @end
+
+
+@implementation BLQTimerEvent
+
+@end

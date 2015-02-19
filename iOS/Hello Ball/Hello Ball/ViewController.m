@@ -18,6 +18,9 @@
 - (void)onModelBallsChanged:(NSNotification *)n;
 - (void)onModelEPSChanged:(NSNotification *)n;
 - (void)onModelBallCountChanged:(NSNotification *)n;
+- (void)onModelBallPhaseChanged:(NSNotification *)n;
+
+- (void)taskTimer:(NSTimer *)timer;
 
 @end
 
@@ -31,13 +34,22 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onModelBallsChanged:) name:BLQModelBridgeDisplayListChangedNotification object:_model];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onModelEPSChanged:) name:BLQModelBridgeEPSChangedNotification object:_model];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onModelBallCountChanged:) name:BLQModelBridgeBallCountChangedNotification object:_model];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onModelBallPhaseChanged:) name:BLQModelBridgePhaseChangedNotification object:_model];
 
     [_model startEngineWithViewSize:self.view.bounds.size];
+    
+    [NSTimer scheduledTimerWithTimeInterval:(1. / 30.) target:self selector:@selector(taskTimer:) userInfo:nil repeats:YES];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)taskTimer:(NSTimer *)timer
+{
+    BLQTimerEvent *e = [BLQTimerEvent new];
+    [_model performSelectorOnMainThread:@selector(handleEvent:) withObject:e waitUntilDone:NO];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -82,6 +94,11 @@
 {
     NSNumber *eps = [n.userInfo objectForKey:@"eps"];
     _epsLabel.text = [NSString stringWithFormat:@"EPS: %d", eps.integerValue];
+}
+
+- (void)onModelBallPhaseChanged:(NSNotification *)n
+{
+    _ballsView.backgroundPhase = ((NSNumber *)[n.userInfo objectForKey:@"phase"]).floatValue;
 }
 
 @end
