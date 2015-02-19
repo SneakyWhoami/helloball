@@ -4,5 +4,11 @@ out
 obj
 bld
 *.suo
+<<<<<<< HEAD
 libs
 
+=======
+bin
+*.xcuserstate
+xcuserdata
+>>>>>>> FETCH_HEAD
