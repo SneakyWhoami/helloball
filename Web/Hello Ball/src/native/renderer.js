@@ -5,6 +5,14 @@ var int2color = function (p_color) {
     return '#' + '000000'.substring(0, 6 - hexStr.length) + hexStr;
 };
 
+var phase2color = function (p_phase) {
+    var tone = Math.round(255 * p_phase).toString(16);
+    if (tone.length < 2) {
+        tone = '0' + tone;
+    }
+    return '#' + tone + tone + tone;
+};
+
 var renderDisplayList = function (svgRootNode, displayList) {
     var displayElement;
     for (var index in displayList) {
@@ -38,4 +46,8 @@ var renderEps = function (svgRootNode, eps) {
     } else {
         node.textContent = "EPS: " + Math.round(eps);
     }
+};
+
+var renderPhase = function (svgRootNode, phase) {
+    svgRootNode.setAttributeNS(null, "style", 'background-color:'+phase2color(phase));
 };

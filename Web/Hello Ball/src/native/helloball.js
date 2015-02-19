@@ -6,7 +6,8 @@
     var delegate = {
         displayListChanged: function () {},
         eventsPerSecond: function () {},
-        ballCountChanged: function () {}
+        ballCountChanged: function () {},
+        phaseChanged: function () {}
     };
 
     var displayListStream = Rx.Observable.create(function (observer) {
@@ -23,6 +24,14 @@
         delegate.eventsPerSecond = handler;
     }).subscribe(renderEps.bind(undefined, svgroot));
 
+
+    var phaseStream = Rx.Observable.create(function (observer) {
+        var handler = function (phase) {
+            observer.onNext(phase);
+        };
+        delegate.phaseChanged = handler;
+    }).subscribe(renderPhase.bind(undefined, svgroot));
+
     var rootRect = svgroot.getBoundingClientRect();
     var controller = initApp(rootRect.width, rootRect.height, delegate);
 
@@ -32,7 +41,7 @@
         var offsetX = (e.clientX || e.touches[0].clientX) - rect.left;
         var offsetY = (e.clientY || e.touches[0].clientY) - rect.top;
         return {x: offsetX, y: offsetY};
-    }
+    };
 
     // Keyboard Events: UP and DOWN ARROWS only...
     Rx.Observable.fromEvent(window, 'keydown')
@@ -85,5 +94,9 @@
         .subscribe(function (mm) {
             controller.mouseUp()
         });
+
+    setInterval(function () {
+        controller.task();
+    }, 30);
 
 }());
