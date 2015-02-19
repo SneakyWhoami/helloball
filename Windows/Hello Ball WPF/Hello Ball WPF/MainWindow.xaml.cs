@@ -81,17 +81,23 @@ namespace Hello_Ball_WPF
         
         private static JavaScriptValue OnBallCountChanged(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
         {
-            object ballCount = ConvertJavaScriptValue(arguments[1]);
-            int bc = (int)(double)ballCount;
-            MainWindow.Instance.PopulateCanvas(bc);
+            App.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                object ballCount = ConvertJavaScriptValue(arguments[1]);
+                int bc = (int)(double)ballCount;
+                MainWindow.Instance.PopulateCanvas(bc);
+            }));
             return JavaScriptValue.Undefined;
         }
 
         private static JavaScriptValue OnDisplayListChanged(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
         {
-            JavaScriptValue displayList = arguments[1];
-            object p = ConvertJavaScriptValue(displayList);
-            MainWindow.Instance.UpdateBalls(p);
+            App.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                JavaScriptValue displayList = arguments[1];
+                object p = ConvertJavaScriptValue(displayList);
+                MainWindow.Instance.UpdateBalls(p);
+            }));
             return JavaScriptValue.Undefined;
         }
 
@@ -271,24 +277,27 @@ namespace Hello_Ball_WPF
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var p = e.GetPosition(balls);
-            JavaScriptContext.RunScript("controller.mouseDown(" + p.X + ", " + p.Y + ");");
+            RunScriptAsync("controller.mouseDown(" + p.X + ", " + p.Y + ");");
         }
 
         private void Window_MouseMove(object sender, MouseEventArgs e)
         {
             var p = e.GetPosition(balls);
-            JavaScriptContext.RunScript("controller.mouseMove(" + p.X + ", " + p.Y + ");");
+            RunScriptAsync("controller.mouseMove(" + p.X + ", " + p.Y + ");");
         }
 
         private void Window_MouseUp(object sender, MouseButtonEventArgs e)
         {
             var p = e.GetPosition(balls);
-            JavaScriptContext.RunScript("controller.mouseUp(" + p.X + ", " + p.Y + ");");
+            RunScriptAsync("controller.mouseUp(" + p.X + ", " + p.Y + ");");
         }
 
         private void UpdateEPS(double value)
         {
-            eps.Text = "EPS: " + (int)value;
+            App.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                eps.Text = "EPS: " + (int)value;
+            }));
         }
 
         private PathGeometry MakeBall(double radius, int color)
@@ -328,12 +337,20 @@ namespace Hello_Ball_WPF
             return p;
         }
 
-        private static Color int2Color (int color)
+        private static Color int2Color(int color)
         {
             byte r = (byte)((color >> 16) & 0xFF);
             byte g = (byte)((color >> 8) & 0xFF);
             byte b = (byte)(color & 0xFF);
             return Color.FromRgb(r, g, b);
+        }
+
+        private void RunScriptAsync(string script)
+        {
+            App.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                JavaScriptContext.RunScript(script);
+            }));
         }
     }
 }
