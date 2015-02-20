@@ -20,6 +20,8 @@ Ball.prototype.setRadius = function (radius) {
 
 var Model = function () {
     this.balls = [];
+    this.viewWidth = 0;
+    this.viewHeight = 0;
 };
 
 Model.prototype.addBall = function (ball) {
@@ -27,12 +29,38 @@ Model.prototype.addBall = function (ball) {
 };
 
 Model.prototype.setBallPosition = function (ballIndex, x, y) {
+    x = Math.max(Math.min(x, this.viewWidth), 0);
+    y = Math.max(Math.min(y, this.viewHeight), 0);
     this.balls[ballIndex].setPosition(x, y);
 };
 
 Model.prototype.setBallRadius = function (ballIndex, radius) {
     this.balls[ballIndex].setRadius(radius);
 };
+
+Model.prototype.populate = function (viewWidth, viewHeight) {
+    this.viewWidth = viewWidth;
+    this.viewHeight = viewHeight;
+    
+    var getRandInt = function (min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    };
+    
+    var ballCount = BALL_COUNT;
+    var ballMinRadius = 18;
+    var ballMaxRadius = 44;
+    var i, ball;
+    
+    for (i = 0; i < ballCount; i += 1) {
+        var radius = getRandInt(ballMinRadius, ballMaxRadius);
+        ball = new Ball(
+                        getRandInt(radius, viewWidth - radius),
+                        getRandInt(radius, viewHeight - radius),
+                        radius
+                        );
+        this.addBall(ball);
+    }
+}
 
 var hitTest = function (balls, x, y) {
     var ballsHit = [];
@@ -195,30 +223,9 @@ Controller.prototype.task = function () {
     }
 }
 
-var populateModel = function (model, viewWidth, viewHeight) {
-    var getRandInt = function (min, max) {
-        return Math.floor(Math.random() * (max - min)) + min;
-    };
-    
-    var ballCount = BALL_COUNT;
-    var ballMinRadius = 18;
-    var ballMaxRadius = 44;
-    var i, ball;
-    
-    for (i = 0; i < ballCount; i += 1) {
-        var radius = getRandInt(ballMinRadius, ballMaxRadius);
-        ball = new Ball(
-                        getRandInt(radius, viewWidth - radius),
-                        getRandInt(radius, viewHeight - radius),
-                        radius
-        );
-        model.addBall(ball);
-    }
-}
-
 var initApp = function (viewWidth, viewHeight, delegate) {
     var model = new Model();
-    populateModel(model, viewWidth, viewHeight);
+    model.populate(viewWidth, viewHeight);
     delegate.ballCountChanged(model.balls.length);
     var controller = new Controller(model, delegate);
     controller.makeDisplayList();
