@@ -183,6 +183,18 @@ Controller.prototype.makeDisplayList = function () {
     }
 }
 
+Controller.prototype.task = function () {
+    var time = Date.now();
+    var isOddSecond = (Math.floor(time / 1000) % 2) == 1;
+    var phase = (time % 1000) / 1000;
+    if (isOddSecond) {
+        phase = 1 - phase;
+    }
+    if (this.delegate.phaseChanged) {
+        this.delegate.phaseChanged(phase);
+    }
+}
+
 var populateModel = function (model, viewWidth, viewHeight) {
     var getRandInt = function (min, max) {
         return Math.floor(Math.random() * (max - min)) + min;

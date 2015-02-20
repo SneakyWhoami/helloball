@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ChakraHost.Hosting;
 using System.Windows.Resources;
+using System.Timers;
 
 namespace Hello_Ball_WPF
 {
@@ -28,9 +29,12 @@ namespace Hello_Ball_WPF
         private JavaScriptRuntime runtime;
         private JavaScriptContext context;
 
+        private Timer timer;
+
         private static JavaScriptNativeFunction onBallCountChanged = OnBallCountChanged;
         private static JavaScriptNativeFunction onDisplayListChanged = OnDisplayListChanged;
         private static JavaScriptNativeFunction onEventsPerSecond = OnEventsPerSecond;
+        private static JavaScriptNativeFunction onPhaseChanged = OnPhaseChanged;
        
         public MainWindow()
         {
@@ -59,6 +63,7 @@ namespace Hello_Ball_WPF
                 DefineHostCallback(delegateObject, "ballCountChanged", onBallCountChanged, IntPtr.Zero);
                 DefineHostCallback(delegateObject, "displayListChanged", onDisplayListChanged, IntPtr.Zero);
                 DefineHostCallback(delegateObject, "eventsPerSecond", onEventsPerSecond, IntPtr.Zero);
+                DefineHostCallback(delegateObject, "phaseChanged", onPhaseChanged, IntPtr.Zero);
 
                 Uri uri = new Uri("/model.js", UriKind.Relative);
                 StreamResourceInfo info = Application.GetContentStream(uri);
@@ -77,6 +82,10 @@ namespace Hello_Ball_WPF
             {
                 Debug.WriteLine("chakrahost: failed to run script: {0}", ex.Message);
             }
+
+            timer = new Timer(1.0 / 30.0 * 1000.0);
+            timer.Elapsed += new ElapsedEventHandler(TimerFired);
+            timer.Enabled = true;
         }
         
         private static JavaScriptValue OnBallCountChanged(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
@@ -171,12 +180,26 @@ namespace Hello_Ball_WPF
 
         private static JavaScriptValue OnEventsPerSecond(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
         {
-            object eps = ConvertJavaScriptValue(arguments[1]);
-            MainWindow.Instance.UpdateEPS((double)eps);
-//            Debug.WriteLine("eps: " + eps.ToString());
+            App.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                object eps = ConvertJavaScriptValue(arguments[1]);
+                MainWindow.Instance.UpdateEPS((double)eps);
+                //Debug.WriteLine("eps: " + eps.ToString());
+            }));
             return JavaScriptValue.Undefined;
         }
 
+        private static JavaScriptValue OnPhaseChanged(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
+        {
+            App.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                object phase = ConvertJavaScriptValue(arguments[1]);
+                MainWindow.Instance.UpdatePhase((double)phase);
+                //Debug.WriteLine("eps: " + eps.ToString());
+            }));
+            return JavaScriptValue.Undefined;
+        }
+        
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             using (new JavaScriptContext.Scope(context))
@@ -294,15 +317,18 @@ namespace Hello_Ball_WPF
 
         private void UpdateEPS(double value)
         {
-            App.Current.Dispatcher.BeginInvoke(new Action(() =>
-            {
-                eps.Text = "EPS: " + (int)value;
-            }));
+           eps.Text = "EPS: " + (int)value;
+        }
+
+        private void UpdatePhase(double value)
+        {
+            byte v = (byte)(value * 255);
+            var color = Color.FromRgb(v, v, v);
+            balls.Background = new SolidColorBrush(color);
         }
 
         private PathGeometry MakeBall(double radius, int color)
         {
-            //Path path = new Path();
             PathGeometry p = new PathGeometry();
             PathFigure f = new PathFigure();
 
@@ -325,14 +351,6 @@ namespace Hello_Ball_WPF
             f.Segments.Add(arc2);
 
             p.Figures.Add(f);
-            //path.Data = p;
-
-            //path.Fill = new SolidColorBrush(Colors.Blue);
-            //path.Stroke = new SolidColorBrush(Colors.Black);
-            //path.StrokeThickness = 2;
-
-            //path.Width = radius * 2;
-            //path.Height = radius * 2;
 
             return p;
         }
@@ -351,6 +369,17 @@ namespace Hello_Ball_WPF
             {
                 JavaScriptContext.RunScript(script);
             }));
+        }
+
+        private void TimerFired(object sender, ElapsedEventArgs e)
+        {
+            if (App.Current != null)
+            {
+                App.Current.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    JavaScriptContext.RunScript("controller.task();");
+                }));
+            }
         }
     }
 }
