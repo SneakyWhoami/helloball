@@ -67,7 +67,7 @@ var hitTest = function (balls, x, y) {
     var i;
     for (i = 0; i < balls.length; i++) {
         if (Math.pow((x - balls[i].x), 2) + Math.pow((y - balls[i].y), 2) < Math.pow(balls[i].radius, 2)) {
-            ballsHit.push(i);
+            ballsHit.push({ index:i, offsetX: (x - balls[i].x), offsetY: (y - balls[i].y) });
         }
     }
     return ballsHit;
@@ -142,7 +142,7 @@ DisplayList.prototype.getChangedItems = function () {
 var Controller = function (model, delegate) {
     this.delegate = delegate;
     this.model = model;
-    this.selectedBallIndex = -1;
+    this.selectedBall = null;
     this.mouseIsDown = false;
     this.eps = new EventsCounter(delegate);
     this.displayList = new DisplayList(this.model.balls.length);
@@ -151,9 +151,9 @@ var Controller = function (model, delegate) {
 Controller.prototype.mouseDown = function (x, y) {
     var ballsHit = hitTest(this.model.balls, x, y);
     if (ballsHit.length > 0) {
-        this.selectedBallIndex = ballsHit[ballsHit.length - 1];
+        this.selectedBall = ballsHit[ballsHit.length - 1];
     } else {
-        this.selectedBallIndex = -1;
+        this.selectedBall = -1;
     }
     this.mouseIsDown = true;
     this.makeDisplayList();
@@ -162,8 +162,8 @@ Controller.prototype.mouseDown = function (x, y) {
 
 Controller.prototype.mouseMove = function (x, y) {
     var currentTime = Date.now();
-    if (this.mouseIsDown && this.selectedBallIndex !== -1) {
-        this.model.setBallPosition(this.selectedBallIndex, x, y);
+    if (this.mouseIsDown && this.selectedBall) {
+        this.model.setBallPosition(this.selectedBall.index, x - this.selectedBall.offsetX, y - this.selectedBall.offsetY);
         this.makeDisplayList();
     }
     this.eps.countEvent();
@@ -172,7 +172,7 @@ Controller.prototype.mouseMove = function (x, y) {
 
 Controller.prototype.mouseUp = function (x, y) {
     this.mouseIsDown = false;
-    if (this.selectedBallIndex !== -1) {
+    if (this.selectedBall) {
         this.makeDisplayList();
     }
     this.eps.countEvent();
@@ -185,7 +185,7 @@ Controller.prototype.makeDisplayList = function () {
     var color;
     var numHits;
     for (i = 0; i < this.model.balls.length; i++) {
-        if (this.selectedBallIndex == i) {
+        if (this.selectedBall && this.selectedBall.index == i) {
             if (this.mouseIsDown) {
                 color = 0x44FF44;
             } else {
