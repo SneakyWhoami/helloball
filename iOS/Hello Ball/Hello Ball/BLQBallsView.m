@@ -42,7 +42,12 @@
 
 - (void)setBackgroundPhase:(CGFloat)backgroundPhase
 {
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+    
     self.layer.backgroundColor = [UIColor colorWithWhite:backgroundPhase alpha:1].CGColor;
+    
+    [CATransaction commit];
 }
 
 - (void)updateBalls:(NSDictionary *)balls
