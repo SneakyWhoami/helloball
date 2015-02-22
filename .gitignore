@@ -4,11 +4,8 @@ out
 obj
 bld
 *.suo
-<<<<<<< HEAD
+proguard_logs
 libs
-
-=======
 bin
 *.xcuserstate
 xcuserdata
->>>>>>> FETCH_HEAD

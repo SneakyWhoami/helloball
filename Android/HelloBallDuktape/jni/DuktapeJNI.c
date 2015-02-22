@@ -9,7 +9,7 @@ static void internalStop() {
     ctx = NULL;
 }
 
-JNIEXPORT void JNICALL Java_com_balsamiq_HelloBall_JavaModelWrapper_loadJS(JNIEnv *env, jobject obj, jstring js) {
+JNIEXPORT void JNICALL Java_com_balsamiq_HelloBallDuktape_JavaModelWrapper_loadJS(JNIEnv *env, jobject obj, jstring js) {
     register_model_callbacks(ctx, "ModelObserver");
     push_env(env, obj);
     jboolean copy;
@@ -23,7 +23,7 @@ JNIEXPORT void JNICALL Java_com_balsamiq_HelloBall_JavaModelWrapper_loadJS(JNIEn
     duk_pop(ctx); // ignore result 
 }
 
-JNIEXPORT void JNICALL Java_com_balsamiq_HelloBall_JavaModelWrapper_startModel
+JNIEXPORT void JNICALL Java_com_balsamiq_HelloBallDuktape_JavaModelWrapper_startModel
   (JNIEnv *env, jobject obj, jdouble width, jdouble height)
 {
     push_env(env, obj);
@@ -39,7 +39,7 @@ JNIEXPORT void JNICALL Java_com_balsamiq_HelloBall_JavaModelWrapper_startModel
     duk_pop(ctx); // ignore result 
 }
 
-JNIEXPORT void JNICALL Java_com_balsamiq_HelloBall_JavaModelWrapper_initialize
+JNIEXPORT void JNICALL Java_com_balsamiq_HelloBallDuktape_JavaModelWrapper_initialize
 (JNIEnv *env, jobject obj) {
     push_env(env, obj);
     ctx = duk_create_heap_default();
@@ -69,27 +69,27 @@ void internalCallToMouseXXX(const char *mouseXXXMethod, double x, double y)
     duk_pop(ctx); // restore duk_get_prop_string(ctx, -1, "ModelObserver");   
 }
 
-JNIEXPORT void JNICALL Java_com_balsamiq_HelloBall_JavaModelWrapper_onMouseDown(JNIEnv *env, jobject obj, jdouble x, jdouble y)
+JNIEXPORT void JNICALL Java_com_balsamiq_HelloBallDuktape_JavaModelWrapper_onMouseDown(JNIEnv *env, jobject obj, jdouble x, jdouble y)
 {
     push_env(env, obj);
     internalCallToMouseXXX("mouseDown", x, y);
 }
 
-JNIEXPORT void JNICALL Java_com_balsamiq_HelloBall_JavaModelWrapper_onMouseMove
+JNIEXPORT void JNICALL Java_com_balsamiq_HelloBallDuktape_JavaModelWrapper_onMouseMove
   (JNIEnv *env, jobject obj, jdouble x, jdouble y)
 {
     push_env(env, obj);
     internalCallToMouseXXX("mouseMove", x, y);
 }
 
-JNIEXPORT void JNICALL Java_com_balsamiq_HelloBall_JavaModelWrapper_onMouseUp
+JNIEXPORT void JNICALL Java_com_balsamiq_HelloBallDuktape_JavaModelWrapper_onMouseUp
   (JNIEnv *env, jobject obj, jdouble x, jdouble y)
 {
     push_env(env, obj);
     internalCallToMouseXXX("mouseUp", x, y);
 }
 
-JNIEXPORT void JNICALL Java_com_balsamiq_HelloBall_JavaModelWrapper_stopModel
+JNIEXPORT void JNICALL Java_com_balsamiq_HelloBallDuktape_JavaModelWrapper_stopModel
 (JNIEnv *env, jobject obj) {
     push_env(env, obj);
     internalStop();
