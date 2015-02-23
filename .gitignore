@@ -9,3 +9,4 @@ libs
 bin
 *.xcuserstate
 xcuserdata
+libv8*.a

@@ -1,2 +1,3 @@
-APP_ABI := all
-APP_CFLAGS += -std=c99 -Os -fomit-frame-pointer -fstrict-aliasing
+APP_ABI := armeabi armeabi-v7a
+APP_CFLAGS += -std=gnu++11
+APP_STL := stlport_static
