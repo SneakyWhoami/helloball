@@ -11,8 +11,7 @@
 #include "JSBridge.h"
 
 JSBridge::JSBridge() {
-	// TODO Auto-generated constructor stub
-
+	m_context = NULL;
 }
 
 JSBridge::~JSBridge() {
