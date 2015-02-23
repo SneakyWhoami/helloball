@@ -13,15 +13,15 @@ public:
   HelloBallWindow();
   virtual ~HelloBallWindow();
 
-protected:
+  Gtk::Fixed fixed;
+  Gtk::Button executeButton;
+  Gtk::TextView inputText;
+  Gtk::TextView outputText;
+
   //Signal handlers:
   void on_button_clicked();
 
   //Member widgets:
-  Gtk::Fixed m_fixed;
-  Gtk::Button m_executeButton;
-  Gtk::TextView m_inputText;
-  Gtk::TextView m_outputText;
 };
 
 #endif // GTKMM_EXAMPLE_HELLOWORLD_H
