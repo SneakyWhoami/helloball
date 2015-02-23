@@ -17,6 +17,14 @@ public class BallsDrawingView extends View  {
     IModelController _controller;
     boolean drawRequest = false;
     
+    class Point {
+        public float x;
+        public float y;
+    }
+    
+    Point last_move;
+    boolean last_move_collapsed = false;
+    
     // used when creating the view in code
     public BallsDrawingView(Context context) {
         this(context, null);
@@ -100,12 +108,27 @@ public class BallsDrawingView extends View  {
                 break;
 
             case MotionEvent.ACTION_MOVE:
-                _controller.mouseMove(curr.x, curr.y);
+                if (isDrawRequest()) {
+                    //still working, collapse it
+                    last_move_collapsed = true;
+                    last_move = new Point();
+                    last_move.x = curr.x;
+                    last_move.y = curr.y;
+                }
+                else {
+                    last_move_collapsed = false;
+                    _controller.mouseMove(curr.x, curr.y);
+                }
                 break;
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
+                if (last_move_collapsed) {
+                    last_move_collapsed = false;
+                    _controller.mouseMove(last_move.x, last_move.y);
+                }
                 _controller.mouseUp(curr.x, curr.y);
+                Log.d("BallsDrawingView", "**UP**" + new Date().getTime());
                 break;
         }
 
