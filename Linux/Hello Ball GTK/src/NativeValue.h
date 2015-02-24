@@ -55,6 +55,8 @@ public:
 	size_t arrayLength() { return m_v.size(); }
 	NativeValuePtr arrayItem(size_t index) { return m_v[index]; }
 
+	void dump();
+
 protected:
 	NativeValueType m_type;
 
@@ -63,6 +65,8 @@ protected:
 	std::string m_s;
 	std::map<std::string, NativeValuePtr> m_o;
 	std::vector<NativeValuePtr> m_v;
+
+	void dump(std::ostringstream &output, size_t indentLevel);
 };
 
 #endif /* NATIVEVALUE_H_ */
