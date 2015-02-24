@@ -12,9 +12,14 @@
 
 
 NativeValue::NativeValue() {
-	m_type = NativeValueNull;
+	m_type = NativeValueUndefined;
 	m_d = 0;
 	m_b = false;
+}
+
+void NativeValue::setUndefinedValue()
+{
+	m_type = NativeValueUndefined;
 }
 
 void NativeValue::setNullValue()
@@ -97,7 +102,9 @@ void NativeValue::dump(std::ostringstream &output, size_t indentLevel)
 	}
 
 	std::string typeString, valueString;
-	if (m_type == NativeValueNull) {
+	if (m_type == NativeValueUndefined) {
+		typeString = "undefined";
+	} else if (m_type == NativeValueNull) {
 		typeString = "NULL";
 	} else if (m_type == NativeValueBoolean) {
 		typeString = "Boolean";

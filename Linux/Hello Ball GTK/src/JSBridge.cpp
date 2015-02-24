@@ -64,7 +64,11 @@ std::string JSBridge::makeString(JSStringRef str)
 NativeValuePtr JSBridge::makeNativeValue(JSValueRef value)
 {
 	NativeValuePtr n(new NativeValue());
-	if (JSValueIsBoolean(m_context, value)) {
+	if (JSValueIsUndefined(m_context, value)) {
+		n->setUndefinedValue();
+	} else if (JSValueIsNull(m_context, value)) {
+		n->setNullValue();
+	} else if (JSValueIsBoolean(m_context, value)) {
 		n->setBoolValue(JSValueToBoolean(m_context, value));
 	} else if (JSValueIsNumber(m_context, value)) {
 		n->setDoubleValue(JSValueToNumber(m_context, value, NULL));

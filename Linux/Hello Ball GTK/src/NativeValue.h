@@ -14,12 +14,13 @@
 
 
 typedef enum {
-	NativeValueNull = 0,
-	NativeValueBoolean = 1,
-	NativeValueNumber = 2,
-	NativeValueString = 3,
-	NativeValueArray = 4,
-	NativeValueObject = 5
+	NativeValueNull,
+	NativeValueUndefined,
+	NativeValueBoolean,
+	NativeValueNumber,
+	NativeValueString,
+	NativeValueArray,
+	NativeValueObject
 } NativeValueType;
 
 
@@ -32,6 +33,8 @@ public:
 	NativeValue();
 
 	NativeValueType type() { return m_type; }
+
+	void setUndefinedValue();
 
 	void setNullValue();
 
