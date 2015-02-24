@@ -31,10 +31,10 @@ public class JavaModelWrapper {
         System.loadLibrary("model");
     }
     
-    public JavaModelWrapper(Activity activity, IModelObserver observer) {
+    public JavaModelWrapper(String model, IModelObserver observer) {
         _observer = observer;
         initialize();
-        loadJS(AssetUtilities.readFromfile(activity, "model.js"));
+        loadJS(model);
     }
 
     public void start(float sizeX, float sizeY) {

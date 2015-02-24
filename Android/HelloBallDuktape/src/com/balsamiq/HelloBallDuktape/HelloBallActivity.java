@@ -22,7 +22,7 @@ public class HelloBallActivity extends Activity implements IModelObserver {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         _view = (BallsDrawingView) findViewById(R.id.drawing_view);
-        _model = new JavaModelWrapper(this, this);
+        _model = new JavaModelWrapper(AssetUtilities.readFromfile(this, "model.js"), this);
         _view.setModelWrapper(_model);
         _fps = (TextView) findViewById(R.id.fps);
 
