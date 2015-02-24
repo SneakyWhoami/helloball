@@ -27,8 +27,7 @@ void Controller::on_execute_button_clicked()
 	Glib::ustring text = m_window->inputText.get_buffer()->get_text();
 	JSValueRef value = m_bridge->executeScript(text.c_str());
 	NativeValuePtr n = m_bridge->makeNativeValue(value);
-	n->dump();
-	std::string result = m_bridge->makeString(value);
+	std::string d = n->toString();
 	Glib::RefPtr<Gtk::TextBuffer> buffer = m_window->outputText.get_buffer();
-	buffer->insert(buffer->end(), result + "\n");
+	buffer->insert(buffer->end(), d + "\n");
 }

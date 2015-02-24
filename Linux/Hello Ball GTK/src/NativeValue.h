@@ -47,6 +47,7 @@ public:
 	void setObjectValue();
 	void addObjectEntry(const std::string &key, NativeValuePtr value);
 	const std::map<std::string, NativeValuePtr> & objectValue() { return m_o; }
+	std::vector<std::string> objectKeys();
 	NativeValuePtr objectEntry(const std::string &key);
 
 	void setArrayValue();
@@ -55,7 +56,7 @@ public:
 	size_t arrayLength() { return m_v.size(); }
 	NativeValuePtr arrayItem(size_t index) { return m_v[index]; }
 
-	void dump();
+	std::string toString();
 
 protected:
 	NativeValueType m_type;

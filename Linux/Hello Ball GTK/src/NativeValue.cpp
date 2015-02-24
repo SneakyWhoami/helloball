@@ -59,6 +59,21 @@ void NativeValue::addObjectEntry(const std::string &key, NativeValuePtr value)
 	}
 }
 
+std::vector<std::string> NativeValue::objectKeys()
+{
+	std::vector<std::string> k;
+	std::map<std::string, NativeValuePtr>::iterator i;
+	for (i = m_o.begin(); i != m_o.end(); i++) {
+		k.push_back(i->first);
+	}
+	return k;
+}
+
+NativeValuePtr NativeValue::objectEntry(const std::string &key)
+{
+	return m_o[key];
+}
+
 void NativeValue::pushArrayItem(NativeValuePtr value)
 {
 	if (m_type == NativeValueArray) {
@@ -66,19 +81,21 @@ void NativeValue::pushArrayItem(NativeValuePtr value)
 	}
 }
 
-void NativeValue::dump()
+std::string NativeValue::toString()
 {
 	std::ostringstream s;
 	dump(s, 0);
-	std::cout << s.str();
+	return s.str();
 }
 
 void NativeValue::dump(std::ostringstream &output, size_t indentLevel)
 {
 	size_t i;
+	std::string indentString;
 	for (i = 0; i < indentLevel; i++) {
-		output << "\t";
+		indentString += "\t";
 	}
+
 	std::string typeString, valueString;
 	if (m_type == NativeValueNull) {
 		typeString = "NULL";
@@ -101,10 +118,20 @@ void NativeValue::dump(std::ostringstream &output, size_t indentLevel)
 		for (j = 0; j < l; j++) {
 			arrayItem(j)->dump(s, indentLevel + 1);
 		}
-		s << "]" << std::endl;
+		s <<  indentString << "]";
 		valueString = s.str();
 	} else if (m_type == NativeValueObject) {
 		typeString = "Object";
+		std::ostringstream s;
+		s << "{" << std::endl;
+		std::vector<std::string> keys = objectKeys();
+		size_t j;
+		for (j = 0; j < keys.size(); j++) {
+			objectEntry(keys[j])->dump(s, indentLevel + 1);
+		}
+		s << indentString << "}";
+		valueString = s.str();
 	}
-	output << "Type: " << typeString << ", Value: " << valueString << std::endl;
+
+	output << indentString << typeString << ": " << valueString << std::endl;
 }
