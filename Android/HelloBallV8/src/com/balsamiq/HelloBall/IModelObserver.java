@@ -1,4 +1,4 @@
-package com.balsamiq.HelloBallV8;
+package com.balsamiq.HelloBall;
 
 import android.util.SparseArray;
 
@@ -8,7 +8,7 @@ import android.util.SparseArray;
 public interface IModelObserver {
     void ballCountChanged(int number);
 
-    void displayListChanged(SparseArray<com.balsamiq.HelloBallV8.Ball> balls);
+    void displayListChanged(SparseArray<Ball> balls);
 
     void eventsPerSecond(int events);
 

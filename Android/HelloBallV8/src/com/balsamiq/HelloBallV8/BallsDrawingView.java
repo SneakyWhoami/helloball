@@ -7,15 +7,17 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
+import com.balsamiq.HelloBall.Ball;
+import com.balsamiq.HelloBall.IModel;
+import com.balsamiq.HelloBall.JavaModelWrapper;
 
 import java.util.Date;
 
 public class BallsDrawingView extends View  {
     private static final String TAG = "BoxDrawingView";
-    Ball [] _balls;
+    Ball[] _balls;
     private Paint mBackgroundPaint;
-    JavaModelWrapper _controller;
-//    JavaModel _controller;
+    IModel _controller;
 
     // used when creating the view in code
     public BallsDrawingView(Context context) {
@@ -90,13 +92,9 @@ public class BallsDrawingView extends View  {
         return true;
     }
 
-    public void setModelWrapper(JavaModelWrapper controller)
+    public void setModel(IModel model)
     {
-        _controller = controller;
+        _controller = model;
     }
-//    public void setModelWrapper(JavaModel controller)
-//    {
-//        _controller = controller;
-//    }
 }
 

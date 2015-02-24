@@ -1,4 +1,4 @@
-package com.balsamiq.HelloBallV8;
+package com.balsamiq.HelloBall;
 
 import android.app.Activity;
 import android.util.Log;
@@ -13,7 +13,7 @@ import java.util.Iterator;
 /**
  * Created by morsini on 19/02/15.
  */
-public class JavaModel {
+public class JavaModel implements IModel {
 
     protected IModelObserver _observer;
     protected Controller _controller;
@@ -32,15 +32,15 @@ public class JavaModel {
         
     }
 
-    public void mouseDown(float x, float y) {
+    public void mouseDown(double x, double y) {
         _controller.mouseDown(x, y);
     }
 
-    public void mouseUp(float x, float y) {
+    public void mouseUp(double x, double y) {
         _controller.mouseUp(x, y);
     }
 
-    public void mouseMove(float x, float y) {
+    public void mouseMove(double x, double y) {
         _controller.mouseMove(x, y);
     }
 
@@ -51,7 +51,7 @@ public class JavaModel {
     public void onDisplayListChanged(String json) {
 
         try {
-            SparseArray<com.balsamiq.HelloBallV8.Ball> balls = new SparseArray<com.balsamiq.HelloBallV8.Ball>();
+            SparseArray<Ball> balls = new SparseArray<Ball>();
             JSONObject jsonObject = new JSONObject(json);
             Iterator<?> iterator = jsonObject.keys();
             while (iterator.hasNext()) {
@@ -61,7 +61,7 @@ public class JavaModel {
                 double y = toDouble(ballDL.get("y"));
                 double radius = toDouble(ballDL.get("radius"));
                 int color = (Integer) ballDL.get("color");
-                com.balsamiq.HelloBallV8.Ball ball = new com.balsamiq.HelloBallV8.Ball((float) x, (float) y, (float) radius, color);
+                Ball ball = new Ball((float) x, (float) y, (float) radius, color);
                 balls.put(Integer.parseInt(key), ball);
 
             }
@@ -204,10 +204,10 @@ public class JavaModel {
             this.eps.countEvent();
         }
 
-        public void mouseMove(float x, float y) {
+        public void mouseMove(double x, double y) {
 
             if (this.mouseIsDown && selectedBallIndex != -1) {
-                this.model.setBallPosition(selectedBallIndex, x, y);
+                this.model.setBallPosition(selectedBallIndex, (float)x, (float)y);
                 this.makeDisplayList();
             }
             this.eps.countEvent();

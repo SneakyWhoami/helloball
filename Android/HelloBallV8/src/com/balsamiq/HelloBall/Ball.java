@@ -1,4 +1,4 @@
-package com.balsamiq.HelloBallV8;
+package com.balsamiq.HelloBall;
 
 /**
  * Created by morsini on 11/02/15.

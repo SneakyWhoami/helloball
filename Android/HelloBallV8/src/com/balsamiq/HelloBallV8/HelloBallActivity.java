@@ -7,13 +7,17 @@ import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import com.balsamiq.HelloBall.Ball;
+import com.balsamiq.HelloBall.IModel;
+import com.balsamiq.HelloBall.IModelObserver;
+import com.balsamiq.HelloBall.JavaModelWrapper;
 
 public class HelloBallActivity extends Activity implements IModelObserver {
 
     BallsDrawingView _view;
     TextView _fps;
-    JavaModelWrapper _model;
-//    JavaModel _model;
+    IModel _model;
+
 
     /**
      * Called when the activity is first created.
@@ -24,8 +28,8 @@ public class HelloBallActivity extends Activity implements IModelObserver {
         setContentView(R.layout.main);
         _view = (BallsDrawingView) findViewById(R.id.drawing_view);
 //        _model = new JavaModel(this, this);
-        _model = new JavaModelWrapper(this, this);
-        _view.setModelWrapper(_model);
+        _model = new JavaModelWrapper(AssetUtilities.readFromfile(this, "model.js"), this);
+        _view.setModel(_model);
         _fps = (TextView) findViewById(R.id.fps);
 
         Button start = (Button) findViewById(R.id.start);

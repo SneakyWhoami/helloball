@@ -1,56 +1,58 @@
-package com.balsamiq.HelloBallV8;
+package com.balsamiq.HelloBall;
 
-import android.app.Activity;
 import android.util.Log;
 import android.util.SparseArray;
+import com.balsamiq.HelloBallV8.AssetUtilities;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Iterator;
 
-public class JavaModelWrapper {
+public class JavaModelWrapper implements IModel {
 
     private native void loadJS(String js);
+
     private native void startModel(double sizeX, double sizeY);
+
     private native void initialize();
+
     private native void stopModel();
+
     private native void onMouseDown(double x, double y);
+
     private native void onMouseUp(double x, double y);
+
     private native void onMouseMove(double x, double y);
 
     protected IModelObserver _observer;
-    
+
     static {
         System.loadLibrary("model");
     }
-    
-    public JavaModelWrapper(Activity activity, IModelObserver observer) {
+
+    public JavaModelWrapper(String javascript, IModelObserver observer) {
         _observer = observer;
         initialize();
-        loadJS(AssetUtilities.readFromfile(activity, "model.js"));
+        loadJS(javascript);
     }
 
     public void start(float sizeX, float sizeY) {
         startModel(sizeX, sizeY);
     }
-    
-    public void stop()
-    {
+
+    public void stop() {
         stopModel();
     }
 
-    public void mouseDown(double x, double y)
-    {
+    public void mouseDown(double x, double y) {
         onMouseDown(x, y);
     }
-    
-    public void mouseUp(double x, double y)
-    {
+
+    public void mouseUp(double x, double y) {
         onMouseUp(x, y);
     }
-    
-    public void mouseMove(double x, double y)
-    {
+
+    public void mouseMove(double x, double y) {
         onMouseMove(x, y);
     }
 
