@@ -1,3 +1,5 @@
+'use strict';
+
 var BALL_COUNT = 100;
 var PENETRATION_TEST_ENABLED = true;
 
@@ -18,6 +20,8 @@ Ball.prototype.setRadius = function (radius) {
 
 var Model = function () {
     this.balls = [];
+    this.viewWidth = 0;
+    this.viewHeight = 0;
 };
 
 Model.prototype.addBall = function (ball) {
@@ -25,6 +29,8 @@ Model.prototype.addBall = function (ball) {
 };
 
 Model.prototype.setBallPosition = function (ballIndex, x, y) {
+    x = Math.max(Math.min(x, this.viewWidth), 0);
+    y = Math.max(Math.min(y, this.viewHeight), 0);
     this.balls[ballIndex].setPosition(x, y);
 };
 
@@ -32,12 +38,36 @@ Model.prototype.setBallRadius = function (ballIndex, radius) {
     this.balls[ballIndex].setRadius(radius);
 };
 
+Model.prototype.populate = function (viewWidth, viewHeight) {
+    this.viewWidth = viewWidth;
+    this.viewHeight = viewHeight;
+    
+    var getRandInt = function (min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    };
+    
+    var ballCount = BALL_COUNT;
+    var ballMinRadius = 18;
+    var ballMaxRadius = 44;
+    var i, ball;
+    
+    for (i = 0; i < ballCount; i += 1) {
+        var radius = getRandInt(ballMinRadius, ballMaxRadius);
+        ball = new Ball(
+                        getRandInt(radius, viewWidth - radius),
+                        getRandInt(radius, viewHeight - radius),
+                        radius
+                        );
+        this.addBall(ball);
+    }
+}
+
 var hitTest = function (balls, x, y) {
     var ballsHit = [];
     var i;
     for (i = 0; i < balls.length; i++) {
         if (Math.pow((x - balls[i].x), 2) + Math.pow((y - balls[i].y), 2) < Math.pow(balls[i].radius, 2)) {
-            ballsHit.push(i);
+            ballsHit.push({ index:i, offsetX: (x - balls[i].x), offsetY: (y - balls[i].y) });
         }
     }
     return ballsHit;
@@ -112,7 +142,7 @@ DisplayList.prototype.getChangedItems = function () {
 var Controller = function (model, delegate) {
     this.delegate = delegate;
     this.model = model;
-    this.selectedBallIndex = -1;
+    this.selectedBall = null;
     this.mouseIsDown = false;
     this.eps = new EventsCounter(delegate);
     this.displayList = new DisplayList(this.model.balls.length);
@@ -121,9 +151,9 @@ var Controller = function (model, delegate) {
 Controller.prototype.mouseDown = function (x, y) {
     var ballsHit = hitTest(this.model.balls, x, y);
     if (ballsHit.length > 0) {
-        this.selectedBallIndex = ballsHit[ballsHit.length - 1];
+        this.selectedBall = ballsHit[ballsHit.length - 1];
     } else {
-        this.selectedBallIndex = -1;
+        this.selectedBall = -1;
     }
     this.mouseIsDown = true;
     this.makeDisplayList();
@@ -132,8 +162,8 @@ Controller.prototype.mouseDown = function (x, y) {
 
 Controller.prototype.mouseMove = function (x, y) {
     var currentTime = Date.now();
-    if (this.mouseIsDown && this.selectedBallIndex !== -1) {
-        this.model.setBallPosition(this.selectedBallIndex, x, y);
+    if (this.mouseIsDown && this.selectedBall) {
+        this.model.setBallPosition(this.selectedBall.index, x - this.selectedBall.offsetX, y - this.selectedBall.offsetY);
         this.makeDisplayList();
     }
     this.eps.countEvent();
@@ -142,7 +172,7 @@ Controller.prototype.mouseMove = function (x, y) {
 
 Controller.prototype.mouseUp = function (x, y) {
     this.mouseIsDown = false;
-    if (this.selectedBallIndex !== -1) {
+    if (this.selectedBall) {
         this.makeDisplayList();
     }
     this.eps.countEvent();
@@ -155,7 +185,7 @@ Controller.prototype.makeDisplayList = function () {
     var color;
     var numHits;
     for (i = 0; i < this.model.balls.length; i++) {
-        if (this.selectedBallIndex == i) {
+        if (this.selectedBall && this.selectedBall.index == i) {
             if (this.mouseIsDown) {
                 color = 0x44FF44;
             } else {
@@ -177,51 +207,27 @@ Controller.prototype.makeDisplayList = function () {
     }
 
     if (this.delegate) {
-        this.delegate.displayListChanged(JSON.stringify(this.displayList.getChangedItems()));
+        this.delegate.displayListChanged(this.displayList.getChangedItems());
     }
 }
 
-var populateModel = function (model, viewWidth, viewHeight) {
-    var getRandInt = function (min, max) {
-        return Math.floor(Math.random() * (max - min)) + min;
-    };
-    
-    var ballCount = BALL_COUNT;
-    var ballMinRadius = 18;
-    var ballMaxRadius = 44;
-    var i, ball;
-    
-    for (i = 0; i < ballCount; i += 1) {
-        var radius = getRandInt(ballMinRadius, ballMaxRadius);
-        ball = new Ball(
-                        getRandInt(radius, viewWidth - radius),
-                        getRandInt(radius, viewHeight - radius),
-                        radius
-        );
-        model.addBall(ball);
+Controller.prototype.task = function () {
+    var time = Date.now();
+    var isOddSecond = (Math.floor(time / 1000) % 2) == 1;
+    var phase = (time % 1000) / 1000;
+    if (isOddSecond) {
+        phase = 1 - phase;
+    }
+    if (this.delegate.phaseChanged) {
+        this.delegate.phaseChanged(phase);
     }
 }
 
 var initApp = function (viewWidth, viewHeight, delegate) {
     var model = new Model();
-    populateModel(model, viewWidth, viewHeight);
+    model.populate(viewWidth, viewHeight);
     delegate.ballCountChanged(model.balls.length);
     var controller = new Controller(model, delegate);
     controller.makeDisplayList();
     return controller;
-}
-
-function modelStart(viewWidth, viewHeight) {
-    ModelObserver.modelController = initApp(viewWidth, viewHeight, ModelObserver);
-    appController = ModelObserver.modelController;
-    ModelObserver.appController = {};
-    ModelObserver.appController.mouseDown = function(x,y) {
-        ModelObserver.modelController.mouseDown(x,y);
-    };
-    ModelObserver.appController.mouseUp = function(x,y) {
-        ModelObserver.modelController.mouseUp(x,y);
-    };
-    ModelObserver.appController.mouseMove = function(x,y) {
-        ModelObserver.modelController.mouseMove(x,y);
-    };
 }

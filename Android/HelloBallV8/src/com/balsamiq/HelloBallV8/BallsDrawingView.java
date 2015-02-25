@@ -9,9 +9,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import com.balsamiq.HelloBall.Ball;
 import com.balsamiq.HelloBall.IModel;
-import com.balsamiq.HelloBall.JavaModelWrapper;
+import com.balsamiq.HelloBall.JavaModelV8;
 
 import java.util.Date;
+import java.util.HashMap;
 
 public class BallsDrawingView extends View  {
     private static final String TAG = "BoxDrawingView";
@@ -31,15 +32,15 @@ public class BallsDrawingView extends View  {
         mBackgroundPaint.setColor(0xfff8efe0);
     }
 
-    public void displayListChanged(SparseArray<Ball> balls)
+    public void displayListChanged(HashMap<Integer, Ball> balls)
     {
         if (_balls == null)
         {
             _balls = new Ball[balls.size()];
         }
         
-        for (int i = 0; i < balls.size(); ++i) {
-            _balls[balls.keyAt(i)] = balls.get(balls.keyAt(i));
+        for (int i : balls.keySet()) {
+            _balls[i] = balls.get(i);
         }
 
         Log.d("BallsDrawingView", "" + new Date().getTime());

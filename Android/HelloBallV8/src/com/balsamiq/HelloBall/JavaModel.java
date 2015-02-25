@@ -1,13 +1,11 @@
 package com.balsamiq.HelloBall;
 
-import android.app.Activity;
-import android.util.Log;
-import android.util.SparseArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 
 /**
@@ -20,7 +18,7 @@ public class JavaModel implements IModel {
     protected final int BALL_COUNT = 100;
     protected final boolean PENETRATION_TEST_ENABLED = true;
 
-    public JavaModel(Activity activity, IModelObserver observer) {
+    public JavaModel(IModelObserver observer) {
         _observer = observer;
     }
 
@@ -45,13 +43,13 @@ public class JavaModel implements IModel {
     }
 
     public void onBallCountChanged(int number) {
-        Log.d("ModelObserver", "ballCountChanged: " + number);
+        _observer.log("ballCountChanged: " + number);
     }
 
     public void onDisplayListChanged(String json) {
 
         try {
-            SparseArray<Ball> balls = new SparseArray<Ball>();
+            HashMap<Integer, Ball> balls = new HashMap<Integer, Ball>();
             JSONObject jsonObject = new JSONObject(json);
             Iterator<?> iterator = jsonObject.keys();
             while (iterator.hasNext()) {
@@ -89,7 +87,7 @@ public class JavaModel implements IModel {
 
     public void onLog(String message) {
 
-        Log.d("ModelObserver", message);
+        _observer.log(message);
     }
 
     class Model {
@@ -161,8 +159,8 @@ public class JavaModel implements IModel {
             }
         }
 
-        public SparseArray<Ball> getChangedItems() {
-            SparseArray<Ball> result = new SparseArray<Ball>();
+        public HashMap<Integer, Ball> getChangedItems() {
+            HashMap<Integer, Ball> result = new HashMap<Integer, Ball>();
             for (int ballIndex = 0; ballIndex < itemsChanged.length; ++ballIndex) {
                 if (itemsChanged[ballIndex]) {
                     result.put(ballIndex, items[ballIndex]);

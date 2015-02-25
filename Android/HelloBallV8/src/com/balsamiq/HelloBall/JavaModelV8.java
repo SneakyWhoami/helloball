@@ -1,14 +1,11 @@
 package com.balsamiq.HelloBall;
 
-import android.util.Log;
-import android.util.SparseArray;
-import com.balsamiq.HelloBallV8.AssetUtilities;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import java.util.HashMap;
 import java.util.Iterator;
 
-public class JavaModelWrapper implements IModel {
+public class JavaModelV8 implements IModel {
 
     private native void loadJS(String js);
 
@@ -27,10 +24,10 @@ public class JavaModelWrapper implements IModel {
     protected IModelObserver _observer;
 
     static {
-        System.loadLibrary("model");
+        System.loadLibrary("modelV8");
     }
 
-    public JavaModelWrapper(String javascript, IModelObserver observer) {
+    public JavaModelV8(String javascript, IModelObserver observer) {
         _observer = observer;
         initialize();
         loadJS(javascript);
@@ -57,13 +54,13 @@ public class JavaModelWrapper implements IModel {
     }
 
     public void onBallCountChanged(int number) {
-        Log.d("ModelObserver", "ballCountChanged: " + number);
+        _observer.log("ballCountChanged: " + number);
     }
 
     public void onDisplayListChanged(String json) {
 
         try {
-            SparseArray<Ball> balls = new SparseArray<Ball>();
+            HashMap<Integer, Ball> balls = new HashMap<Integer, Ball>();
             JSONObject jsonObject = new JSONObject(json);
             Iterator<?> iterator = jsonObject.keys();
             while (iterator.hasNext()) {
@@ -100,8 +97,7 @@ public class JavaModelWrapper implements IModel {
     }
 
     public void onLog(String message) {
-
-        Log.d("ModelObserver", message);
+        _observer.log(message);
     }
 
 }

@@ -1,0 +1,313 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		185B95791A9DDFFF00ECD223 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 185B95781A9DDFFF00ECD223 /* main.cpp */; };
+		185B95811A9DE43A00ECD223 /* v8Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 185B957F1A9DE43A00ECD223 /* v8Model.cpp */; };
+		185B95851A9DE4A100ECD223 /* MyModelObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 185B95831A9DE4A000ECD223 /* MyModelObserver.cpp */; };
+		185B95871A9DE85400ECD223 /* model.js in CopyFiles */ = {isa = PBXBuildFile; fileRef = 185B95861A9DE7A400ECD223 /* model.js */; };
+		185B95891A9DEBC000ECD223 /* custom.js in CopyFiles */ = {isa = PBXBuildFile; fileRef = 185B95881A9DEA9300ECD223 /* custom.js */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		185B95731A9DDFFF00ECD223 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = .;
+			dstSubfolderSpec = 16;
+			files = (
+				185B95871A9DE85400ECD223 /* model.js in CopyFiles */,
+				185B95891A9DEBC000ECD223 /* custom.js in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		185B95751A9DDFFF00ECD223 /* HelloBallV8Console */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HelloBallV8Console; sourceTree = BUILT_PRODUCTS_DIR; };
+		185B95781A9DDFFF00ECD223 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		185B957F1A9DE43A00ECD223 /* v8Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = v8Model.cpp; path = ../../HelloBallV8/jni/v8Model.cpp; sourceTree = "<group>"; };
+		185B95801A9DE43A00ECD223 /* v8Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = v8Model.h; path = ../../HelloBallV8/jni/v8Model.h; sourceTree = "<group>"; };
+		185B95821A9DE47B00ECD223 /* IModelObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IModelObserver.h; path = ../../HelloBallV8/jni/IModelObserver.h; sourceTree = "<group>"; };
+		185B95831A9DE4A000ECD223 /* MyModelObserver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MyModelObserver.cpp; sourceTree = "<group>"; };
+		185B95841A9DE4A000ECD223 /* MyModelObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyModelObserver.h; sourceTree = "<group>"; };
+		185B95861A9DE7A400ECD223 /* model.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = model.js; path = ../../HelloBallV8/assets/model.js; sourceTree = "<group>"; };
+		185B95881A9DEA9300ECD223 /* custom.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = custom.js; path = ../../HelloBallV8/assets/custom.js; sourceTree = "<group>"; };
+		185B958B1A9DED8400ECD223 /* document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
+		185B958C1A9DED8400ECD223 /* filestream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filestream.h; sourceTree = "<group>"; };
+		185B958E1A9DED8400ECD223 /* pow10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pow10.h; sourceTree = "<group>"; };
+		185B958F1A9DED8400ECD223 /* stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
+		185B95901A9DED8400ECD223 /* strfunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strfunc.h; sourceTree = "<group>"; };
+		185B95911A9DED8400ECD223 /* prettywriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = prettywriter.h; sourceTree = "<group>"; };
+		185B95921A9DED8400ECD223 /* rapidjson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rapidjson.h; sourceTree = "<group>"; };
+		185B95931A9DED8400ECD223 /* reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reader.h; sourceTree = "<group>"; };
+		185B95941A9DED8400ECD223 /* stringbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stringbuffer.h; sourceTree = "<group>"; };
+		185B95951A9DED8400ECD223 /* writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = writer.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		185B95721A9DDFFF00ECD223 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		185B956C1A9DDFFF00ECD223 = {
+			isa = PBXGroup;
+			children = (
+				185B95771A9DDFFF00ECD223 /* HelloBallV8Console */,
+				185B95761A9DDFFF00ECD223 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		185B95761A9DDFFF00ECD223 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				185B95751A9DDFFF00ECD223 /* HelloBallV8Console */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		185B95771A9DDFFF00ECD223 /* HelloBallV8Console */ = {
+			isa = PBXGroup;
+			children = (
+				185B958A1A9DED8400ECD223 /* rapidjson */,
+				185B95861A9DE7A400ECD223 /* model.js */,
+				185B95821A9DE47B00ECD223 /* IModelObserver.h */,
+				185B957F1A9DE43A00ECD223 /* v8Model.cpp */,
+				185B95801A9DE43A00ECD223 /* v8Model.h */,
+				185B95781A9DDFFF00ECD223 /* main.cpp */,
+				185B95831A9DE4A000ECD223 /* MyModelObserver.cpp */,
+				185B95841A9DE4A000ECD223 /* MyModelObserver.h */,
+				185B95881A9DEA9300ECD223 /* custom.js */,
+			);
+			path = HelloBallV8Console;
+			sourceTree = "<group>";
+		};
+		185B958A1A9DED8400ECD223 /* rapidjson */ = {
+			isa = PBXGroup;
+			children = (
+				185B958B1A9DED8400ECD223 /* document.h */,
+				185B958C1A9DED8400ECD223 /* filestream.h */,
+				185B958D1A9DED8400ECD223 /* internal */,
+				185B95911A9DED8400ECD223 /* prettywriter.h */,
+				185B95921A9DED8400ECD223 /* rapidjson.h */,
+				185B95931A9DED8400ECD223 /* reader.h */,
+				185B95941A9DED8400ECD223 /* stringbuffer.h */,
+				185B95951A9DED8400ECD223 /* writer.h */,
+			);
+			path = rapidjson;
+			sourceTree = "<group>";
+		};
+		185B958D1A9DED8400ECD223 /* internal */ = {
+			isa = PBXGroup;
+			children = (
+				185B958E1A9DED8400ECD223 /* pow10.h */,
+				185B958F1A9DED8400ECD223 /* stack.h */,
+				185B95901A9DED8400ECD223 /* strfunc.h */,
+			);
+			path = internal;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		185B95741A9DDFFF00ECD223 /* HelloBallV8Console */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 185B957C1A9DDFFF00ECD223 /* Build configuration list for PBXNativeTarget "HelloBallV8Console" */;
+			buildPhases = (
+				185B95711A9DDFFF00ECD223 /* Sources */,
+				185B95721A9DDFFF00ECD223 /* Frameworks */,
+				185B95731A9DDFFF00ECD223 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HelloBallV8Console;
+			productName = HelloBallV8Console;
+			productReference = 185B95751A9DDFFF00ECD223 /* HelloBallV8Console */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		185B956D1A9DDFFF00ECD223 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Michele Orsini";
+				TargetAttributes = {
+					185B95741A9DDFFF00ECD223 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 185B95701A9DDFFF00ECD223 /* Build configuration list for PBXProject "HelloBallV8Console" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 185B956C1A9DDFFF00ECD223;
+			productRefGroup = 185B95761A9DDFFF00ECD223 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				185B95741A9DDFFF00ECD223 /* HelloBallV8Console */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		185B95711A9DDFFF00ECD223 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				185B95851A9DE4A100ECD223 /* MyModelObserver.cpp in Sources */,
+				185B95791A9DDFFF00ECD223 /* main.cpp in Sources */,
+				185B95811A9DE43A00ECD223 /* v8Model.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		185B957A1A9DDFFF00ECD223 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		185B957B1A9DDFFF00ECD223 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		185B957D1A9DDFFF00ECD223 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"HEADER_SEARCH_PATHS[arch=*]" = /Users/morsini/tmp/v8;
+				"LIBRARY_SEARCH_PATHS[arch=*]" = /Users/morsini/tmp/v8_libs/native;
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-lv8_base",
+					"-lv8_libbase",
+					"-lv8_snapshot",
+					"-lv8_libplatform",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		185B957E1A9DDFFF00ECD223 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"HEADER_SEARCH_PATHS[arch=*]" = /Users/morsini/tmp/v8;
+				"LIBRARY_SEARCH_PATHS[arch=*]" = /Users/morsini/tmp/v8_libs/native;
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-lv8_base",
+					"-lv8_libbase",
+					"-lv8_snapshot",
+					"-lv8_libplatform",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		185B95701A9DDFFF00ECD223 /* Build configuration list for PBXProject "HelloBallV8Console" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				185B957A1A9DDFFF00ECD223 /* Debug */,
+				185B957B1A9DDFFF00ECD223 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		185B957C1A9DDFFF00ECD223 /* Build configuration list for PBXNativeTarget "HelloBallV8Console" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				185B957D1A9DDFFF00ECD223 /* Debug */,
+				185B957E1A9DDFFF00ECD223 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 185B956D1A9DDFFF00ECD223 /* Project object */;
+}

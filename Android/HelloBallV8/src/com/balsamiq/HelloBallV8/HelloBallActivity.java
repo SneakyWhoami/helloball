@@ -10,7 +10,9 @@ import android.widget.TextView;
 import com.balsamiq.HelloBall.Ball;
 import com.balsamiq.HelloBall.IModel;
 import com.balsamiq.HelloBall.IModelObserver;
-import com.balsamiq.HelloBall.JavaModelWrapper;
+import com.balsamiq.HelloBall.JavaModelV8;
+
+import java.util.HashMap;
 
 public class HelloBallActivity extends Activity implements IModelObserver {
 
@@ -28,7 +30,10 @@ public class HelloBallActivity extends Activity implements IModelObserver {
         setContentView(R.layout.main);
         _view = (BallsDrawingView) findViewById(R.id.drawing_view);
 //        _model = new JavaModel(this, this);
-        _model = new JavaModelWrapper(AssetUtilities.readFromfile(this, "model.js"), this);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(AssetUtilities.readFromfile(this, "custom.js"));
+        stringBuilder.append(AssetUtilities.readFromfile(this, "model.js"));
+        _model = new JavaModelV8(stringBuilder.toString(), this);
         _view.setModel(_model);
         _fps = (TextView) findViewById(R.id.fps);
 
@@ -56,7 +61,7 @@ public class HelloBallActivity extends Activity implements IModelObserver {
 
     }
 
-    public void displayListChanged(SparseArray<Ball> balls) {
+    public void displayListChanged(HashMap<Integer, Ball> balls) {
         _view.displayListChanged(balls);
     }
 
