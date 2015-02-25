@@ -134,6 +134,7 @@ void NativeValue::dump(std::ostringstream &output, size_t indentLevel)
 		std::vector<std::string> keys = objectKeys();
 		size_t j;
 		for (j = 0; j < keys.size(); j++) {
+			s << indentString << "\t" << keys[j] << std::endl;
 			objectEntry(keys[j])->dump(s, indentLevel + 1);
 		}
 		s << indentString << "}";

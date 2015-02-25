@@ -5,7 +5,10 @@
  *      Author: pepo
  */
 
+#include <iostream>
+
 #include "Controller.h"
+
 
 Controller::Controller(HelloBallWindow *window) {
 	m_window = window;
@@ -19,6 +22,7 @@ Controller::~Controller() {
 bool Controller::init()
 {
 	m_bridge = new JSBridge();
+	m_bridge->signal_ball_count_changed().connect(sigc::mem_fun(this, &Controller::on_ball_count_changed));
 	return m_bridge->startEngine(400, 400);
 }
 
@@ -30,4 +34,9 @@ void Controller::on_execute_button_clicked()
 	std::string d = n->toString();
 	Glib::RefPtr<Gtk::TextBuffer> buffer = m_window->outputText.get_buffer();
 	buffer->insert(buffer->end(), d + "\n");
+}
+
+void Controller::on_ball_count_changed(size_t count)
+{
+	std::cout << "ball count changed: " << count << std::endl;
 }

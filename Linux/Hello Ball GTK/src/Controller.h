@@ -23,6 +23,7 @@ protected:
 	HelloBallWindow *m_window;
 
 	void on_execute_button_clicked();
+	void on_ball_count_changed(size_t count);
 };
 
 #endif /* CONTROLLER_H_ */

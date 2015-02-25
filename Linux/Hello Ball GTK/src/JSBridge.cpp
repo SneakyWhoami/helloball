@@ -7,8 +7,10 @@
 
 #include <iostream>
 #include <stdlib.h>
+#include <glibmm.h>
 
 #include "JSBridge.h"
+
 
 JSBridge::JSBridge() {
 	m_context = NULL;
@@ -21,12 +23,36 @@ JSBridge::~JSBridge() {
 
 bool JSBridge::startEngine(int viewWidth, int viewHeight)
 {
-	m_context = JSGlobalContextCreate(NULL);
-	if (m_context) {
-		JSStringRef name = JSStringCreateWithUTF8CString("Array");
-		m_Array = (JSObjectRef)JSObjectGetProperty(m_context, JSContextGetGlobalObject(m_context), name, NULL);
-		JSStringRelease(name);
-	}
+	// define a custom global object class that accepts private data
+	JSClassDefinition def = kJSClassDefinitionEmpty;
+	def.className = "Object";
+	JSClassRef ref = JSClassCreate(&def);
+	m_context = JSGlobalContextCreate(ref);
+	JSObjectSetPrivate(JSContextGetGlobalObject(m_context), this);
+
+	// save Array and Function constructors
+	JSStringRef arrayString = JSStringCreateWithUTF8CString("Array");
+	m_Array = (JSObjectRef)JSObjectGetProperty(m_context, JSContextGetGlobalObject(m_context), arrayString, NULL);
+	JSStringRelease(arrayString);
+	JSStringRef functionString = JSStringCreateWithUTF8CString("Function");
+	m_Function = (JSObjectRef)JSObjectGetProperty(m_context, JSContextGetGlobalObject(m_context), functionString, NULL);
+	JSStringRelease(functionString);
+
+	// load and execute Model.js
+	std::string script = Glib::file_get_contents("/home/pepo/code/helloball/common/js/model.js");
+	JSValueRef v = executeScript(script.c_str());
+	std::cout << makeNativeValue(v)->toString() << std::endl;
+
+	JSObjectRef delegate = JSObjectMake(m_context, NULL, NULL);
+	JSStringRef delegateName = JSStringCreateWithUTF8CString("delegate");
+	JSObjectSetProperty(m_context, JSContextGetGlobalObject(m_context), delegateName, delegate, kJSPropertyAttributeNone, NULL);
+	JSStringRelease(delegateName);
+
+	m_ballCountChangedCallback = defineFunctionWithCallback(delegate, "ballCountChanged");
+	m_displayListChangedCallback = defineFunctionWithCallback(delegate, "displayListChanged");
+	m_epsCallback = defineFunctionWithCallback(delegate, "eventsPerSecond");
+	m_phaseChangedCallback = defineFunctionWithCallback(delegate, "phaseChanged");
+
 	return m_context != NULL;
 }
 
@@ -85,6 +111,8 @@ NativeValuePtr JSBridge::makeNativeValue(JSValueRef value)
 				JSValueRef v = JSObjectGetPropertyAtIndex(m_context, o, i, NULL);
 				n->pushArrayItem(makeNativeValue(v));
 			}
+		} else if (c == m_Function) {
+			// do nothing
 		} else {
 			n->setObjectValue();
 			JSPropertyNameArrayRef names = JSObjectCopyPropertyNames(m_context, o);
@@ -113,4 +141,36 @@ JSObjectRef JSBridge::getConstructor(JSObjectRef object)
 {
 	JSValueRef v = getProperty(object, "constructor");
 	return (JSObjectRef)v;
+}
+
+JSObjectRef JSBridge::defineFunctionWithCallback(JSObjectRef object, const char *name)
+{
+	JSStringRef functionName = JSStringCreateWithUTF8CString(name);
+	JSObjectRef function = JSObjectMakeFunctionWithCallback(m_context, functionName, &JSBridge::staticCallback);
+	JSObjectSetProperty(m_context, object, functionName, function, kJSPropertyAttributeNone, NULL);
+	JSStringRelease(functionName);
+	return function;
+}
+
+JSValueRef JSBridge::staticCallback(JSContextRef ctx, JSObjectRef function, JSObjectRef thisObject, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception)
+{
+	JSBridge *b = (JSBridge *)JSObjectGetPrivate(JSContextGetGlobalObject(ctx));
+	return b->callback(function, thisObject, argumentCount, arguments, exception);
+}
+
+JSValueRef JSBridge::callback(JSObjectRef function, JSObjectRef thisObject, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception)
+{
+	JSValueRef result = JSValueMakeUndefined(m_context);
+
+	if (function == m_ballCountChangedCallback) {
+
+	} else if (function == m_displayListChangedCallback) {
+
+	} else if (function == m_epsCallback) {
+
+	} else if (function == m_phaseChangedCallback) {
+
+	}
+
+	return result;
 }
