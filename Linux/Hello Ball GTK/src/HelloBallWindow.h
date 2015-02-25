@@ -5,6 +5,7 @@
 #include <gtkmm/button.h>
 #include <gtkmm/window.h>
 #include <gtkmm/textview.h>
+#include <gtkmm/scrolledwindow.h>
 
 class HelloBallWindow : public Gtk::Window
 {
@@ -15,13 +16,10 @@ public:
 
   Gtk::Fixed fixed;
   Gtk::Button executeButton;
+  Gtk::ScrolledWindow inputScroll;
   Gtk::TextView inputText;
+  Gtk::ScrolledWindow outputScroll;
   Gtk::TextView outputText;
-
-  //Signal handlers:
-  void on_button_clicked();
-
-  //Member widgets:
 };
 
 #endif // GTKMM_EXAMPLE_HELLOWORLD_H

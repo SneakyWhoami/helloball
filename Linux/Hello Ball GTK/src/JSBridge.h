@@ -14,9 +14,6 @@
 #include "NativeValue.h"
 
 
-typedef sigc::signal<void, size_t> BallCountChangedSignal;
-
-
 class JSBridge {
 public:
 	JSBridge();
@@ -29,7 +26,10 @@ public:
 	std::string makeString(JSValueRef str);
 	NativeValuePtr makeNativeValue(JSValueRef value);
 
-	BallCountChangedSignal signal_ball_count_changed() { return m_ballCountChangedSignal; }
+	sigc::signal<void, size_t> signal_ball_count_changed;
+	sigc::signal<void, double> signal_events_per_second;
+	sigc::signal<void, double> signal_phase_changed;
+	sigc::signal<void, NativeValuePtr> signal_displaylist_changed;
 
 protected:
 	JSGlobalContextRef m_context = NULL;
@@ -49,8 +49,6 @@ protected:
 
 	static JSValueRef staticCallback(JSContextRef ctx, JSObjectRef function, JSObjectRef thisObject, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception);
 	JSValueRef callback(JSObjectRef function, JSObjectRef thisObject, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception);
-
-	BallCountChangedSignal m_ballCountChangedSignal;
 };
 
 #endif /* JSBRIDGE_H_ */

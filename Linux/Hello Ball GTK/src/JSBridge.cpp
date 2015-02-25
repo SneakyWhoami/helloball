@@ -163,13 +163,13 @@ JSValueRef JSBridge::callback(JSObjectRef function, JSObjectRef thisObject, size
 	JSValueRef result = JSValueMakeUndefined(m_context);
 
 	if (function == m_ballCountChangedCallback) {
-
+		signal_ball_count_changed.emit(makeNativeValue(arguments[0])->doubleValue());
 	} else if (function == m_displayListChangedCallback) {
-
+		signal_displaylist_changed.emit(makeNativeValue(arguments[0]));
 	} else if (function == m_epsCallback) {
-
+		signal_events_per_second.emit(makeNativeValue(arguments[0])->doubleValue());
 	} else if (function == m_phaseChangedCallback) {
-
+		signal_phase_changed.emit(makeNativeValue(arguments[0])->doubleValue());
 	}
 
 	return result;

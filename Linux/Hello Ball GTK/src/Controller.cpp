@@ -22,7 +22,12 @@ Controller::~Controller() {
 bool Controller::init()
 {
 	m_bridge = new JSBridge();
-	m_bridge->signal_ball_count_changed().connect(sigc::mem_fun(this, &Controller::on_ball_count_changed));
+
+	m_bridge->signal_ball_count_changed.connect(sigc::mem_fun(this, &Controller::on_ball_count_changed));
+	m_bridge->signal_events_per_second.connect(sigc::mem_fun(this, &Controller::on_events_per_second));
+	m_bridge->signal_phase_changed.connect(sigc::mem_fun(this, &Controller::on_phase_changed));
+	m_bridge->signal_displaylist_changed.connect(sigc::mem_fun(this, &Controller::on_displaylist_changed));
+
 	return m_bridge->startEngine(400, 400);
 }
 
@@ -39,4 +44,19 @@ void Controller::on_execute_button_clicked()
 void Controller::on_ball_count_changed(size_t count)
 {
 	std::cout << "ball count changed: " << count << std::endl;
+}
+
+void Controller::on_events_per_second(double eps)
+{
+
+}
+
+void Controller::on_displaylist_changed(NativeValuePtr obj)
+{
+
+}
+
+void Controller::on_phase_changed(double phase)
+{
+
 }

@@ -9,6 +9,7 @@
  */
 
 #include <iostream>
+#include <gtkmm/scrolledwindow.h>
 
 #include "HelloBallWindow.h"
 
@@ -22,27 +23,21 @@ HelloBallWindow::HelloBallWindow()
 
 	add(fixed);
 
-	inputText.set_size_request(800, 70);
-	fixed.put(inputText, 0, 0);
+	inputScroll.set_size_request(800, 70);
+	inputScroll.add(inputText);
+	fixed.put(inputScroll, 0, 0);
 
-//	executeButton.signal_clicked().connect(sigc::mem_fun(*this, &HelloBallWindow::on_button_clicked));
 	executeButton.set_size_request(800, 40);
 	fixed.put(executeButton, 0, 70);
 
-	outputText.set_size_request(800, 70);
+	outputScroll.set_size_request(800, 70);
+	outputScroll.add(outputText);
 	outputText.set_editable(false);
-	fixed.put(outputText, 0, 110);
+	fixed.put(outputScroll, 0, 110);
 
 	show_all_children();
 }
 
 HelloBallWindow::~HelloBallWindow()
 {
-}
-
-void HelloBallWindow::on_button_clicked()
-{
-	Glib::ustring text = inputText.get_buffer()->get_text();
-	Glib::RefPtr<Gtk::TextBuffer> buffer = outputText.get_buffer();
-	buffer->insert(buffer->end(), text + "\n");
 }
