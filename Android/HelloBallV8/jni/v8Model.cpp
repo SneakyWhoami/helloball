@@ -1,11 +1,26 @@
 #include <string.h>
 #include <string>
-#include <iostream>
 #include "include/v8.h"
 #include "include/libplatform/libplatform.h"
 #include "v8Model.h"
 
 using namespace v8;
+
+void phaseChanged(const FunctionCallbackInfo<Value>& args)
+{
+    EscapableHandleScope scope(args.GetIsolate());
+    
+    if (args.Length() < 1) {
+        return;
+    }
+    
+    double phase = args[0]->NumberValue();
+    
+    Local<Object> self = args.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    static_cast<IModelObserver*>(ptr)->phase(phase);
+}
 
 void ballCountChanged(const FunctionCallbackInfo<Value>& args)
 {
@@ -21,9 +36,6 @@ void ballCountChanged(const FunctionCallbackInfo<Value>& args)
     Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
     void* ptr = wrap->Value();
     static_cast<IModelObserver*>(ptr)->ball_count(A);
-    
-    
-    std::cout << "ballCountChanged:" << A << std::endl;
 }
 
 void displayListChanged(const FunctionCallbackInfo<Value>& args)
@@ -42,8 +54,6 @@ void displayListChanged(const FunctionCallbackInfo<Value>& args)
     std::string foo = std::string(*param1);
     
     static_cast<IModelObserver*>(ptr)->display_list(foo);
-    
-    std::cout << "displayListChanged:" << foo << std::endl;
 }
 
 void eventsPerSecond(const FunctionCallbackInfo<Value>& args)
@@ -59,8 +69,6 @@ void eventsPerSecond(const FunctionCallbackInfo<Value>& args)
     Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
     void* ptr = wrap->Value();
     static_cast<IModelObserver*>(ptr)->events_per_second(A);
-
-    std::cout << "eventsPerSecond:" << A << std::endl;
 }
 
 void log(const FunctionCallbackInfo<Value>& args)
@@ -72,7 +80,6 @@ void log(const FunctionCallbackInfo<Value>& args)
     }
     Local<String> dl = args[0]->ToString();
     String::Utf8Value dlValue(dl);
-    std::cout << "log:" << *dl << std::endl;
 }
 
 v8Model::v8Model(IModelObserver *observer)
@@ -97,6 +104,7 @@ v8Model::v8Model(IModelObserver *observer)
     global->Set(String::NewFromUtf8(isolate, "ballCountChanged"), FunctionTemplate::New(isolate, ballCountChanged));
     global->Set(String::NewFromUtf8(isolate, "displayListChanged"), FunctionTemplate::New(isolate, displayListChanged));
     global->Set(String::NewFromUtf8(isolate, "eventsPerSecond"), FunctionTemplate::New(isolate, eventsPerSecond));
+    global->Set(String::NewFromUtf8(isolate, "phaseChanged"), FunctionTemplate::New(isolate, phaseChanged));
     global->Set(String::NewFromUtf8(isolate, "log"), FunctionTemplate::New(isolate, log));
     
     // Create a new context.
@@ -121,7 +129,7 @@ v8Model::~v8Model()
     delete platform;
 }
 
-void v8Model::loadJS(const char* javascript)
+void v8Model::loadJS(const char* javascript, const char* source)
 {
     HandleScope handle_scope(isolate);
     Local<Context> context = Local<Context>::New(isolate, context_);
@@ -132,7 +140,7 @@ void v8Model::loadJS(const char* javascript)
 
     // Compile the source code.
     TryCatch try_catch;
-    Local<String> scriptName = String::NewFromUtf8(isolate, "model.js");
+    Local<String> scriptName = String::NewFromUtf8(isolate, source);
     ScriptOrigin origin = ScriptOrigin(scriptName);
     
     //compile script to binary code - JIT
@@ -140,7 +148,9 @@ void v8Model::loadJS(const char* javascript)
     
     //check if we got problems on compilation
     if (script.IsEmpty()) {
-        // TODO???
+        Local<Value> stack = try_catch.StackTrace();
+        String::Utf8Value stack_str(stack);
+        model->log(*stack_str);
     }
     else
     {
@@ -168,9 +178,39 @@ void v8Model::startModel(double width, double height)
     args[1] = Number::New(isolate, height);
 
     js_result = func->Call(context->Global(), 2, args);
+    if (js_result.IsEmpty()) {
+        Local<Value> stack = try_catch.StackTrace();
+        String::Utf8Value stack_str(stack);
+        model->log(*stack_str);
+    }
 }
 
 void v8Model::callMouseMethod(const char *mouseXXXMethod, double x, double y)
+{
+    HandleScope handle_scope(isolate);
+    v8::Local<v8::Context> context = Local<Context>::New(isolate, context_);
+    
+    // Enter this processor's context so all the remaining operations
+    // take place there
+    Context::Scope context_scope(context);
+    TryCatch try_catch(isolate);
+    
+    Local<Value> js_result;
+    Local<Object> ModelObserver = Local<Object>::Cast(context->Global()->Get(String::NewFromUtf8(isolate, "ModelObserver")));
+    Local<Object> appController = Local<Object>::Cast(ModelObserver->Get(String::NewFromUtf8(isolate, "appController")));
+    Local<Function> func1 = Local<Function>::Cast(appController->Get(String::NewFromUtf8(isolate, mouseXXXMethod)));
+    Local<Value> args1[2];
+    args1[0] = Number::New(isolate, x);
+    args1[1] = Number::New(isolate, y);
+    js_result = func1->Call(context->Global(), 2, args1);
+    if (js_result.IsEmpty()) {
+        Local<Value> stack = try_catch.StackTrace();
+        String::Utf8Value stack_str(stack);
+        model->log(*stack_str);
+    }
+}
+
+void v8Model::task()
 {
     HandleScope handle_scope(isolate);
     v8::Local<v8::Context> context = Local<Context>::New(isolate, context_);
@@ -183,11 +223,11 @@ void v8Model::callMouseMethod(const char *mouseXXXMethod, double x, double y)
     Local<Value> js_result;
     Local<Object> ModelObserver = Local<Object>::Cast(context->Global()->Get(String::NewFromUtf8(isolate, "ModelObserver")));
     Local<Object> appController = Local<Object>::Cast(ModelObserver->Get(String::NewFromUtf8(isolate, "appController")));
-    Local<Function> func1 = Local<Function>::Cast(appController->Get(String::NewFromUtf8(isolate, mouseXXXMethod)));
-    Local<Value> args1[2];
-    args1[0] = Number::New(isolate, x);
-    args1[1] = Number::New(isolate, y);
-    js_result = func1->Call(context->Global(), 2, args1);
+    Local<Function> func1 = Local<Function>::Cast(appController->Get(String::NewFromUtf8(isolate, "task")));
+    js_result = func1->Call(context->Global(), 0, NULL);
+    if (js_result.IsEmpty()) {
+        Local<Value> stack = try_catch.StackTrace();
+        String::Utf8Value stack_str(stack);
+        model->log(*stack_str);
+    }
 }
-
-

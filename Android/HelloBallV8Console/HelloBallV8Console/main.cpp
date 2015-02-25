@@ -20,13 +20,13 @@ int main(int argc, const char * argv[]) {
     std::ifstream t("model.js");
     std::string str((std::istreambuf_iterator<char>(t)),
                     std::istreambuf_iterator<char>());
+    model->loadJS(str.c_str(), "model.js");
     
     std::ifstream t2("custom.js");
     std::string str2((std::istreambuf_iterator<char>(t2)),
                     std::istreambuf_iterator<char>());
+    model->loadJS(str2.c_str(), "custom.js");
     
-    std::string script = str2 + str;
-    model->loadJS(script.c_str());
     model->startModel(1000, 1000);
     
     rapidjson::Document d;
@@ -56,6 +56,7 @@ int main(int argc, const char * argv[]) {
         
     }
     
+    model->task();
     model->callMouseMethod("mouseDown", x, y);
     model->callMouseMethod("mouseMove", x + 10, y + 10);
     model->callMouseMethod("mouseUp", x + 10, y + 10);

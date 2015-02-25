@@ -20,13 +20,14 @@ public:
     v8Model(IModelObserver *observer);
     ~v8Model();
         
-    void loadJS(const char* javascript);
+    void loadJS(const char* javascript, const char* source);
     void startModel(double width, double height);
     void callMouseMethod(const char *mouseXXXMethod, double x, double y);
     
     const std::string& display_list();
     int ball_count();
     int events_per_second();
+    void task();
 };
 
 #endif // V8_MODEL_INCLUDE
