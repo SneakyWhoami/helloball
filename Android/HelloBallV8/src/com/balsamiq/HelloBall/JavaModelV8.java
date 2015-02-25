@@ -7,7 +7,7 @@ import java.util.Iterator;
 
 public class JavaModelV8 implements IModel {
 
-    private native void loadJS(String js);
+    private native void loadJS(String js, String jsName);
 
     private native void startModel(double sizeX, double sizeY);
 
@@ -27,10 +27,14 @@ public class JavaModelV8 implements IModel {
         System.loadLibrary("modelV8");
     }
 
-    public JavaModelV8(String javascript, IModelObserver observer) {
+    public JavaModelV8(IModelObserver observer) {
         _observer = observer;
         initialize();
-        loadJS(javascript);
+    }
+    
+    public void load(String javascript, String jsName)
+    {
+        loadJS(javascript, jsName);
     }
 
     public void start(float sizeX, float sizeY) {
@@ -99,5 +103,9 @@ public class JavaModelV8 implements IModel {
     public void onLog(String message) {
         _observer.log(message);
     }
-
+    
+    public void onPhaseChanged(double phaseValue)
+    {
+        _observer.phaseChanged(phaseValue);
+    }
 }

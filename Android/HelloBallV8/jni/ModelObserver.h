@@ -15,6 +15,7 @@ protected:
     int _eventsPerSecond;
     JNIEnv *_env;
     jobject _obj;
+    double _phase;
 
 public:
     void push_env(JNIEnv *env, jobject obj);
@@ -24,6 +25,12 @@ public:
     int events_per_second();
     void events_per_second(int evt);
     void display_list(const std::string& dl);
+    
+    void phase(double phase_value);
+    double phase();
+
+    // debug only
+    void log(const std::string& message);
 };
 
 #endif //MODELOBSERVER_INCLUDE

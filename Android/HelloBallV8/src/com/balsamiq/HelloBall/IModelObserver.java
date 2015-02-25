@@ -13,5 +13,7 @@ public interface IModelObserver {
     void eventsPerSecond(int events);
 
     void log(String message);
+    
+    void phaseChanged(double value);
 
 }

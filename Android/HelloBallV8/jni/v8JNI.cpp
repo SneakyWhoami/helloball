@@ -14,11 +14,12 @@ using namespace v8;
 v8Model *v8Wrapper;
 ModelObserver *observer;
 
-JNIEXPORT void JNICALL Java_com_balsamiq_HelloBall_JavaModelV8_loadJS(JNIEnv *env, jobject obj, jstring js) {
+JNIEXPORT void JNICALL Java_com_balsamiq_HelloBall_JavaModelV8_loadJS(JNIEnv *env, jobject obj, jstring js, jstring jsName) {
     observer->push_env(env, obj);
     jboolean copy;
     const char* javascript = env->GetStringUTFChars(js, &copy);
-    v8Wrapper->loadJS(javascript);
+    const char* javascriptName = env->GetStringUTFChars(jsName, &copy);
+    v8Wrapper->loadJS(javascript, javascriptName);
 }
 
 JNIEXPORT void JNICALL Java_com_balsamiq_HelloBall_JavaModelV8_startModel

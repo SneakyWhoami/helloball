@@ -63,4 +63,34 @@ void ModelObserver::display_list(const std::string& dl)
     _env->DeleteLocalRef(dlJString);
 }
 
+void ModelObserver::phase(double phase_value)
+{
+    _phase = phase_value;
+    jclass cls = _env->GetObjectClass(_obj);
+    jmethodID mid = _env->GetMethodID(cls, "onPhaseChanged", "(D)V");
+    if (mid == 0) {
+        return;
+    }
+    
+    _env->CallVoidMethod(_obj, mid, phase_value);
+}
+
+double ModelObserver::phase()
+{
+    return _phase;
+}
+
+void ModelObserver::log(const std::string& message)
+{
+    jclass cls = _env->GetObjectClass(_obj);
+    jmethodID mid = _env->GetMethodID(cls, "onLog", "(Ljava/lang/String;)V");
+    if (mid == 0) {
+        return;
+    }
+
+    jstring dlJString = _env->NewStringUTF(message.c_str());
+    _env->CallVoidMethod(_obj, mid, dlJString);
+    _env->DeleteLocalRef(dlJString);
+}
+
 

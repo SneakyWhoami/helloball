@@ -10,10 +10,10 @@ extern "C" {
 /*
  * Class:     com_balsamiq_HelloBall_JavaModelV8
  * Method:    loadJS
- * Signature: (Ljava/lang/String;)V
+ * Signature: (Ljava/lang/String;Ljava/lang/String;)V
  */
 JNIEXPORT void JNICALL Java_com_balsamiq_HelloBall_JavaModelV8_loadJS
-  (JNIEnv *, jobject, jstring);
+  (JNIEnv *, jobject, jstring, jstring);
 
 /*
  * Class:     com_balsamiq_HelloBall_JavaModelV8

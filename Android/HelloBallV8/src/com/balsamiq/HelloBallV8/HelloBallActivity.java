@@ -29,11 +29,10 @@ public class HelloBallActivity extends Activity implements IModelObserver {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         _view = (BallsDrawingView) findViewById(R.id.drawing_view);
-//        _model = new JavaModel(this, this);
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(AssetUtilities.readFromfile(this, "custom.js"));
-        stringBuilder.append(AssetUtilities.readFromfile(this, "model.js"));
-        _model = new JavaModelV8(stringBuilder.toString(), this);
+        JavaModelV8 model = new JavaModelV8(this);
+        _model = model;
+        model.load(AssetUtilities.readFromfile(this, "model.js"), "model.js");
+        model.load(AssetUtilities.readFromfile(this, "custom.js"), "custom.js");
         _view.setModel(_model);
         _fps = (TextView) findViewById(R.id.fps);
 
@@ -68,5 +67,12 @@ public class HelloBallActivity extends Activity implements IModelObserver {
     @Override
     protected void onResume() {
         super.onResume();
+    }
+    
+    @Override
+    public void phaseChanged(double value)
+    {
+        
+        
     }
 }
