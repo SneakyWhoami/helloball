@@ -11,8 +11,15 @@
 #include <gtkmm/drawingarea.h>
 #include <vector>
 
+typedef struct Ball {
+	double x, y;
+	double radius;
+	double r, g, b;
+};
+
 
 class BallsView: public Gtk::DrawingArea {
+
 public:
 	BallsView();
 	virtual ~BallsView();
@@ -21,12 +28,6 @@ public:
 	void setBall(size_t index, double x, double y, double radius, int color);
 
 protected:
-	struct Ball {
-		double x, y;
-		double radius;
-		double r, g, b;
-	};
-
 	std::vector<Ball> m_balls;
 
 	virtual bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr);

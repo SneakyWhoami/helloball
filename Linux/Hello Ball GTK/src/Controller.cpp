@@ -13,6 +13,9 @@
 Controller::Controller(HelloBallWindow *window) {
 	m_window = window;
 	m_window->executeButton.signal_clicked().connect(sigc::mem_fun(*this, &Controller::on_execute_button_clicked));
+	m_window->ballsArea.signal_button_press_event().connect(sigc::mem_fun(*this, &Controller::on_balls_mouse_down));
+	m_window->ballsArea.signal_motion_notify_event().connect(sigc::mem_fun(*this, &Controller::on_balls_mouse_move));
+	m_window->ballsArea.signal_button_release_event().connect(sigc::mem_fun(*this, &Controller::on_balls_mouse_up));
 }
 
 Controller::~Controller() {
@@ -39,6 +42,23 @@ void Controller::on_execute_button_clicked()
 	std::string d = n->toString();
 	Glib::RefPtr<Gtk::TextBuffer> buffer = m_window->outputText.get_buffer();
 	buffer->insert(buffer->end(), d + "\n");
+}
+
+bool Controller::on_balls_mouse_down(GdkEventButton* event)
+{
+	m_bridge->mouseDown(event->x, event->y);
+}
+
+bool Controller::on_balls_mouse_move(GdkEventMotion* event)
+{
+	m_bridge->mouseMove(event->x, event->y);
+	return true;
+}
+
+bool Controller::on_balls_mouse_up(GdkEventButton* event)
+{
+	m_bridge->mouseUp(event->x, event->y);
+	return true;
 }
 
 void Controller::on_ball_count_changed(size_t count)

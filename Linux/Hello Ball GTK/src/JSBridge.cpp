@@ -60,6 +60,27 @@ bool JSBridge::startEngine(int viewWidth, int viewHeight)
 	return m_context != NULL;
 }
 
+void JSBridge::mouseDown(int x, int y)
+{
+	std::ostringstream s;
+	s << "controller.mouseDown(" << x << ", " << y << ");";
+	executeScript(s.str().c_str());
+}
+
+void JSBridge::mouseMove(int x, int y)
+{
+	std::ostringstream s;
+	s << "controller.mouseMove(" << x << ", " << y << ");";
+	executeScript(s.str().c_str());
+}
+
+void JSBridge::mouseUp(int x, int y)
+{
+	std::ostringstream s;
+	s << "controller.mouseUp(" << x << ", " << y << ");";
+	executeScript(s.str().c_str());
+}
+
 JSValueRef JSBridge::executeScript(const char *script)
 {
     JSValueRef exception = NULL;

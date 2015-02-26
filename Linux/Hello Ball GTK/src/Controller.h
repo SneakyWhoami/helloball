@@ -23,6 +23,9 @@ protected:
 	HelloBallWindow *m_window;
 
 	void on_execute_button_clicked();
+	bool on_balls_mouse_down(GdkEventButton* event);
+	bool on_balls_mouse_move(GdkEventMotion* event);
+	bool on_balls_mouse_up(GdkEventButton* event);
 
 	void on_ball_count_changed(size_t count);
 	void on_events_per_second(double eps);

@@ -21,6 +21,10 @@ public:
 
 	bool startEngine(int viewWidth, int viewHeight);
 
+	void mouseDown(int x, int y);
+	void mouseMove(int x, int y);
+	void mouseUp(int x, int y);
+
 	JSValueRef executeScript(const char *script);
 
 	std::string makeString(JSValueRef str);

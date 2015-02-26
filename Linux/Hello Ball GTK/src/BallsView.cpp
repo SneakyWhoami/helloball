@@ -7,13 +7,17 @@
 
 #include "BallsView.h"
 
-BallsView::BallsView() {
-	// TODO Auto-generated constructor stub
 
+BallsView::BallsView() :
+	Glib::ObjectBase("BallsView"),
+	Gtk::DrawingArea()
+{
+	add_events(Gdk::EventMask::BUTTON_PRESS_MASK | Gdk::EventMask::BUTTON_MOTION_MASK | Gdk::EventMask::BUTTON_RELEASE_MASK);
 }
 
-BallsView::~BallsView() {
-	// TODO Auto-generated destructor stub
+BallsView::~BallsView()
+{
+
 }
 
 void BallsView::setBallsCount(size_t count)
@@ -48,5 +52,6 @@ bool BallsView::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
 	}
 
 	cr->restore();
+
 	return true;
 }
