@@ -47,6 +47,7 @@ void Controller::on_execute_button_clicked()
 bool Controller::on_balls_mouse_down(GdkEventButton* event)
 {
 	m_bridge->mouseDown(event->x, event->y);
+	return true;
 }
 
 bool Controller::on_balls_mouse_move(GdkEventMotion* event)
@@ -63,13 +64,14 @@ bool Controller::on_balls_mouse_up(GdkEventButton* event)
 
 void Controller::on_ball_count_changed(size_t count)
 {
-	std::cout << "ball count changed: " << count << std::endl;
 	m_window->ballsArea.setBallsCount(count);
 }
 
 void Controller::on_events_per_second(double eps)
 {
-
+	std::ostringstream s;
+	s << "EPS: " << (int)eps;
+	m_window->epsLabel.set_text(s.str());
 }
 
 void Controller::on_displaylist_changed(NativeValuePtr obj)

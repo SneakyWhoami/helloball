@@ -7,6 +7,7 @@
 #include <gtkmm/textview.h>
 #include <gtkmm/scrolledwindow.h>
 #include <gtkmm/drawingarea.h>
+#include <gtkmm/label.h>
 
 #include "BallsView.h"
 
@@ -25,6 +26,7 @@ public:
   Gtk::ScrolledWindow outputScroll;
   Gtk::TextView outputText;
   BallsView ballsArea;
+  Gtk::Label epsLabel;
 };
 
 #endif // GTKMM_EXAMPLE_HELLOWORLD_H

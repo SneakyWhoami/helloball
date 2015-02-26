@@ -38,6 +38,8 @@ HelloBallWindow::HelloBallWindow()
 	ballsArea.set_size_request(800, 420);
 	fixed.put(ballsArea, 0, 180);
 
+	fixed.put(epsLabel, 10, 200);
+
 	show_all_children();
 }
 
