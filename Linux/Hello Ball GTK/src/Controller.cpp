@@ -28,7 +28,7 @@ bool Controller::init()
 	m_bridge->signal_phase_changed.connect(sigc::mem_fun(this, &Controller::on_phase_changed));
 	m_bridge->signal_displaylist_changed.connect(sigc::mem_fun(this, &Controller::on_displaylist_changed));
 
-	return m_bridge->startEngine(400, 400);
+	return m_bridge->startEngine(800, 420);
 }
 
 void Controller::on_execute_button_clicked()
@@ -44,6 +44,7 @@ void Controller::on_execute_button_clicked()
 void Controller::on_ball_count_changed(size_t count)
 {
 	std::cout << "ball count changed: " << count << std::endl;
+	m_window->ballsArea.setBallsCount(count);
 }
 
 void Controller::on_events_per_second(double eps)
@@ -53,7 +54,17 @@ void Controller::on_events_per_second(double eps)
 
 void Controller::on_displaylist_changed(NativeValuePtr obj)
 {
-
+	std::vector<std::string> ballIndexes = obj->objectKeys();
+	size_t i, l = ballIndexes.size();
+	for (i = 0; i < l; i++) {
+		NativeValuePtr ballData = obj->objectEntry(ballIndexes[i]);
+		size_t ballIndex = std::stoi(ballIndexes[i]);
+		double x = ballData->objectEntry("x")->doubleValue();
+		double y = ballData->objectEntry("y")->doubleValue();
+		double radius = ballData->objectEntry("radius")->doubleValue();
+		int color = ballData->objectEntry("color")->doubleValue();
+		m_window->ballsArea.setBall(ballIndex, x, y, radius, color);
+	}
 }
 
 void Controller::on_phase_changed(double phase)

@@ -53,6 +53,10 @@ bool JSBridge::startEngine(int viewWidth, int viewHeight)
 	m_epsCallback = defineFunctionWithCallback(delegate, "eventsPerSecond");
 	m_phaseChangedCallback = defineFunctionWithCallback(delegate, "phaseChanged");
 
+	std::ostringstream s;
+	s << "var controller = initApp(" << viewWidth << ", " << viewHeight << ", delegate);";
+	executeScript(s.str().c_str());
+
 	return m_context != NULL;
 }
 

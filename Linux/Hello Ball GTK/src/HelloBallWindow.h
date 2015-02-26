@@ -6,6 +6,10 @@
 #include <gtkmm/window.h>
 #include <gtkmm/textview.h>
 #include <gtkmm/scrolledwindow.h>
+#include <gtkmm/drawingarea.h>
+
+#include "BallsView.h"
+
 
 class HelloBallWindow : public Gtk::Window
 {
@@ -20,6 +24,7 @@ public:
   Gtk::TextView inputText;
   Gtk::ScrolledWindow outputScroll;
   Gtk::TextView outputText;
+  BallsView ballsArea;
 };
 
 #endif // GTKMM_EXAMPLE_HELLOWORLD_H
