@@ -1,7 +1,6 @@
 #include <string.h>
 #include <string>
 #include <iostream>
-#include <android/log.h>
 #include "include/v8.h"
 #include "include/libplatform/libplatform.h"
 #include "jni.h"
@@ -29,12 +28,17 @@ JNIEXPORT void JNICALL Java_com_balsamiq_HelloBall_JavaModelV8_startModel
     v8Wrapper->startModel(width, height);
 }
 
-
 JNIEXPORT void JNICALL Java_com_balsamiq_HelloBall_JavaModelV8_initialize
 (JNIEnv *env, jobject obj) {
     observer = new ModelObserver();
     v8Wrapper = new v8Model(observer);
     observer->push_env(env, obj);
+}
+
+JNIEXPORT void JNICALL Java_com_balsamiq_HelloBall_JavaModelV8_task(JNIEnv *env, jobject obj)
+{
+    observer->push_env(env, obj);
+    v8Wrapper->task();
 }
 
 void internalCallToMouseXXX(const char *mouseXXXMethod, double x, double y)

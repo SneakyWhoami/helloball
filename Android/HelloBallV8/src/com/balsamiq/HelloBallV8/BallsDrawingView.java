@@ -29,7 +29,7 @@ public class BallsDrawingView extends View  {
     public BallsDrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mBackgroundPaint = new Paint();
-        mBackgroundPaint.setColor(0xfff8efe0);
+        mBackgroundPaint.setColor(0xffffefe0);
     }
 
     public void displayListChanged(HashMap<Integer, Ball> balls)
@@ -44,6 +44,13 @@ public class BallsDrawingView extends View  {
         }
 
         Log.d("BallsDrawingView", "" + new Date().getTime());
+        invalidate();
+    }
+    
+    @Override
+    public void setBackgroundColor(int color)
+    {
+        mBackgroundPaint.setColor(color);
         invalidate();
     }
 

@@ -4,27 +4,27 @@ function modelStart(viewWidth, viewHeight) {
     ModelObserver.delegate.displayListChanged = function(dlObject)
     {
         ModelObserver.displayListChanged(JSON.stringify(dlObject));
-    }
+    };
     
     ModelObserver.delegate.ballCountChanged = function(count)
     {
         ModelObserver.ballCountChanged(count);
-    }
-    
+    };
+
     ModelObserver.delegate.eventsPerSecond = function(eventsPerSecond)
     {
         ModelObserver.eventsPerSecond(eventsPerSecond);
-    }
+    };
 
     ModelObserver.delegate.log = function(message)
     {
         ModelObserver.log(message);
-    }
+    };
     
     ModelObserver.delegate.phaseChanged = function(value)
     {
         ModelObserver.phaseChanged(value);
-    }
+    };
     
     ModelObserver.modelController = initApp(viewWidth, viewHeight, ModelObserver.delegate);
 

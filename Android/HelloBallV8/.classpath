@@ -6,5 +6,5 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="var" path="CODE_HOME/helloball/Android/HelloBallV8/libs/eventbus-2.2.0.jar"/>
-	<classpathentry kind="output" path="bin/classes"/>
+	<classpathentry kind="output" path="out/production/HelloBallV8"/>
 </classpath>

@@ -1,6 +1,7 @@
 package com.balsamiq.HelloBallV8;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -8,7 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.balsamiq.EventBusObserver.*;
-import com.balsamiq.HelloBall.*;
+import com.balsamiq.HelloBall.IModel;
+import com.balsamiq.HelloBall.JavaModelV8;
 import de.greenrobot.event.EventBus;
 
 public class HelloBallActivity extends Activity {
@@ -23,12 +25,12 @@ public class HelloBallActivity extends Activity {
         @Override
         public void run() {
             _model.triggerChangePhase();
-            handler.postDelayed(this, 100);
+            handler.postDelayed(this, 1000/60);
         }
     };
 
     protected static final String LOG_TAG = "HelloBallActivity";
-    
+
     /**
      * Called when the activity is first created.
      */
@@ -49,9 +51,9 @@ public class HelloBallActivity extends Activity {
             @Override
             public void onClick(View view) {
                 _model.start(_view.getWidth(), _view.getHeight());
+                handler.postDelayed(runnable, 100);
             }
         });
-        handler.postDelayed(runnable, 100);
     }
 
     @Override
@@ -82,12 +84,25 @@ public class HelloBallActivity extends Activity {
     protected void onResume() {
         super.onResume();
     }
-    
-    public void onEvent(PhaseChangedEvent event)
-    {
-        String string = Integer.toHexString((int) Math.floor(event.getCurrentPhase() % 255));
-        Log.d(LOG_TAG, string);
-//        _view.setBackgroundColor(Color.parseColor("#" + ));
-        
+
+    public void onEvent(PhaseChangedEvent event) {
+        String string = Integer.toHexString((int) Math.floor(event.getCurrentPhase() * 255));
+        if (string.length() == 1) {
+            string = "0" + string;
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+//        stringBuilder.append("#");
+        stringBuilder.append(string);
+        stringBuilder.append(string);
+        stringBuilder.append(string);
+        Log.d(LOG_TAG, stringBuilder.toString());
+        try {
+            int color = Integer.parseInt(stringBuilder.toString(), 16) + 0xff000000;
+            Log.d(LOG_TAG, "" + color);
+            _view.setBackgroundColor(color);
+            
+        } catch (java.lang.IllegalArgumentException exception) {
+            Log.d(LOG_TAG, stringBuilder.toString());
+        }
     }
 }

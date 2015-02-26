@@ -21,7 +21,7 @@ public class JavaModelV8 implements IModel {
 
     private native void onMouseMove(double x, double y);
     
-//    private native void task();
+    private native void task();
 
     protected IModelObserver _observer;
 
@@ -41,7 +41,7 @@ public class JavaModelV8 implements IModel {
 
     public void triggerChangePhase()
     {
-//        task();
+        task();
     }
     
     public void start(float sizeX, float sizeY) {
