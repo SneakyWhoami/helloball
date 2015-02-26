@@ -199,3 +199,8 @@ JSValueRef JSBridge::callback(JSObjectRef function, JSObjectRef thisObject, size
 
 	return result;
 }
+
+void JSBridge::handleEvent(Event *e)
+{
+	;
+}

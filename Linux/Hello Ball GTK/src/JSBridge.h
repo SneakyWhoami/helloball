@@ -12,14 +12,18 @@
 #include <sigc++/sigc++.h>
 
 #include "NativeValue.h"
+#include "EventQueue.h"
 
 
-class JSBridge {
+class JSBridge : public EventTarget
+{
 public:
 	JSBridge();
 	virtual ~JSBridge();
 
 	bool startEngine(int viewWidth, int viewHeight);
+
+	virtual void handleEvent(Event *e);
 
 	void mouseDown(int x, int y);
 	void mouseMove(int x, int y);
