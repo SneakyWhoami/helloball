@@ -9,4 +9,5 @@ public interface IModel {
     public void mouseDown(double x, double y);
     public void mouseUp(double x, double y);
     public void mouseMove(double x, double y);
+    public void triggerChangePhase();
 }

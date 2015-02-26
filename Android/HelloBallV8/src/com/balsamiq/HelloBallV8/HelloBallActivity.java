@@ -2,25 +2,33 @@ package com.balsamiq.HelloBallV8;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
-import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import com.balsamiq.HelloBall.Ball;
-import com.balsamiq.HelloBall.IModel;
-import com.balsamiq.HelloBall.IModelObserver;
-import com.balsamiq.HelloBall.JavaModelV8;
+import com.balsamiq.EventBusObserver.*;
+import com.balsamiq.HelloBall.*;
+import de.greenrobot.event.EventBus;
 
-import java.util.HashMap;
-
-public class HelloBallActivity extends Activity implements IModelObserver {
+public class HelloBallActivity extends Activity {
 
     BallsDrawingView _view;
     TextView _fps;
     IModel _model;
 
+    private Handler handler = new Handler();
 
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            _model.triggerChangePhase();
+            handler.postDelayed(this, 100);
+        }
+    };
+
+    protected static final String LOG_TAG = "HelloBallActivity";
+    
     /**
      * Called when the activity is first created.
      */
@@ -29,7 +37,7 @@ public class HelloBallActivity extends Activity implements IModelObserver {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         _view = (BallsDrawingView) findViewById(R.id.drawing_view);
-        JavaModelV8 model = new JavaModelV8(this);
+        JavaModelV8 model = new JavaModelV8(new ModelObserver());
         _model = model;
         model.load(AssetUtilities.readFromfile(this, "model.js"), "model.js");
         model.load(AssetUtilities.readFromfile(this, "custom.js"), "custom.js");
@@ -43,25 +51,31 @@ public class HelloBallActivity extends Activity implements IModelObserver {
                 _model.start(_view.getWidth(), _view.getHeight());
             }
         });
+        handler.postDelayed(runnable, 100);
     }
 
     @Override
-    public void ballCountChanged(int number) {
-        Log.d("HelloBallActivity.ballCountChanged", "" + number);
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
     }
 
     @Override
-    public void eventsPerSecond(final int events) {
-        _fps.setText("" + events);
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 
-    @Override
-    public void log(String message) {
-
+    public void onEvent(EventsPerSecondEvent event) {
+        _fps.setText("" + event.getEvents());
     }
 
-    public void displayListChanged(HashMap<Integer, Ball> balls) {
-        _view.displayListChanged(balls);
+    public void onEvent(LogEvent event) {
+        Log.d(LOG_TAG, event.getMessage());
+    }
+
+    public void onEvent(DisplayListChangedEvent event) {
+        _view.displayListChanged(event.getBalls());
     }
 
     @Override
@@ -69,10 +83,11 @@ public class HelloBallActivity extends Activity implements IModelObserver {
         super.onResume();
     }
     
-    @Override
-    public void phaseChanged(double value)
+    public void onEvent(PhaseChangedEvent event)
     {
-        
+        String string = Integer.toHexString((int) Math.floor(event.getCurrentPhase() % 255));
+        Log.d(LOG_TAG, string);
+//        _view.setBackgroundColor(Color.parseColor("#" + ));
         
     }
 }

@@ -11,3 +11,9 @@ bin
 xcuserdata
 DerivedData
 libv8*.a
+/Android/HelloBallV8ConsoleJNI/nbproject/private/
+/Android/HelloBallV8JavaConsole/nbproject/private/
+/Android/HelloBallV8JavaJNI/dist/
+/Android/HelloBallV8JavaJNI/build/
+/Android/HelloBallV8JavaConsole/build/
+/Android/HelloBallV8JavaConsole/dist/

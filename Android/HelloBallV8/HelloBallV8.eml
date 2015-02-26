@@ -3,4 +3,7 @@
 	<output-test url="file://$MODULE_DIR$/out/test/HelloBallV8"/>
 	<exclude-output/>
 	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="$MODULE_DIR$/libs/eventbus-2.2.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/libs/eventbus-2.2.0.jar!/"/>
+	</lib>
 </component>

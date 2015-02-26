@@ -20,6 +20,8 @@ public class JavaModelV8 implements IModel {
     private native void onMouseUp(double x, double y);
 
     private native void onMouseMove(double x, double y);
+    
+//    private native void task();
 
     protected IModelObserver _observer;
 
@@ -37,6 +39,11 @@ public class JavaModelV8 implements IModel {
         loadJS(javascript, jsName);
     }
 
+    public void triggerChangePhase()
+    {
+//        task();
+    }
+    
     public void start(float sizeX, float sizeY) {
         startModel(sizeX, sizeY);
     }

@@ -80,6 +80,10 @@ public class JavaModel implements IModel {
         throw new Error("not a double value: " + x.toString());
     }
 
+    public void triggerChangePhase() {
+    }
+    
+    
     public void onEventsPerSecond(int events) {
 
         _observer.eventsPerSecond(events);
