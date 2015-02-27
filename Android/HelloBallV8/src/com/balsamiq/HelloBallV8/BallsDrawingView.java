@@ -9,7 +9,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import com.balsamiq.HelloBall.Ball;
 import com.balsamiq.HelloBall.IModel;
-import com.balsamiq.HelloBall.JavaModelV8;
 
 import java.util.Date;
 import java.util.HashMap;

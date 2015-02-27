@@ -1,12 +1,12 @@
 package com.balsamiq.HelloBallV8;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
-import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 import com.balsamiq.EventBusObserver.*;
 import com.balsamiq.HelloBall.IModel;
@@ -25,7 +25,7 @@ public class HelloBallActivity extends Activity {
         @Override
         public void run() {
             _model.triggerChangePhase();
-            handler.postDelayed(this, 1000/60);
+            handler.postDelayed(this, 1000 / 60);
         }
     };
 
@@ -46,14 +46,31 @@ public class HelloBallActivity extends Activity {
         _view.setModel(_model);
         _fps = (TextView) findViewById(R.id.fps);
 
-        Button start = (Button) findViewById(R.id.start);
-        start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                _model.start(_view.getWidth(), _view.getHeight());
-                handler.postDelayed(runnable, 100);
-            }
-        });
+        ViewTreeObserver viewTreeObserver = _view.getViewTreeObserver();
+        if (viewTreeObserver.isAlive()) {
+            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    if (Build.VERSION.SDK_INT < 16) {
+                        removeLayoutListenerPre16(_view, this);
+                    } else {
+                        removeLayoutListenerPost16(_view, this);
+                    }
+                    _model.start(_view.getWidth(), _view.getHeight());
+                    handler.postDelayed(runnable, 100);
+                }
+            });
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    private void removeLayoutListenerPre16(BallsDrawingView view, ViewTreeObserver.OnGlobalLayoutListener listener) {
+        view.getViewTreeObserver().removeGlobalOnLayoutListener(listener);
+    }
+
+    @TargetApi(16)
+    private void removeLayoutListenerPost16(BallsDrawingView view, ViewTreeObserver.OnGlobalLayoutListener listener) {
+        view.getViewTreeObserver().removeOnGlobalLayoutListener(listener);
     }
 
     @Override
@@ -100,7 +117,7 @@ public class HelloBallActivity extends Activity {
             int color = Integer.parseInt(stringBuilder.toString(), 16) + 0xff000000;
             Log.d(LOG_TAG, "" + color);
             _view.setBackgroundColor(color);
-            
+
         } catch (java.lang.IllegalArgumentException exception) {
             Log.d(LOG_TAG, stringBuilder.toString());
         }
