@@ -7,14 +7,17 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
+import com.balsamiq.HelloBall.Ball;
+import com.balsamiq.HelloBall.IModel;
 
 import java.util.Date;
+import java.util.HashMap;
 
 public class BallsDrawingView extends View  {
     private static final String TAG = "BoxDrawingView";
-    Ball [] _balls;
+    Ball[] _balls;
     private Paint mBackgroundPaint;
-    JavaModel _controller;
+    IModel _controller;
 
     // used when creating the view in code
     public BallsDrawingView(Context context) {
@@ -25,21 +28,28 @@ public class BallsDrawingView extends View  {
     public BallsDrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mBackgroundPaint = new Paint();
-        mBackgroundPaint.setColor(0xfff8efe0);
+        mBackgroundPaint.setColor(0xffffefe0);
     }
 
-    public void displayListChanged(SparseArray<Ball> balls)
+    public void displayListChanged(HashMap<Integer, Ball> balls)
     {
         if (_balls == null)
         {
             _balls = new Ball[balls.size()];
         }
         
-        for (int i = 0; i < balls.size(); ++i) {
-            _balls[balls.keyAt(i)] = balls.get(balls.keyAt(i));
+        for (int i : balls.keySet()) {
+            _balls[i] = balls.get(i);
         }
 
         Log.d("BallsDrawingView", "" + new Date().getTime());
+        invalidate();
+    }
+    
+    @Override
+    public void setBackgroundColor(int color)
+    {
+        mBackgroundPaint.setColor(color);
         invalidate();
     }
 
@@ -89,9 +99,9 @@ public class BallsDrawingView extends View  {
         return true;
     }
 
-    public void setModelWrapper(JavaModel controller)
+    public void setModel(IModel model)
     {
-        _controller = controller;
+        _controller = model;
     }
 }
 
