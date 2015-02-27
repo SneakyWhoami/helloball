@@ -1,11 +1,12 @@
 package com.balsamiq.HelloBallDuktape;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
-import android.view.View;
-import android.widget.Button;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 public class HelloBallActivity extends Activity implements IModelObserver {
@@ -26,13 +27,30 @@ public class HelloBallActivity extends Activity implements IModelObserver {
         _view.setModelWrapper(_model);
         _fps = (TextView) findViewById(R.id.fps);
 
-        Button start = (Button) findViewById(R.id.start);
-        start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                _model.start(_view.getWidth(), _view.getHeight());
-            }
-        });
+        ViewTreeObserver viewTreeObserver = _view.getViewTreeObserver();
+        if (viewTreeObserver.isAlive()) {
+            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    if (Build.VERSION.SDK_INT < 16) {
+                        removeLayoutListenerPre16(_view, this);
+                    } else {
+                        removeLayoutListenerPost16(_view, this);
+                    }
+                    _model.start(_view.getWidth(), _view.getHeight());
+                }
+            });
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    private void removeLayoutListenerPre16(BallsDrawingView view, ViewTreeObserver.OnGlobalLayoutListener listener) {
+        view.getViewTreeObserver().removeGlobalOnLayoutListener(listener);
+    }
+
+    @TargetApi(16)
+    private void removeLayoutListenerPost16(BallsDrawingView view, ViewTreeObserver.OnGlobalLayoutListener listener) {
+        view.getViewTreeObserver().removeOnGlobalLayoutListener(listener);
     }
 
     @Override

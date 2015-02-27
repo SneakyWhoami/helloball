@@ -6,7 +6,6 @@
     <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="FPS:" android:layout_margin="10dp"/>
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="000" android:layout_margin="10dp" android:id="@+id/fps"/>
-        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Start" android:id="@+id/start"/>
     </LinearLayout>
 <com.balsamiq.HelloBallDuktape.BallsDrawingView
         android:layout_width="match_parent"
