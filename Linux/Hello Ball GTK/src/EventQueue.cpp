@@ -14,10 +14,10 @@ gboolean EventQueue::idle_callback(gpointer data)
 {
 	EventQueue *q = (EventQueue *)data;
 	q->dispatchNextEvent();
-	return true;
+	return false;
 }
 
-void EventQueue::postEvent(EventTargetPtr &t, EventPtr &e)
+void EventQueue::postEvent(EventTargetPtr t, EventPtr e)
 {
 	m_targets.push_back(t);
 	m_events.push_back(e);
@@ -26,5 +26,10 @@ void EventQueue::postEvent(EventTargetPtr &t, EventPtr &e)
 
 void EventQueue::dispatchNextEvent()
 {
-	;
+	EventPtr e = m_events.front();
+	m_events.pop_front();
+	EventTargetPtr t = m_targets.front();
+	m_targets.pop_front();
+
+	t->handleEvent(e.get());
 }

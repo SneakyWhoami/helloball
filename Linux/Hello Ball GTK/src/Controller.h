@@ -8,6 +8,7 @@
 #ifndef CONTROLLER_H_
 #define CONTROLLER_H_
 
+#include "EventQueue.h"
 #include "JSBridge.h"
 #include "HelloBallWindow.h"
 
@@ -19,7 +20,8 @@ public:
 	bool init();
 
 protected:
-	JSBridge *m_bridge;
+	EventQueue *m_queue;
+	std::shared_ptr<JSBridge> m_bridge;
 	HelloBallWindow *m_window;
 
 	void on_execute_button_clicked();
@@ -31,6 +33,9 @@ protected:
 	void on_events_per_second(double eps);
 	void on_displaylist_changed(NativeValuePtr obj);
 	void on_phase_changed(double phase);
+
+	static gboolean on_timer(gpointer data);
+	bool handle_timer();
 };
 
 #endif /* CONTROLLER_H_ */

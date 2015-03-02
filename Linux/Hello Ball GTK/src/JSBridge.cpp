@@ -8,11 +8,13 @@
 #include <iostream>
 #include <stdlib.h>
 #include <glibmm.h>
+#include <typeinfo>
 
 #include "JSBridge.h"
 
 
-JSBridge::JSBridge() {
+JSBridge::JSBridge(EventQueue *q) {
+	m_queue = q;
 	m_context = NULL;
 	m_Array = NULL;
 }
@@ -202,5 +204,18 @@ JSValueRef JSBridge::callback(JSObjectRef function, JSObjectRef thisObject, size
 
 void JSBridge::handleEvent(Event *e)
 {
-	;
+	if (dynamic_cast<MouseEvent *>(e)) {
+		MouseEvent *mv = static_cast<MouseEvent *>(e);
+		std::ostringstream s;
+		s << "controller.mouse";
+		if (mv->type == MouseEvent::MouseDown) {
+			s << "Down";
+		} else if (mv->type == MouseEvent::MouseUp) {
+			s << "Up";
+		} else {
+			s << "Move";
+		}
+		s << "(" << mv->x << ", " << mv->y << ");";
+		executeScript(s.str().c_str());
+	}
 }

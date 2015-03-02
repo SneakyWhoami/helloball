@@ -18,6 +18,7 @@ BallsView::BallsView() :
 	Glib::ObjectBase("BallsView"),
 	Gtk::DrawingArea()
 {
+	m_phase = 0;
 	add_events(Gdk::EventMask::BUTTON_PRESS_MASK | Gdk::EventMask::BUTTON_MOTION_MASK | Gdk::EventMask::BUTTON_RELEASE_MASK);
 }
 
@@ -45,11 +46,17 @@ void BallsView::setBall(size_t index, double x, double y, double radius, int col
 	queue_draw();
 }
 
+void BallsView::setBackgroundPhase(double phase)
+{
+	m_phase = phase;
+	queue_draw();
+}
+
 bool BallsView::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
 {
 	cr->save();
 
-	cr->set_source_rgb(0.8, 1, 0.8);
+	cr->set_source_rgb(m_phase, m_phase, m_phase);
 	cr->paint();
 
 	size_t i;

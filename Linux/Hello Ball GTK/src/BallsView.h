@@ -21,6 +21,8 @@ public:
 	void setBallsCount(size_t count);
 	void setBall(size_t index, double x, double y, double radius, int color);
 
+	void setBackgroundPhase(double phase);
+
 protected:
 	struct Ball {
 		double x, y;
@@ -29,6 +31,7 @@ protected:
 	};
 
 	std::vector<Ball> m_balls;
+	double m_phase;
 
 	virtual bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr);
 };

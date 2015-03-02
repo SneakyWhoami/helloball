@@ -9,6 +9,11 @@
 
 #include "Controller.h"
 
+gboolean Controller::on_timer(gpointer data)
+{
+	Controller *c = static_cast<Controller *>(data);
+	return c->handle_timer();
+}
 
 Controller::Controller(HelloBallWindow *window) {
 	m_window = window;
@@ -19,19 +24,25 @@ Controller::Controller(HelloBallWindow *window) {
 }
 
 Controller::~Controller() {
-	delete m_bridge;
+	delete m_queue;
 }
 
 bool Controller::init()
 {
-	m_bridge = new JSBridge();
+	m_queue = new EventQueue();
+
+	m_bridge = std::shared_ptr<JSBridge>(new JSBridge(m_queue));
 
 	m_bridge->signal_ball_count_changed.connect(sigc::mem_fun(this, &Controller::on_ball_count_changed));
 	m_bridge->signal_events_per_second.connect(sigc::mem_fun(this, &Controller::on_events_per_second));
 	m_bridge->signal_phase_changed.connect(sigc::mem_fun(this, &Controller::on_phase_changed));
 	m_bridge->signal_displaylist_changed.connect(sigc::mem_fun(this, &Controller::on_displaylist_changed));
 
-	return m_bridge->startEngine(800, 420);
+	m_bridge->startEngine(800, 420);
+
+	gdk_threads_add_timeout(1000. / 5., on_timer, this);
+
+	return true;
 }
 
 void Controller::on_execute_button_clicked()
@@ -46,19 +57,22 @@ void Controller::on_execute_button_clicked()
 
 bool Controller::on_balls_mouse_down(GdkEventButton* event)
 {
-	m_bridge->mouseDown(event->x, event->y);
+	EventPtr e(new MouseEvent(MouseEvent::MouseDown, event->x, event->y));
+	m_queue->postEvent(m_bridge, e);
 	return true;
 }
 
 bool Controller::on_balls_mouse_move(GdkEventMotion* event)
 {
-	m_bridge->mouseMove(event->x, event->y);
+	EventPtr e(new MouseEvent(MouseEvent::MouseMove, event->x, event->y));
+	m_queue->postEvent(m_bridge, e);
 	return true;
 }
 
 bool Controller::on_balls_mouse_up(GdkEventButton* event)
 {
-	m_bridge->mouseUp(event->x, event->y);
+	EventPtr e(new MouseEvent(MouseEvent::MouseUp, event->x, event->y));
+	m_queue->postEvent(m_bridge, e);
 	return true;
 }
 
@@ -91,5 +105,11 @@ void Controller::on_displaylist_changed(NativeValuePtr obj)
 
 void Controller::on_phase_changed(double phase)
 {
+	m_window->ballsArea.setBackgroundPhase(phase);
+}
 
+bool Controller::handle_timer()
+{
+	m_bridge->executeScript("controller.task();");
+	return true;
 }

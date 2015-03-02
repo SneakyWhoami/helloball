@@ -14,15 +14,36 @@
 class Event
 {
 public:
-	virtual ~Event();
+	virtual ~Event() { }
 };
 typedef std::shared_ptr<Event> EventPtr;
+
+class MouseEvent : public Event
+{
+public:
+	typedef enum {
+		MouseDown,
+		MouseMove,
+		MouseUp
+	} MouseEventType;
+
+	MouseEventType type;
+	int x;
+	int y;
+
+	MouseEvent(MouseEventType t, int x, int y) {
+		this->type = t;
+		this->x = x;
+		this->y = y;
+	}
+};
+
 
 class EventTarget
 {
 public:
 	virtual ~EventTarget() { }
-	virtual void handleEvent(Event *e) = 0;
+	virtual void handleEvent(Event *e) { };
 };
 typedef std::shared_ptr<EventTarget> EventTargetPtr;
 
@@ -30,11 +51,11 @@ typedef std::shared_ptr<EventTarget> EventTargetPtr;
 class EventQueue
 {
 public:
-	void postEvent(EventTargetPtr &t, EventPtr &e);
+	void postEvent(EventTargetPtr t, EventPtr e);
 
 protected:
-	std::vector<EventTargetPtr> m_targets;
-	std::vector<EventPtr> m_events;
+	std::deque<EventTargetPtr> m_targets;
+	std::deque<EventPtr> m_events;
 
 	static gboolean idle_callback(gpointer data);
 	void dispatchNextEvent();
