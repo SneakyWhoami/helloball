@@ -8,7 +8,7 @@
 #ifndef CONTROLLER_H_
 #define CONTROLLER_H_
 
-#include "EventQueue.h"
+#include "AsyncQueue.h"
 #include "JSBridge.h"
 #include "HelloBallWindow.h"
 
@@ -20,7 +20,7 @@ public:
 	bool init();
 
 protected:
-	EventQueue *m_queue;
+	AsyncQueue *m_queue;
 	std::shared_ptr<JSBridge> m_bridge;
 	HelloBallWindow *m_window;
 

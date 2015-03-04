@@ -9,11 +9,12 @@
 #include <stdlib.h>
 #include <glibmm.h>
 #include <typeinfo>
+#include <wordexp.h>
 
 #include "JSBridge.h"
 
 
-JSBridge::JSBridge(EventQueue *q) {
+JSBridge::JSBridge(AsyncQueue *q) {
 	m_queue = q;
 	m_context = NULL;
 	m_Array = NULL;
@@ -41,8 +42,7 @@ bool JSBridge::startEngine(int viewWidth, int viewHeight)
 	JSStringRelease(functionString);
 
 	// load and execute Model.js
-	std::string script = Glib::file_get_contents("/home/pepo/code/helloball/common/js/model.js");
-	JSValueRef v = executeScript(script.c_str());
+	JSValueRef v = loadFile("/home/pepo/code/helloball/common/js/model.js");
 	std::cout << makeNativeValue(v)->toString() << std::endl;
 
 	JSObjectRef delegate = JSObjectMake(m_context, NULL, NULL);
@@ -93,6 +93,12 @@ JSValueRef JSBridge::executeScript(const char *script)
         std::cout << "Exception caught executing script" << std::endl;
     }
     return exception ? exception : res;
+}
+
+JSValueRef JSBridge::loadFile(const char *path)
+{
+	std::string script = Glib::file_get_contents(path);
+	return executeScript(script.c_str());
 }
 
 std::string JSBridge::makeString(JSValueRef value)
@@ -191,28 +197,24 @@ JSValueRef JSBridge::callback(JSObjectRef function, JSObjectRef thisObject, size
 
 	if (function == m_ballCountChangedCallback) {
 		double d = makeNativeValue(arguments[0])->doubleValue();
-		EventPtr e(new Event([=]() {
+		m_queue->enqueue([=]() {
 			signal_ball_count_changed.emit(d);
-		}));
-		m_queue->postEvent(e);
+		});
 	} else if (function == m_displayListChangedCallback) {
 		NativeValuePtr n = makeNativeValue(arguments[0]);
-		EventPtr e(new Event([=]() {
+		m_queue->enqueue([=]() {
 			signal_displaylist_changed.emit(n);
-		}));
-		m_queue->postEvent(e);
+		});
 	} else if (function == m_epsCallback) {
 		double d = makeNativeValue(arguments[0])->doubleValue();
-		EventPtr e(new Event([=]() {
+		m_queue->enqueue([=]() {
 			signal_events_per_second.emit(d);
-		}));
-		m_queue->postEvent(e);
+		});
 	} else if (function == m_phaseChangedCallback) {
 		double d = makeNativeValue(arguments[0])->doubleValue();
-		EventPtr e(new Event([=]() {
+		m_queue->enqueue([=]() {
 			signal_phase_changed.emit(d);
-		}));
-		m_queue->postEvent(e);
+		});
 	}
 
 	return result;

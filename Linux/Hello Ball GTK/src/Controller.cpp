@@ -29,7 +29,7 @@ Controller::~Controller() {
 
 bool Controller::init()
 {
-	m_queue = new EventQueue();
+	m_queue = new AsyncQueue();
 
 	m_bridge = std::shared_ptr<JSBridge>(new JSBridge(m_queue));
 
@@ -57,28 +57,25 @@ void Controller::on_execute_button_clicked()
 
 bool Controller::on_balls_mouse_down(GdkEventButton* event)
 {
-	EventPtr e(new Event([=]() {
+	m_queue->enqueue([=]() {
 		m_bridge->mouseDown(event->x, event->y);
-	}));
-	m_queue->postEvent(e);
+	});
 	return true;
 }
 
 bool Controller::on_balls_mouse_move(GdkEventMotion* event)
 {
-	EventPtr e(new Event([=]() {
+	m_queue->enqueue([=]() {
 		m_bridge->mouseMove(event->x, event->y);
-	}));
-	m_queue->postEvent(e);
+	});
 	return true;
 }
 
 bool Controller::on_balls_mouse_up(GdkEventButton* event)
 {
-	EventPtr e(new Event([=]() {
+	m_queue->enqueue([=]() {
 		m_bridge->mouseUp(event->x, event->y);
-	}));
-	m_queue->postEvent(e);
+	});
 	return true;
 }
 

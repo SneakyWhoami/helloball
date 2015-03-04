@@ -12,13 +12,13 @@
 #include <sigc++/sigc++.h>
 
 #include "NativeValue.h"
-#include "EventQueue.h"
+#include "AsyncQueue.h"
 
 
 class JSBridge
 {
 public:
-	JSBridge(EventQueue *q);
+	JSBridge(AsyncQueue *q);
 	virtual ~JSBridge();
 
 	bool startEngine(int viewWidth, int viewHeight);
@@ -28,6 +28,7 @@ public:
 	void mouseUp(int x, int y);
 
 	JSValueRef executeScript(const char *script);
+	JSValueRef loadFile(const char *path);
 
 	std::string makeString(JSValueRef str);
 	NativeValuePtr makeNativeValue(JSValueRef value);
@@ -38,7 +39,7 @@ public:
 	sigc::signal<void, NativeValuePtr> signal_displaylist_changed;
 
 protected:
-	EventQueue *m_queue;
+	AsyncQueue *m_queue;
 
 	JSGlobalContextRef m_context = NULL;
 	JSObjectRef m_Array = NULL;
