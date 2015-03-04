@@ -20,6 +20,8 @@ public:
 	bool init();
 
 protected:
+	bool initFonts();
+
 	AsyncQueue *m_queue;
 	std::shared_ptr<JSBridge> m_bridge;
 	HelloBallWindow *m_window;

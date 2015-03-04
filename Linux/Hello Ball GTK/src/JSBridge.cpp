@@ -45,8 +45,9 @@ bool JSBridge::startEngine(int viewWidth, int viewHeight)
 
 	// load and execute model.js
 	std::string modelJsPath = execFolderPath();
-	modelJsPath += "model.js";
-	JSValueRef v = loadFile(modelJsPath.c_str());
+	modelJsPath += "/model.js";
+	std::string script = Glib::file_get_contents(modelJsPath.c_str());
+	JSValueRef v = executeScript(script.c_str());
 	std::cout << makeNativeValue(v)->toString() << std::endl;
 
 	JSObjectRef delegate = JSObjectMake(m_context, NULL, NULL);
@@ -58,6 +59,8 @@ bool JSBridge::startEngine(int viewWidth, int viewHeight)
 	m_displayListChangedCallback = defineFunctionWithCallback(delegate, "displayListChanged");
 	m_epsCallback = defineFunctionWithCallback(delegate, "eventsPerSecond");
 	m_phaseChangedCallback = defineFunctionWithCallback(delegate, "phaseChanged");
+	m_logCallback = defineFunctionWithCallback(delegate, "log");
+	m_measureTextCallback = defineFunctionWithCallback(delegate, "measureText");
 
 	std::ostringstream s;
 	s << "var controller = initApp(" << viewWidth << ", " << viewHeight << ", delegate);";
@@ -97,12 +100,6 @@ JSValueRef JSBridge::executeScript(const char *script)
         std::cout << "Exception caught executing script" << std::endl;
     }
     return exception ? exception : res;
-}
-
-JSValueRef JSBridge::loadFile(const char *path)
-{
-	std::string script = Glib::file_get_contents(path);
-	return executeScript(script.c_str());
 }
 
 std::string JSBridge::makeString(JSValueRef value)
@@ -219,6 +216,11 @@ JSValueRef JSBridge::callback(JSObjectRef function, JSObjectRef thisObject, size
 		m_queue->enqueue([=]() {
 			signal_phase_changed.emit(d);
 		});
+	} else if (function == m_logCallback) {
+		std::string s = makeNativeValue(arguments[0])->stringValue();
+		std::cout << "Log: " << s << std::endl;
+	} else if (function == m_measureTextCallback) {
+		result = JSValueMakeNumber(m_context, 15.55);
 	}
 
 	return result;
@@ -233,7 +235,7 @@ std::string JSBridge::execFolderPath()
 	bool found = false;
 	while (!found && i >= 0) {
 		if (execPath[i] == '/') {
-			execPath[i + 1] = '\0';
+			execPath[i] = '\0';
 			found = true;
 		}
 		i -= 1;

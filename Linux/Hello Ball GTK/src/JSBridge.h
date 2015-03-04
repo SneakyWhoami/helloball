@@ -28,7 +28,6 @@ public:
 	void mouseUp(int x, int y);
 
 	JSValueRef executeScript(const char *script);
-	JSValueRef loadFile(const char *path);
 
 	std::string makeString(JSValueRef str);
 	NativeValuePtr makeNativeValue(JSValueRef value);
@@ -55,6 +54,8 @@ protected:
 	JSObjectRef m_displayListChangedCallback = NULL;
 	JSObjectRef m_epsCallback = NULL;
 	JSObjectRef m_phaseChangedCallback = NULL;
+	JSObjectRef m_logCallback = NULL;
+	JSObjectRef m_measureTextCallback = NULL;
 
 	static JSValueRef staticCallback(JSContextRef ctx, JSObjectRef function, JSObjectRef thisObject, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception);
 	JSValueRef callback(JSObjectRef function, JSObjectRef thisObject, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception);

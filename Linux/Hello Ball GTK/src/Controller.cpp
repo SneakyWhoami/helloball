@@ -29,6 +29,10 @@ Controller::~Controller() {
 
 bool Controller::init()
 {
+	if (!initFonts()) {
+		return false;
+	}
+
 	m_queue = new AsyncQueue();
 
 	m_bridge = std::shared_ptr<JSBridge>(new JSBridge(m_queue));
@@ -42,6 +46,11 @@ bool Controller::init()
 
 	gdk_threads_add_timeout(1000. / 5., on_timer, this);
 
+	return true;
+}
+
+bool Controller::initFonts()
+{
 	return true;
 }
 
