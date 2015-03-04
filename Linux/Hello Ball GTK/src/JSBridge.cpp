@@ -190,32 +190,48 @@ JSValueRef JSBridge::callback(JSObjectRef function, JSObjectRef thisObject, size
 	JSValueRef result = JSValueMakeUndefined(m_context);
 
 	if (function == m_ballCountChangedCallback) {
-		signal_ball_count_changed.emit(makeNativeValue(arguments[0])->doubleValue());
+		double d = makeNativeValue(arguments[0])->doubleValue();
+		EventPtr e(new Event([=]() {
+			signal_ball_count_changed.emit(d);
+		}));
+		m_queue->postEvent(e);
 	} else if (function == m_displayListChangedCallback) {
-		signal_displaylist_changed.emit(makeNativeValue(arguments[0]));
+		NativeValuePtr n = makeNativeValue(arguments[0]);
+		EventPtr e(new Event([=]() {
+			signal_displaylist_changed.emit(n);
+		}));
+		m_queue->postEvent(e);
 	} else if (function == m_epsCallback) {
-		signal_events_per_second.emit(makeNativeValue(arguments[0])->doubleValue());
+		double d = makeNativeValue(arguments[0])->doubleValue();
+		EventPtr e(new Event([=]() {
+			signal_events_per_second.emit(d);
+		}));
+		m_queue->postEvent(e);
 	} else if (function == m_phaseChangedCallback) {
-		signal_phase_changed.emit(makeNativeValue(arguments[0])->doubleValue());
+		double d = makeNativeValue(arguments[0])->doubleValue();
+		EventPtr e(new Event([=]() {
+			signal_phase_changed.emit(d);
+		}));
+		m_queue->postEvent(e);
 	}
 
 	return result;
 }
-
-void JSBridge::handleEvent(Event *e)
-{
-	if (dynamic_cast<MouseEvent *>(e)) {
-		MouseEvent *mv = static_cast<MouseEvent *>(e);
-		std::ostringstream s;
-		s << "controller.mouse";
-		if (mv->type == MouseEvent::MouseDown) {
-			s << "Down";
-		} else if (mv->type == MouseEvent::MouseUp) {
-			s << "Up";
-		} else {
-			s << "Move";
-		}
-		s << "(" << mv->x << ", " << mv->y << ");";
-		executeScript(s.str().c_str());
-	}
-}
+//
+//void JSBridge::handleEvent(Event *e)
+//{
+//	if (dynamic_cast<MouseEvent *>(e)) {
+//		MouseEvent *mv = static_cast<MouseEvent *>(e);
+//		std::ostringstream s;
+//		s << "controller.mouse";
+//		if (mv->type == MouseEvent::MouseDown) {
+//			s << "Down";
+//		} else if (mv->type == MouseEvent::MouseUp) {
+//			s << "Up";
+//		} else {
+//			s << "Move";
+//		}
+//		s << "(" << mv->x << ", " << mv->y << ");";
+//		executeScript(s.str().c_str());
+//	}
+//}

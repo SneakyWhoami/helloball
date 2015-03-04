@@ -57,22 +57,28 @@ void Controller::on_execute_button_clicked()
 
 bool Controller::on_balls_mouse_down(GdkEventButton* event)
 {
-	EventPtr e(new MouseEvent(MouseEvent::MouseDown, event->x, event->y));
-	m_queue->postEvent(m_bridge, e);
+	EventPtr e(new Event([=]() {
+		m_bridge->mouseDown(event->x, event->y);
+	}));
+	m_queue->postEvent(e);
 	return true;
 }
 
 bool Controller::on_balls_mouse_move(GdkEventMotion* event)
 {
-	EventPtr e(new MouseEvent(MouseEvent::MouseMove, event->x, event->y));
-	m_queue->postEvent(m_bridge, e);
+	EventPtr e(new Event([=]() {
+		m_bridge->mouseMove(event->x, event->y);
+	}));
+	m_queue->postEvent(e);
 	return true;
 }
 
 bool Controller::on_balls_mouse_up(GdkEventButton* event)
 {
-	EventPtr e(new MouseEvent(MouseEvent::MouseUp, event->x, event->y));
-	m_queue->postEvent(m_bridge, e);
+	EventPtr e(new Event([=]() {
+		m_bridge->mouseUp(event->x, event->y);
+	}));
+	m_queue->postEvent(e);
 	return true;
 }
 

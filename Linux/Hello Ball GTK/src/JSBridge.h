@@ -15,7 +15,7 @@
 #include "EventQueue.h"
 
 
-class JSBridge : public EventTarget
+class JSBridge
 {
 public:
 	JSBridge(EventQueue *q);
@@ -23,7 +23,9 @@ public:
 
 	bool startEngine(int viewWidth, int viewHeight);
 
-	virtual void handleEvent(Event *e);
+	void mouseDown(int x, int y);
+	void mouseMove(int x, int y);
+	void mouseUp(int x, int y);
 
 	JSValueRef executeScript(const char *script);
 
@@ -37,10 +39,6 @@ public:
 
 protected:
 	EventQueue *m_queue;
-
-	void mouseDown(int x, int y);
-	void mouseMove(int x, int y);
-	void mouseUp(int x, int y);
 
 	JSGlobalContextRef m_context = NULL;
 	JSObjectRef m_Array = NULL;

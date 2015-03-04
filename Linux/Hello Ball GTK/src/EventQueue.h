@@ -9,15 +9,20 @@
 #define EVENTQUEUE_H_
 
 #include <glibmm.h>
+#include <functional>
 
 
 class Event
 {
 public:
-	virtual ~Event() { }
+	std::function<void ()> func;
+
+	Event(std::function<void ()> func) { this->func = func; }
 };
+
 typedef std::shared_ptr<Event> EventPtr;
 
+/*
 class MouseEvent : public Event
 {
 public:
@@ -38,23 +43,15 @@ public:
 	}
 };
 
-
-class EventTarget
-{
-public:
-	virtual ~EventTarget() { }
-	virtual void handleEvent(Event *e) { };
-};
-typedef std::shared_ptr<EventTarget> EventTargetPtr;
-
+*/
 
 class EventQueue
 {
 public:
-	void postEvent(EventTargetPtr t, EventPtr e);
+	~EventQueue();
+	void postEvent(EventPtr e);
 
 protected:
-	std::deque<EventTargetPtr> m_targets;
 	std::deque<EventPtr> m_events;
 
 	static gboolean idle_callback(gpointer data);
