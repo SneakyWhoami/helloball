@@ -10,6 +10,8 @@
 #include <glibmm.h>
 #include <typeinfo>
 #include <wordexp.h>
+#include <unistd.h>
+#include <cstring>
 
 #include "JSBridge.h"
 
@@ -41,8 +43,10 @@ bool JSBridge::startEngine(int viewWidth, int viewHeight)
 	m_Function = (JSObjectRef)JSObjectGetProperty(m_context, JSContextGetGlobalObject(m_context), functionString, NULL);
 	JSStringRelease(functionString);
 
-	// load and execute Model.js
-	JSValueRef v = loadFile("/home/pepo/code/helloball/common/js/model.js");
+	// load and execute model.js
+	std::string modelJsPath = execFolderPath();
+	modelJsPath += "model.js";
+	JSValueRef v = loadFile(modelJsPath.c_str());
 	std::cout << makeNativeValue(v)->toString() << std::endl;
 
 	JSObjectRef delegate = JSObjectMake(m_context, NULL, NULL);
@@ -219,21 +223,22 @@ JSValueRef JSBridge::callback(JSObjectRef function, JSObjectRef thisObject, size
 
 	return result;
 }
-//
-//void JSBridge::handleEvent(Event *e)
-//{
-//	if (dynamic_cast<MouseEvent *>(e)) {
-//		MouseEvent *mv = static_cast<MouseEvent *>(e);
-//		std::ostringstream s;
-//		s << "controller.mouse";
-//		if (mv->type == MouseEvent::MouseDown) {
-//			s << "Down";
-//		} else if (mv->type == MouseEvent::MouseUp) {
-//			s << "Up";
-//		} else {
-//			s << "Move";
-//		}
-//		s << "(" << mv->x << ", " << mv->y << ");";
-//		executeScript(s.str().c_str());
-//	}
-//}
+
+std::string JSBridge::execFolderPath()
+{
+	char execPath[2048];
+	readlink("/proc/self/exe", execPath, 2048);
+	size_t l = strlen(execPath);
+	size_t i = l - 1;
+	bool found = false;
+	while (!found && i >= 0) {
+		if (execPath[i] == '/') {
+			execPath[i + 1] = '\0';
+			found = true;
+		}
+		i -= 1;
+	}
+	std::string path;
+	path += execPath;
+	return path;
+}

@@ -1,0 +1,11 @@
+eclipse.preferences.version=1
+environment/project/cdt.managedbuild.config.gnu.cross.exe.debug.416020365/CODE_HOME/delimiter=\:
+environment/project/cdt.managedbuild.config.gnu.cross.exe.debug.416020365/CODE_HOME/operation=append
+environment/project/cdt.managedbuild.config.gnu.cross.exe.debug.416020365/CODE_HOME/value=${HOME}/code/
+environment/project/cdt.managedbuild.config.gnu.cross.exe.debug.416020365/append=true
+environment/project/cdt.managedbuild.config.gnu.cross.exe.debug.416020365/appendContributed=true
+environment/project/cdt.managedbuild.config.gnu.cross.exe.release.555480386/CODE_HOME/delimiter=\:
+environment/project/cdt.managedbuild.config.gnu.cross.exe.release.555480386/CODE_HOME/operation=append
+environment/project/cdt.managedbuild.config.gnu.cross.exe.release.555480386/CODE_HOME/value=${HOME}/code/
+environment/project/cdt.managedbuild.config.gnu.cross.exe.release.555480386/append=true
+environment/project/cdt.managedbuild.config.gnu.cross.exe.release.555480386/appendContributed=true
