@@ -252,6 +252,7 @@
 								<option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.option.optimization.level.374833434" name="Optimization Level" superClass="gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.debugging.level.994276127" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.none" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.include.paths.1532037420" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="/usr/include/fribidi"/>
 									<listOptionValue builtIn="false" value="/usr/include/gtkmm-3.0"/>
 									<listOptionValue builtIn="false" value="/usr/lib/x86_64-linux-gnu/gtkmm-3.0/include"/>
 									<listOptionValue builtIn="false" value="/usr/include/atkmm-1.6"/>
@@ -290,6 +291,7 @@
 								<option id="gnu.cpp.compiler.option.debugging.level.1939654856" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.other.other.752565802" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" useByScannerDiscovery="false" value="-c -fmessage-length=0 -pthread" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.include.paths.1913182066" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="/usr/include/fribidi"/>
 									<listOptionValue builtIn="false" value="/usr/include/gtkmm-3.0"/>
 									<listOptionValue builtIn="false" value="/usr/lib/x86_64-linux-gnu/gtkmm-3.0/include"/>
 									<listOptionValue builtIn="false" value="/usr/include/atkmm-1.6"/>
@@ -329,6 +331,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.linker.2030884147" name="Cross GCC Linker" superClass="cdt.managedbuild.tool.gnu.cross.c.linker"/>
 							<tool id="cdt.managedbuild.tool.gnu.cross.cpp.linker.1644468241" name="Cross G++ Linker" superClass="cdt.managedbuild.tool.gnu.cross.cpp.linker">
 								<option id="gnu.cpp.link.option.libs.1134138474" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="fribidi"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="freetype"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="harfbuzz"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="gtkmm-3.0"/>
@@ -372,6 +375,7 @@
 				<externalSettings containerId="org.eclipse.cdt.managedbuilder.pkgconfig.extSettings" factoryId="org.eclipse.cdt.core.extension.container.factory">
 					<externalSetting contentTypes="org.eclipse.cdt.core.cSource:org.eclipse.cdt.core.cxxSource">
 						<entry flags="BUILTIN" kind="includePath" name="/usr/include/freetype2"/>
+						<entry flags="BUILTIN" kind="includePath" name="/usr/include/fribidi"/>
 						<entry flags="BUILTIN" kind="includePath" name="/usr/include/gtkmm-3.0"/>
 						<entry flags="BUILTIN" kind="includePath" name="/usr/lib/x86_64-linux-gnu/gtkmm-3.0/include"/>
 						<entry flags="BUILTIN" kind="includePath" name="/usr/include/atkmm-1.6"/>
@@ -404,6 +408,7 @@
 					</externalSetting>
 					<externalSetting contentTypes="org.eclipse.cdt.managedbuilder.core.compiledObjectFile">
 						<entry flags="UNDEFINED" kind="libraryFile" name="freetype" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="fribidi" srcPrefixMapping="" srcRootPath=""/>
 						<entry flags="UNDEFINED" kind="libraryFile" name="gtkmm-3.0" srcPrefixMapping="" srcRootPath=""/>
 						<entry flags="UNDEFINED" kind="libraryFile" name="atkmm-1.6" srcPrefixMapping="" srcRootPath=""/>
 						<entry flags="UNDEFINED" kind="libraryFile" name="gdkmm-3.0" srcPrefixMapping="" srcRootPath=""/>
