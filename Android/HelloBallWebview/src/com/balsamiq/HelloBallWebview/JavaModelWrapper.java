@@ -22,7 +22,7 @@ public class JavaModelWrapper {
         // TODO: it works but cannot debug
 //        String model = AssetUtilities.readFromfile(_activity, "model.js");
 //        _webView.evaluateJavascript(model, null);
-        String call = "vai(" + sizeX + ", " + sizeY + ");";
+        String call = "vai(" + sizeX + ", " + sizeY + "); ModelObserver.controller.doText();";
         _webView.evaluateJavascript(call, null);
     }
 

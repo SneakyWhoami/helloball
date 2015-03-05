@@ -25,6 +25,7 @@ public class TextRuler {
         Rect bounds = new Rect();
         paint.setTypeface(tf);
         paint.setTextSize(fontSize);
+        float val = paint.measureText(text);
         paint.getTextBounds(text, 0, text.length(), bounds);
         return bounds.width();
     }

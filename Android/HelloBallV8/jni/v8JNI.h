@@ -68,7 +68,15 @@ JNIEXPORT void JNICALL Java_com_balsamiq_HelloBall_JavaModelV8_onMouseMove
  * Method:    task
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_com_balsamiq_HelloBall_JavaModelV8_task 
+JNIEXPORT void JNICALL Java_com_balsamiq_HelloBall_JavaModelV8_task
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_balsamiq_HelloBall_JavaModelV8
+ * Method:    doText
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_balsamiq_HelloBall_JavaModelV8_doText
   (JNIEnv *, jobject);
 
 #ifdef __cplusplus

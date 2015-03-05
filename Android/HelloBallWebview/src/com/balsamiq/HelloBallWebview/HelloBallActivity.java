@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.ViewTreeObserver;
 import android.webkit.WebView;
@@ -86,7 +87,7 @@ public class HelloBallActivity extends Activity implements IModelObserver {
 
     @Override
     public void log(String message) {
-
+        Log.d("HelloBallWebView", message);
     }
 
     public void displayListChanged(SparseArray<Ball> balls) {

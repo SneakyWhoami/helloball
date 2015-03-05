@@ -3,9 +3,41 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <link rel="stylesheet" href="balsamiqsans.css" type="text/css" charset="utf-8">
     <script type="text/javascript" src="model.js"></script>
 </head>
 <body>
+<canvas id="textMeterCanvas"></canvas>
+
+<script>
+
+    var setContextTextStyle = function (p_context, p_fontFamily, p_fontSize, p_bold, p_italic) {
+        var fontStr = "";
+        if (p_bold) {
+            fontStr += "Bold ";
+        }
+        if (p_italic) {
+            fontStr += "Italic ";
+        }
+        fontStr += p_fontSize + "px ";
+        fontStr += '"' + p_fontFamily + '"';
+        p_context.font = fontStr;
+    };
+
+    var measureText = function(p_fontFamily, p_fontSize, p_bold, p_italic, text) {
+        var canvas = document.getElementById("textMeterCanvas");
+        var g = canvas.getContext("2d");
+        setContextTextStyle(g, p_fontFamily, p_fontSize, p_bold, p_italic);
+        return g.measureText(text).width;
+    };
+
+    var vai = function(viewWidth, viewHeight)
+    {
+        ModelObserver.measureText = measureText;
+        ModelObserver.controller = initApp(viewWidth, viewHeight, ModelObserver);
+    }
+
+</script>
 
 </body>
 </html>

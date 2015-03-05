@@ -41,6 +41,12 @@ JNIEXPORT void JNICALL Java_com_balsamiq_HelloBall_JavaModelV8_task(JNIEnv *env,
     v8Wrapper->task();
 }
 
+JNIEXPORT void JNICALL Java_com_balsamiq_HelloBall_JavaModelV8_doText(JNIEnv *env, jobject obj)
+{
+    observer->push_env(env, obj);
+    v8Wrapper->doText();
+}
+
 void internalCallToMouseXXX(const char *mouseXXXMethod, double x, double y)
 {
     v8Wrapper->callMouseMethod(mouseXXXMethod, x, y);
