@@ -60,7 +60,7 @@ Model.prototype.populate = function (viewWidth, viewHeight) {
                         );
         this.addBall(ball);
     }
-}
+};
 
 var hitTest = function (balls, x, y) {
     var ballsHit = [];
@@ -71,7 +71,7 @@ var hitTest = function (balls, x, y) {
         }
     }
     return ballsHit;
-}
+};
 
 var penetrationTest = function (balls) {
     var results = [];
@@ -88,26 +88,24 @@ var penetrationTest = function (balls) {
         }
     }
     return results;
-}
+};
 
 var EventsCounter = function (delegate) {
     this.eventsCount = 0;
     this.lastTime = 0;
     this.delegate = delegate;
-}
+};
 
 EventsCounter.prototype.countEvent = function () {
     this.eventsCount += 1;
     var diffTime = Date.now() - this.lastTime;
     if (diffTime > 200) {
-        if (this.delegate) {
-            var eps = this.eventsCount * 1000 / diffTime;
-            this.delegate.eventsPerSecond(eps);
-        }
+        var eps = this.eventsCount * 1000 / diffTime;
+        this.delegate.eventsPerSecond(eps);
         this.lastTime = Date.now();
         this.eventsCount = 0;
     }
-}
+};
 
 var DisplayList = function (ballCount) {
     this.items = [];
@@ -116,7 +114,7 @@ var DisplayList = function (ballCount) {
     for (i = 0; i < ballCount; i++) {
         this.items.push({ x: -1, y: -1, radius: -1, color: -1 });
     }
-}
+};
 
 DisplayList.prototype.setBall = function (ballIndex, x, y, radius, color) {
     var newObj = { x: x, y: y, radius: radius, color: color };
@@ -128,7 +126,7 @@ DisplayList.prototype.setBall = function (ballIndex, x, y, radius, color) {
             break;
         }
     }
-}
+};
 
 DisplayList.prototype.getChangedItems = function () {
     var result = {};
@@ -137,7 +135,7 @@ DisplayList.prototype.getChangedItems = function () {
     }
     this.itemsChanged = {};
     return result;
-}
+};
 
 var Controller = function (model, delegate) {
     this.delegate = delegate;
@@ -146,7 +144,7 @@ var Controller = function (model, delegate) {
     this.mouseIsDown = false;
     this.eps = new EventsCounter(delegate);
     this.displayList = new DisplayList(this.model.balls.length);
-}
+};
 
 Controller.prototype.mouseDown = function (x, y) {
     var ballsHit = hitTest(this.model.balls, x, y);
@@ -158,7 +156,7 @@ Controller.prototype.mouseDown = function (x, y) {
     this.mouseIsDown = true;
     this.makeDisplayList();
     this.eps.countEvent();
-}
+};
 
 Controller.prototype.mouseMove = function (x, y) {
     var currentTime = Date.now();
@@ -167,8 +165,7 @@ Controller.prototype.mouseMove = function (x, y) {
         this.makeDisplayList();
     }
     this.eps.countEvent();
-//    this.delegate.log("diff time: " + (Date.now() - currentTime));
-}
+};
 
 Controller.prototype.mouseUp = function (x, y) {
     this.mouseIsDown = false;
@@ -176,7 +173,7 @@ Controller.prototype.mouseUp = function (x, y) {
         this.makeDisplayList();
     }
     this.eps.countEvent();
-}
+};
 
 Controller.prototype.makeDisplayList = function () {
     var penetrationResults = PENETRATION_TEST_ENABLED ? penetrationTest(this.model.balls) : null;
@@ -206,10 +203,13 @@ Controller.prototype.makeDisplayList = function () {
         this.displayList.setBall(i, this.model.balls[i].x, this.model.balls[i].y, this.model.balls[i].radius, color);
     }
 
-    if (this.delegate) {
-        this.delegate.displayListChanged(this.displayList.getChangedItems());
-    }
-}
+    this.delegate.displayListChanged(this.displayList.getChangedItems());
+};
+
+Controller.prototype.doText = function () {
+	var m = this.delegate.measureText("Balsamiq Sans", 18, false, false, "AVAVAVAVA");
+	this.delegate.log("text width: " + m);
+};
 
 Controller.prototype.task = function () {
     var time = Date.now();
@@ -218,10 +218,8 @@ Controller.prototype.task = function () {
     if (isOddSecond) {
         phase = 1 - phase;
     }
-    if (this.delegate.phaseChanged) {
-        this.delegate.phaseChanged(phase);
-    }
-}
+    this.delegate.phaseChanged(phase);
+};
 
 var initApp = function (viewWidth, viewHeight, delegate) {
     var model = new Model();
@@ -230,4 +228,4 @@ var initApp = function (viewWidth, viewHeight, delegate) {
     var controller = new Controller(model, delegate);
     controller.makeDisplayList();
     return controller;
-}
+};

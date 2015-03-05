@@ -2,6 +2,7 @@ package com.balsamiq.EventBusObserver;
 
 import com.balsamiq.HelloBall.Ball;
 import com.balsamiq.HelloBall.IModelObserver;
+import com.balsamiq.HelloBall.TextRuler;
 import de.greenrobot.event.EventBus;
 
 import java.util.HashMap;
@@ -11,6 +12,13 @@ import java.util.HashMap;
  */
 public class ModelObserver implements IModelObserver {
 
+    TextRuler ruler;
+    
+    public ModelObserver(TextRuler ruler)
+    {
+        this.ruler = ruler;
+    }
+    
     @Override
     public void ballCountChanged(int number) {
         EventBus.getDefault().post(new BallCountChangedEvent(number));
@@ -34,5 +42,11 @@ public class ModelObserver implements IModelObserver {
     @Override
     public void phaseChanged(double value) {
         EventBus.getDefault().post(new PhaseChangedEvent(value));
+    }
+
+    @Override
+    public int measureText(String font, int fontSize, boolean bold, boolean italic, String text)
+    {
+        return ruler.measureTextWidth(font, fontSize, bold, italic, text);
     }
 }

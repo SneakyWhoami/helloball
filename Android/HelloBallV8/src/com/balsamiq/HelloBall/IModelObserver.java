@@ -16,4 +16,6 @@ public interface IModelObserver {
     
     void phaseChanged(double value);
 
+    int measureText(String font, int fontSize, boolean bold, boolean italic, String text);
+
 }

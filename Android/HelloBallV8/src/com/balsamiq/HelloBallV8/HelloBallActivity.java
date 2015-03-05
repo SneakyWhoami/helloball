@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.balsamiq.EventBusObserver.*;
 import com.balsamiq.HelloBall.IModel;
 import com.balsamiq.HelloBall.JavaModelV8;
+import com.balsamiq.HelloBall.TextRuler;
 import de.greenrobot.event.EventBus;
 
 public class HelloBallActivity extends Activity {
@@ -38,8 +39,9 @@ public class HelloBallActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
         _view = (BallsDrawingView) findViewById(R.id.drawing_view);
-        JavaModelV8 model = new JavaModelV8(new ModelObserver());
+        JavaModelV8 model = new JavaModelV8(new ModelObserver(new TextRuler(this)));
         _model = model;
         model.load(AssetUtilities.readFromfile(this, "model.js"), "model.js");
         model.load(AssetUtilities.readFromfile(this, "custom.js"), "custom.js");

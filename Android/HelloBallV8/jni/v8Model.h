@@ -28,6 +28,7 @@ public:
     int ball_count();
     int events_per_second();
     void task();
+    void doText();
 };
 
 #endif // V8_MODEL_INCLUDE

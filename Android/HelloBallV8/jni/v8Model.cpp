@@ -6,6 +6,30 @@
 
 using namespace v8;
 
+void measureText(const FunctionCallbackInfo<Value>& args)
+{
+    EscapableHandleScope scope(args.GetIsolate());
+    
+    if (args.Length() < 5) {
+        return;
+    }
+    
+    //"Balsamiq Sans", 18, false, false, "AVAVAVAVA"
+    v8::String::Utf8Value fontNameV8(args[0]->ToString());
+    std::string fontName = std::string(*fontNameV8);
+    int fontSize = args[1]->Int32Value();
+    bool bold = args[2]->BooleanValue();
+    bool italic  = args[3]->BooleanValue();
+    v8::String::Utf8Value textV8(args[4]->ToString());
+    std::string text = std::string(*textV8);
+
+    Local<Object> self = args.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    int width = static_cast<IModelObserver*>(ptr)->measureText(fontName, fontSize, bold, italic, text);
+    args.GetReturnValue().Set(width);
+}
+
 void phaseChanged(const FunctionCallbackInfo<Value>& args)
 {
     EscapableHandleScope scope(args.GetIsolate());
@@ -78,8 +102,14 @@ void log(const FunctionCallbackInfo<Value>& args)
     if (args.Length() < 1) {
         return;
     }
-    Local<String> dl = args[0]->ToString();
-    String::Utf8Value dlValue(dl);
+    Local<Object> self = args.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    
+    v8::String::Utf8Value param1(args[0]->ToString());
+    std::string foo = std::string(*param1);
+
+    static_cast<IModelObserver*>(ptr)->log(foo);
 }
 
 v8Model::v8Model(IModelObserver *observer)
@@ -105,6 +135,7 @@ v8Model::v8Model(IModelObserver *observer)
     global->Set(String::NewFromUtf8(isolate, "displayListChanged"), FunctionTemplate::New(isolate, displayListChanged));
     global->Set(String::NewFromUtf8(isolate, "eventsPerSecond"), FunctionTemplate::New(isolate, eventsPerSecond));
     global->Set(String::NewFromUtf8(isolate, "phaseChanged"), FunctionTemplate::New(isolate, phaseChanged));
+    global->Set(String::NewFromUtf8(isolate, "measureText"), FunctionTemplate::New(isolate, measureText));
     global->Set(String::NewFromUtf8(isolate, "log"), FunctionTemplate::New(isolate, log));
     
     // Create a new context.
@@ -224,6 +255,28 @@ void v8Model::task()
     Local<Object> ModelObserver = Local<Object>::Cast(context->Global()->Get(String::NewFromUtf8(isolate, "ModelObserver")));
     Local<Object> appController = Local<Object>::Cast(ModelObserver->Get(String::NewFromUtf8(isolate, "appController")));
     Local<Function> func1 = Local<Function>::Cast(appController->Get(String::NewFromUtf8(isolate, "task")));
+    js_result = func1->Call(context->Global(), 0, NULL);
+    if (js_result.IsEmpty()) {
+        Local<Value> stack = try_catch.StackTrace();
+        String::Utf8Value stack_str(stack);
+        model->log(*stack_str);
+    }
+}
+
+void v8Model::doText()
+{
+    HandleScope handle_scope(isolate);
+    v8::Local<v8::Context> context = Local<Context>::New(isolate, context_);
+    
+    // Enter this processor's context so all the remaining operations
+    // take place there
+    Context::Scope context_scope(context);
+    TryCatch try_catch;
+    
+    Local<Value> js_result;
+    Local<Object> ModelObserver = Local<Object>::Cast(context->Global()->Get(String::NewFromUtf8(isolate, "ModelObserver")));
+    Local<Object> appController = Local<Object>::Cast(ModelObserver->Get(String::NewFromUtf8(isolate, "appController")));
+    Local<Function> func1 = Local<Function>::Cast(appController->Get(String::NewFromUtf8(isolate, "doText")));
     js_result = func1->Call(context->Global(), 0, NULL);
     if (js_result.IsEmpty()) {
         Local<Value> stack = try_catch.StackTrace();

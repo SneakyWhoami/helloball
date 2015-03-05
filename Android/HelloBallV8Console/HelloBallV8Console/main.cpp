@@ -56,6 +56,7 @@ int main(int argc, const char * argv[]) {
         
     }
     
+    model->doText();
     model->task();
     model->callMouseMethod("mouseDown", x, y);
     model->callMouseMethod("mouseMove", x + 10, y + 10);

@@ -53,3 +53,8 @@ void MyModelObserver::log(const std::string& message)
 {
     std::cout << message << std::endl;
 }
+
+int MyModelObserver::measureText(const std::string& fontName, int fontSize, bool bold, bool italic, const std::string& text)
+{
+    return fontSize * (int)text.length();
+}

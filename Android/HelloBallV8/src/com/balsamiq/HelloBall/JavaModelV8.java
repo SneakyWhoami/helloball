@@ -22,6 +22,8 @@ public class JavaModelV8 implements IModel {
     private native void onMouseMove(double x, double y);
     
     private native void task();
+    
+    private native void doText();
 
     protected IModelObserver _observer;
 
@@ -45,7 +47,9 @@ public class JavaModelV8 implements IModel {
     }
     
     public void start(float sizeX, float sizeY) {
+        
         startModel(sizeX, sizeY);
+        doText();
     }
 
     public void stop() {
@@ -114,5 +118,9 @@ public class JavaModelV8 implements IModel {
     public void onPhaseChanged(double phaseValue)
     {
         _observer.phaseChanged(phaseValue);
+    }
+
+    public int onTextSize(String font, int fontSize, boolean bold, boolean italic, String text) {
+        return _observer.measureText(font, fontSize, bold, italic, text);
     }
 }

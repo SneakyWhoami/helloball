@@ -26,6 +26,11 @@ function modelStart(viewWidth, viewHeight) {
         ModelObserver.phaseChanged(value);
     };
     
+    ModelObserver.delegate.measureText = function(font, size, bold, italic, text)
+    {
+        return ModelObserver.measureText(font, size, bold, italic, text);
+    };
+
     ModelObserver.modelController = initApp(viewWidth, viewHeight, ModelObserver.delegate);
 
     ModelObserver.appController = {};
@@ -37,7 +42,11 @@ function modelStart(viewWidth, viewHeight) {
     ModelObserver.appController.task = function() {
         ModelObserver.modelController.task();
     };
-
+    
+    ModelObserver.appController.doText = function() {
+        ModelObserver.modelController.doText();
+    };
+    
     ModelObserver.appController.mouseUp = function(x,y) {
         ModelObserver.modelController.mouseUp(x,y);
     };

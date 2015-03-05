@@ -27,5 +27,7 @@ public:
     void phase(double phase_value);
     double phase();
     void log(const std::string& message);
+    
+    int measureText(const std::string& fontName, int fontSize, bool bold, bool italic, const std::string& text);
 };
 #endif /* defined(__HelloBallV8Console__MyModelObserver__) */
