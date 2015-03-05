@@ -53,6 +53,7 @@ public class TextRuler {
                 String fontPath = "fonts/" + fontToLoad;
                 Typeface tf = Typeface.createFromAsset(_context.getAssets(), fontPath);
                 fonts.put(fontToLoad, tf);
+                return tf;
             }
         }
 
