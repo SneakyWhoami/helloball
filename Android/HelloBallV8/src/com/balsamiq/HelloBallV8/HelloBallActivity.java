@@ -114,10 +114,10 @@ public class HelloBallActivity extends Activity {
         stringBuilder.append(string);
         stringBuilder.append(string);
         stringBuilder.append(string);
-        Log.d(LOG_TAG, stringBuilder.toString());
+//        Log.d(LOG_TAG, stringBuilder.toString());
         try {
             int color = Integer.parseInt(stringBuilder.toString(), 16) + 0xff000000;
-            Log.d(LOG_TAG, "" + color);
+//            Log.d(LOG_TAG, "" + color);
             _view.setBackgroundColor(color);
 
         } catch (java.lang.IllegalArgumentException exception) {
