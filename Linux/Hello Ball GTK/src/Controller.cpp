@@ -8,6 +8,7 @@
 #include <iostream>
 
 #include "Controller.h"
+#include "Utils.h"
 
 gboolean Controller::on_timer(gpointer data)
 {
@@ -16,6 +17,8 @@ gboolean Controller::on_timer(gpointer data)
 }
 
 Controller::Controller(HelloBallWindow *window) {
+	m_fontHelper = NULL;
+
 	m_window = window;
 	m_window->executeButton.signal_clicked().connect(sigc::mem_fun(*this, &Controller::on_execute_button_clicked));
 	m_window->ballsArea.signal_button_press_event().connect(sigc::mem_fun(*this, &Controller::on_balls_mouse_down));
@@ -25,6 +28,7 @@ Controller::Controller(HelloBallWindow *window) {
 
 Controller::~Controller() {
 	delete m_queue;
+	delete m_fontHelper;
 }
 
 bool Controller::init()
@@ -32,6 +36,8 @@ bool Controller::init()
 	if (!initFonts()) {
 		return false;
 	}
+
+	m_window->ballsArea.setFontHelper(m_fontHelper);
 
 	m_queue = new AsyncQueue();
 
@@ -41,16 +47,22 @@ bool Controller::init()
 	m_bridge->signal_events_per_second.connect(sigc::mem_fun(this, &Controller::on_events_per_second));
 	m_bridge->signal_phase_changed.connect(sigc::mem_fun(this, &Controller::on_phase_changed));
 	m_bridge->signal_displaylist_changed.connect(sigc::mem_fun(this, &Controller::on_displaylist_changed));
+	m_bridge->signal_measure_text.connect(sigc::mem_fun(this, &Controller::on_measure_text));
 
 	m_bridge->startEngine(800, 420);
 
-	gdk_threads_add_timeout(1000. / 5., on_timer, this);
+	//gdk_threads_add_timeout(1000. / 5., on_timer, this);
 
 	return true;
 }
 
 bool Controller::initFonts()
 {
+	std::string execFolderPath = Utils::execFolderPath();
+
+	m_fontHelper = new CairoFontHelper();
+	m_fontHelper->initWithPath("Balsamiq Sans", execFolderPath + "/BalsamiqSansRegular.ttf");
+
 	return true;
 }
 
@@ -124,4 +136,9 @@ bool Controller::handle_timer()
 {
 	m_bridge->executeScript("controller.task();");
 	return true;
+}
+
+double Controller::on_measure_text(const std::string &fontFace, double fontSize, bool italic, bool bold, const std::string &text)
+{
+	return m_fontHelper->measureText(text, fontSize) * 96.0 / 72.0;
 }

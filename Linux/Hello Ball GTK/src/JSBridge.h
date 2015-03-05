@@ -36,6 +36,7 @@ public:
 	sigc::signal<void, double> signal_events_per_second;
 	sigc::signal<void, double> signal_phase_changed;
 	sigc::signal<void, NativeValuePtr> signal_displaylist_changed;
+	sigc::signal<double, const std::string &, double, bool, bool, const std::string &> signal_measure_text;
 
 protected:
 	AsyncQueue *m_queue;
@@ -59,8 +60,6 @@ protected:
 
 	static JSValueRef staticCallback(JSContextRef ctx, JSObjectRef function, JSObjectRef thisObject, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception);
 	JSValueRef callback(JSObjectRef function, JSObjectRef thisObject, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception);
-
-	std::string execFolderPath();
 };
 
 #endif /* JSBRIDGE_H_ */

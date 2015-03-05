@@ -11,6 +11,8 @@
 #include "AsyncQueue.h"
 #include "JSBridge.h"
 #include "HelloBallWindow.h"
+#include "CairoFontHelper.h"
+
 
 class Controller {
 public:
@@ -20,6 +22,7 @@ public:
 	bool init();
 
 protected:
+	CairoFontHelper *m_fontHelper;
 	bool initFonts();
 
 	AsyncQueue *m_queue;
@@ -35,6 +38,7 @@ protected:
 	void on_events_per_second(double eps);
 	void on_displaylist_changed(NativeValuePtr obj);
 	void on_phase_changed(double phase);
+	double on_measure_text(const std::string &fontFace, double fontSize, bool italic, bool bold, const std::string &text);
 
 	static gboolean on_timer(gpointer data);
 	bool handle_timer();

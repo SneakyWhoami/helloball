@@ -11,6 +11,8 @@
 #include <gtkmm/drawingarea.h>
 #include <vector>
 
+#include "CairoFontHelper.h"
+
 
 class BallsView: public Gtk::DrawingArea {
 
@@ -18,12 +20,16 @@ public:
 	BallsView();
 	virtual ~BallsView();
 
+	void setFontHelper(CairoFontHelper *h);
+
 	void setBallsCount(size_t count);
 	void setBall(size_t index, double x, double y, double radius, int color);
 
 	void setBackgroundPhase(double phase);
 
 protected:
+	CairoFontHelper *m_h;
+
 	struct Ball {
 		double x, y;
 		double radius;

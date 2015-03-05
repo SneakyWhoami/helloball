@@ -8,12 +8,9 @@
 #include <iostream>
 #include <stdlib.h>
 #include <glibmm.h>
-#include <typeinfo>
-#include <wordexp.h>
-#include <unistd.h>
-#include <cstring>
 
 #include "JSBridge.h"
+#include "Utils.h"
 
 
 JSBridge::JSBridge(AsyncQueue *q) {
@@ -44,7 +41,7 @@ bool JSBridge::startEngine(int viewWidth, int viewHeight)
 	JSStringRelease(functionString);
 
 	// load and execute model.js
-	std::string modelJsPath = execFolderPath();
+	std::string modelJsPath = Utils::execFolderPath();
 	modelJsPath += "/model.js";
 	std::string script = Glib::file_get_contents(modelJsPath.c_str());
 	JSValueRef v = executeScript(script.c_str());
@@ -220,27 +217,14 @@ JSValueRef JSBridge::callback(JSObjectRef function, JSObjectRef thisObject, size
 		std::string s = makeNativeValue(arguments[0])->stringValue();
 		std::cout << "Log: " << s << std::endl;
 	} else if (function == m_measureTextCallback) {
-		result = JSValueMakeNumber(m_context, 15.55);
+		std::string fontFace = makeNativeValue(arguments[0])->stringValue();
+		double fontSize = makeNativeValue(arguments[1])->doubleValue();
+		bool italic = makeNativeValue(arguments[2])->boolValue();
+		bool bold = makeNativeValue(arguments[3])->boolValue();
+		std::string text = makeNativeValue(arguments[4])->stringValue();
+		double w = signal_measure_text.emit(fontFace, fontSize, italic, bold, text);
+		result = JSValueMakeNumber(m_context, w);
 	}
 
 	return result;
-}
-
-std::string JSBridge::execFolderPath()
-{
-	char execPath[2048];
-	readlink("/proc/self/exe", execPath, 2048);
-	size_t l = strlen(execPath);
-	size_t i = l - 1;
-	bool found = false;
-	while (!found && i >= 0) {
-		if (execPath[i] == '/') {
-			execPath[i] = '\0';
-			found = true;
-		}
-		i -= 1;
-	}
-	std::string path;
-	path += execPath;
-	return path;
 }

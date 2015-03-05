@@ -5,6 +5,8 @@
  *      Author: pepo
  */
 
+#include <iostream>
+
 #include "BallsView.h"
 
 static void int2Color(int color, double rgb[3])
@@ -18,13 +20,18 @@ BallsView::BallsView() :
 	Glib::ObjectBase("BallsView"),
 	Gtk::DrawingArea()
 {
-	m_phase = 0;
+	m_phase = 1;
 	add_events(Gdk::EventMask::BUTTON_PRESS_MASK | Gdk::EventMask::BUTTON_MOTION_MASK | Gdk::EventMask::BUTTON_RELEASE_MASK);
 }
 
 BallsView::~BallsView()
 {
 
+}
+
+void BallsView::setFontHelper(CairoFontHelper *h)
+{
+	m_h = h;
 }
 
 void BallsView::setBallsCount(size_t count)
@@ -68,6 +75,18 @@ bool BallsView::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
 		cr->set_source_rgb(0, 0, 0);
 		cr->stroke();
 	}
+
+	Pango::FontDescription font;
+	//font.set_family("Balsamiq Sans");
+	font.set_size(36 * PANGO_SCALE);
+	Glib::RefPtr<Pango::Layout> layout = create_pango_layout("AVAVAVAVA");
+	layout->set_font_description(font);
+	int textWidth, textHeight;
+	layout->get_pixel_size(textWidth, textHeight);
+	cr->move_to(10, 100);
+	layout->show_in_cairo_context(cr);
+
+	m_h->fillText(cr->cobj(), 10, 200, "AVAVAVAVA", 18 * 96 / 72);
 
 	cr->restore();
 
