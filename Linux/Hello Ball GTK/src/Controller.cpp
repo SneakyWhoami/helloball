@@ -140,5 +140,5 @@ bool Controller::handle_timer()
 
 double Controller::on_measure_text(const std::string &fontFace, double fontSize, bool italic, bool bold, const std::string &text)
 {
-	return m_fontHelper->measureText(text, fontSize) * 96.0 / 72.0;
+	return m_fontHelper->measureText(text, fontSize);
 }

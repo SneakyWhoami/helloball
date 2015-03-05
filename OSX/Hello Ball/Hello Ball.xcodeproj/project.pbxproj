@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		932232A71A95EA6E008CF727 /* BLQEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 932232A61A95EA6E008CF727 /* BLQEvent.m */; };
+		932232AF1AA8AEED008CF727 /* BalsamiqSansBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 932232AB1AA8AEE9008CF727 /* BalsamiqSansBold.ttf */; };
+		932232B01AA8AEF0008CF727 /* BalsamiqSansBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 932232AC1AA8AEE9008CF727 /* BalsamiqSansBoldItalic.ttf */; };
+		932232B11AA8AEF2008CF727 /* BalsamiqSansItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 932232AD1AA8AEE9008CF727 /* BalsamiqSansItalic.ttf */; };
+		932232B21AA8AEF4008CF727 /* BalsamiqSansRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 932232AE1AA8AEE9008CF727 /* BalsamiqSansRegular.ttf */; };
 		93E03EA21A893EEC00E4F12B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E03EA11A893EEC00E4F12B /* AppDelegate.m */; };
 		93E03EA41A893EEC00E4F12B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E03EA31A893EEC00E4F12B /* main.m */; };
 		93E03EA71A893EEC00E4F12B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E03EA61A893EEC00E4F12B /* ViewController.m */; };
@@ -33,6 +37,10 @@
 /* Begin PBXFileReference section */
 		932232A51A95EA6E008CF727 /* BLQEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLQEvent.h; path = ../../../common/objc/BLQEvent.h; sourceTree = "<group>"; };
 		932232A61A95EA6E008CF727 /* BLQEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLQEvent.m; path = ../../../common/objc/BLQEvent.m; sourceTree = "<group>"; };
+		932232AB1AA8AEE9008CF727 /* BalsamiqSansBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansBold.ttf; path = ../../../../media.balsamiq.com/fonts/balsamiqsans/BalsamiqSansBold.ttf; sourceTree = "<group>"; };
+		932232AC1AA8AEE9008CF727 /* BalsamiqSansBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansBoldItalic.ttf; path = ../../../../media.balsamiq.com/fonts/balsamiqsans/BalsamiqSansBoldItalic.ttf; sourceTree = "<group>"; };
+		932232AD1AA8AEE9008CF727 /* BalsamiqSansItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansItalic.ttf; path = ../../../../media.balsamiq.com/fonts/balsamiqsans/BalsamiqSansItalic.ttf; sourceTree = "<group>"; };
+		932232AE1AA8AEE9008CF727 /* BalsamiqSansRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansRegular.ttf; path = ../../../../media.balsamiq.com/fonts/balsamiqsans/BalsamiqSansRegular.ttf; sourceTree = "<group>"; };
 		93E03E9B1A893EEC00E4F12B /* Hello Ball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hello Ball.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93E03E9F1A893EEC00E4F12B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93E03EA01A893EEC00E4F12B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -106,6 +114,10 @@
 				932232A51A95EA6E008CF727 /* BLQEvent.h */,
 				932232A61A95EA6E008CF727 /* BLQEvent.m */,
 				93E03EC71A89401400E4F12B /* model.js */,
+				932232AB1AA8AEE9008CF727 /* BalsamiqSansBold.ttf */,
+				932232AC1AA8AEE9008CF727 /* BalsamiqSansBoldItalic.ttf */,
+				932232AD1AA8AEE9008CF727 /* BalsamiqSansItalic.ttf */,
+				932232AE1AA8AEE9008CF727 /* BalsamiqSansRegular.ttf */,
 				93E03EA81A893EEC00E4F12B /* Images.xcassets */,
 				93E03EAA1A893EEC00E4F12B /* Main.storyboard */,
 				93E03E9E1A893EEC00E4F12B /* Supporting Files */,
@@ -219,8 +231,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				932232AF1AA8AEED008CF727 /* BalsamiqSansBold.ttf in Resources */,
+				932232B21AA8AEF4008CF727 /* BalsamiqSansRegular.ttf in Resources */,
 				93E03EC81A89401400E4F12B /* model.js in Resources */,
 				93E03EA91A893EEC00E4F12B /* Images.xcassets in Resources */,
+				932232B11AA8AEF2008CF727 /* BalsamiqSansItalic.ttf in Resources */,
+				932232B01AA8AEF0008CF727 /* BalsamiqSansBoldItalic.ttf in Resources */,
 				93E03EAC1A893EEC00E4F12B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

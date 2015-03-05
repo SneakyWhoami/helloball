@@ -12,6 +12,8 @@
 	<dict>
 		<key>48803F890284C626A64E3A6D6026B32CEDEB91F0</key>
 		<string>https://github.com/balsamiq/helloball.git</string>
+		<key>E4653A7E81DAF1767F3E92BD652CC7A4E75C1CBF</key>
+		<string>https://github.com/balsamiq/media.balsamiq.com.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>iOS/Hello Ball/Hello Ball.xcodeproj</string>
@@ -19,6 +21,8 @@
 	<dict>
 		<key>48803F890284C626A64E3A6D6026B32CEDEB91F0</key>
 		<string>../../../..</string>
+		<key>E4653A7E81DAF1767F3E92BD652CC7A4E75C1CBF</key>
+		<string>../../../../../media.balsamiq.com</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/balsamiq/helloball.git</string>
@@ -35,6 +39,14 @@
 			<string>48803F890284C626A64E3A6D6026B32CEDEB91F0</string>
 			<key>IDESourceControlWCCName</key>
 			<string>helloball</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E4653A7E81DAF1767F3E92BD652CC7A4E75C1CBF</string>
+			<key>IDESourceControlWCCName</key>
+			<string>media.balsamiq.com</string>
 		</dict>
 	</array>
 </dict>

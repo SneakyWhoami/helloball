@@ -31,6 +31,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSArray *fontFileNames = @[ @"BalsamiqSansRegular", @"BalsamiqSansBold", @"BalsamiqSansItalic", @"BalsamiqSansBoldItalic" ];
+    for (NSUInteger i = 0; i < fontFileNames.count; i += 1) {
+        NSURL *url = [[NSBundle mainBundle] URLForResource:[fontFileNames objectAtIndex:i] withExtension:@"ttf"];
+        CFErrorRef *err = NULL;
+        BOOL ok = CTFontManagerRegisterFontsForURL((__bridge CFURLRef)url, kCTFontManagerScopeProcess, err);
+    }
+
     _model = [BLQModelBridge alloc];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onModelBallsChanged:) name:BLQModelBridgeDisplayListChangedNotification object:_model];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onModelEPSChanged:) name:BLQModelBridgeEPSChangedNotification object:_model];
@@ -38,7 +45,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onModelBallPhaseChanged:) name:BLQModelBridgePhaseChangedNotification object:_model];
     
     [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerAfterLoad:) userInfo:nil repeats:NO];
-    [NSTimer scheduledTimerWithTimeInterval:(1. / 60.) target:self selector:@selector(taskTimer:) userInfo:nil repeats:YES];
+//    [NSTimer scheduledTimerWithTimeInterval:(1. / 60.) target:self selector:@selector(taskTimer:) userInfo:nil repeats:YES];
 }
 
 - (void)timerAfterLoad:(NSTimer *)timer
