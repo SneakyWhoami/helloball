@@ -16,7 +16,8 @@
         <TextBox Name="outputText" Grid.Row="2"></TextBox>
         <Canvas x:Name="canvas" Grid.Row="3">
             <Canvas Name="balls" Background="YellowGreen" Width="{Binding ActualWidth, ElementName=canvas, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=canvas, Mode=OneWay}" ClipToBounds="True"></Canvas>
-            <TextBlock Name="eps" Text="EPS" Foreground="Black" FontSize="16" Canvas.Left="10" Canvas.Top="20"/>
+            <TextBlock Name="eps" Text="EPS" Foreground="Black" FontSize="18" Canvas.Left="10" Canvas.Top="20"/>
+            <TextBlock Text="AVAVAVA" FontFamily="pack://application:,,,/#Balsamiq Sans" Typography.Kerning="True" Foreground="Black" FontSize="24" Canvas.Left="10" Canvas.Top="50"/>
         </Canvas>
     </Grid>
 </Window>
