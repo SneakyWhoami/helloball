@@ -390,7 +390,7 @@ namespace Hello_Ball_WPF
         {
             string text = (string)ConvertJavaScriptValue(arguments[5]);
             double fontSize = (double)ConvertJavaScriptValue(arguments[2]);
-            FontFamily ff = new FontFamily(new Uri("pack://application:,,,/"), "./resources/#Balsamiq Sans");
+            FontFamily ff = new FontFamily(new Uri("pack://application:,,,/"), "./#Balsamiq Sans");
             var formattedText = new FormattedText(
                 text,
                 System.Globalization.CultureInfo.CurrentUICulture,
