@@ -20,9 +20,9 @@ public class TextRuler {
     public TextRuler(Context context) {
         _context = context;
         paint = new TextPaint();
-        paint.setFlags(Paint.DEV_KERN_TEXT_FLAG);
-        paint.setAntiAlias(true);
-        paint.setSubpixelText(true);
+// useless        paint.setFlags(Paint.DEV_KERN_TEXT_FLAG);
+// useless        paint.setAntiAlias(true);
+// influences data       paint.setSubpixelText(true);
         paint.setLinearText(true);
     }
 
