@@ -120,7 +120,7 @@ public class JavaModelV8 implements IModel {
         _observer.phaseChanged(phaseValue);
     }
 
-    public int onTextSize(String font, int fontSize, boolean bold, boolean italic, String text) {
+    public float onTextSize(String font, int fontSize, boolean bold, boolean italic, String text) {
         return _observer.measureText(font, fontSize, bold, italic, text);
     }
 }

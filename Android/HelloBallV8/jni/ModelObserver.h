@@ -31,7 +31,7 @@ public:
 
     void log(const std::string& message);
     
-    int measureText(const std::string& fontName, int fontSize, bool bold, bool italic, const std::string& text);
+    float measureText(const std::string& fontName, int fontSize, bool bold, bool italic, const std::string& text);
 };
 
 #endif //MODELOBSERVER_INCLUDE

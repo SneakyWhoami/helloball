@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.text.TextPaint;
 
 import java.util.HashMap;
 
@@ -14,14 +15,19 @@ public class TextRuler {
 
     HashMap<String, Typeface> fonts = new HashMap<String, Typeface>();
     Context _context;
-
+    Paint paint;
+    
     public TextRuler(Context context) {
         _context = context;
+        paint = new TextPaint();
+        paint.setFlags(Paint.DEV_KERN_TEXT_FLAG);
+        paint.setAntiAlias(true);
+        paint.setSubpixelText(true);
+        paint.setLinearText(true);
     }
 
-    public int measureTextWidth(String font, int fontSize, boolean bold, boolean italic, String text) {
+    public float measureTextWidth(String font, int fontSize, boolean bold, boolean italic, String text) {
         Typeface tf = findFont(font, bold, italic);
-        Paint paint = new Paint();
         Rect bounds = new Rect();
         paint.setTypeface(tf);
         paint.setTextSize(fontSize);
@@ -44,7 +50,7 @@ public class TextRuler {
             } else if (italic) {
                 fontToLoad = "BalsamiqSansItalic.ttf";
             } else {
-                fontToLoad = "BalsamiqSansRegular.ttf";
+                fontToLoad = "BalsamiqSansRegular.otf";
             }
 
             if (fonts.containsKey(fontToLoad)) {

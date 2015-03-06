@@ -18,7 +18,7 @@ public:
     // debug only
     virtual void log(const std::string& message) = 0;
     
-    virtual int measureText(const std::string& fontName, int fontSize, bool bold, bool italic, const std::string& text) = 0;
+    virtual float measureText(const std::string& fontName, int fontSize, bool bold, bool italic, const std::string& text) = 0;
 };
 
 #endif //IMODELOBSERVER_INCLUDE

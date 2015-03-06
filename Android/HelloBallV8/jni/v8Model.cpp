@@ -26,7 +26,7 @@ void measureText(const FunctionCallbackInfo<Value>& args)
     Local<Object> self = args.Holder();
     Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
     void* ptr = wrap->Value();
-    int width = static_cast<IModelObserver*>(ptr)->measureText(fontName, fontSize, bold, italic, text);
+    float width = static_cast<IModelObserver*>(ptr)->measureText(fontName, fontSize, bold, italic, text);
     args.GetReturnValue().Set(width);
 }
 
