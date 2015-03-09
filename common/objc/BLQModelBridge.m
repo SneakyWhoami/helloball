@@ -8,6 +8,7 @@
 
 #import "BLQModelBridge.h"
 #import <JavaScriptCore/JavaScriptCore.h>
+#import <CoreText/CoreText.h>
 #import "BLQBall.h"
 
 NSString *const BLQModelBridgeDisplayListChangedNotification = @"BLQModelBridgeBallsChangedNotification";
@@ -23,6 +24,10 @@ NSString *const BLQModelBridgePhaseChangedNotification = @"BLQModelBridgePhaseCh
 - (void)phaseChanged:(NSNumber *)phase;
 - (void)log:(NSString *)str;
 
+JSExportAs(measureText,
+- (double)measureText:(NSString *)fontFamily fontSize:(double)fontSize italic:(BOOL)italic bold:(BOOL)bold text:(NSString *)text
+);
+
 @end
 
 
@@ -35,6 +40,50 @@ NSString *const BLQModelBridgePhaseChangedNotification = @"BLQModelBridgePhaseCh
 - (void)mouseUp:(CGPoint)point;
 
 @end
+
+static CFMutableAttributedStringRef makeAttributedString(NSString *fontFamily, double fontSize, bool bold, bool italic, bool underline, NSString *text)
+{
+    CFMutableAttributedStringRef attributedString = CFAttributedStringCreateMutable(kCFAllocatorDefault, text.length);
+    
+    CFStringRef string = CFStringCreateWithBytes(kCFAllocatorDefault, (const UInt8 *)text.UTF8String, strlen(text.UTF8String), kCFStringEncodingUTF8, FALSE);
+    CFAttributedStringReplaceString(attributedString, CFRangeMake(0, 0), string);
+    CFRelease(string);
+    
+    CFIndex stringLength = CFAttributedStringGetLength(attributedString);
+    
+//    std::stringstream ss;
+//    ss << "BalsamiqSans"; // fontFamily
+//    if (bold || italic) { ss << "-"; }
+//    if (bold) { ss << "Bold"; }
+//    if (italic) { ss << "Italic"; }
+    NSString *fontFamilyPostScript = @"BalsamiqSans";
+    CFStringRef fontFamilyString = CFStringCreateWithBytes(kCFAllocatorDefault, (const UInt8 *)fontFamilyPostScript.UTF8String, strlen(fontFamilyPostScript.UTF8String), kCFStringEncodingUTF8, false);
+    CTFontRef font = CTFontCreateWithName(fontFamilyString, fontSize, NULL);
+    CFRelease(fontFamilyString);
+    CFAttributedStringSetAttribute(attributedString, CFRangeMake(0, stringLength), kCTFontAttributeName, font);
+    CFRelease(font);
+    
+//    CGFloat components[4];
+//    int2rgb(textColor, components);
+//    CGColorRef color = CGColorCreateGenericRGB(components[0], components[1], components[2], components[3]);
+//    CFAttributedStringSetAttribute(attributedString, CFRangeMake(0, stringLength), kCTForegroundColorAttributeName, color);
+//    CGColorRelease(color);
+    
+    return attributedString;
+}
+
+static double measureText(NSString *fontFamily, double fontSize, bool bold, bool italic, NSString *str)
+{
+    CFMutableAttributedStringRef attributedString = makeAttributedString(fontFamily, fontSize, bold, italic, false, str);
+    
+    CTLineRef line = CTLineCreateWithAttributedString(attributedString);
+    CGRect r = CTLineGetBoundsWithOptions(line, 0);
+    
+    CFRelease(line);
+    CFRelease(attributedString);
+    
+    return r.size.width;
+}
 
 
 @implementation BLQModelBridge
@@ -131,6 +180,11 @@ NSString *const BLQModelBridgePhaseChangedNotification = @"BLQModelBridgePhaseCh
 - (void)log:(NSString *)str
 {
     NSLog(@"JS: %@", str);
+}
+
+- (double)measureText:(NSString *)fontFamily fontSize:(double)fontSize italic:(BOOL)italic bold:(BOOL)bold text:(NSString *)text
+{
+    return measureText(fontFamily, fontSize, bold, italic, text);
 }
 
 @end

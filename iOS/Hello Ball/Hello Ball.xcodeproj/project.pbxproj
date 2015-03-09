@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		932232AA1A95F416008CF727 /* BLQEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 932232A91A95F416008CF727 /* BLQEvent.m */; };
+		932232B41AA8B7FC008CF727 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 932232B31AA8B7FC008CF727 /* CoreText.framework */; };
+		932232B91AA8B8BF008CF727 /* BalsamiqSansBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 932232B51AA8B861008CF727 /* BalsamiqSansBold.ttf */; };
+		932232BA1AA8B8C2008CF727 /* BalsamiqSansBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 932232B61AA8B861008CF727 /* BalsamiqSansBoldItalic.ttf */; };
+		932232BB1AA8B8C4008CF727 /* BalsamiqSansItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 932232B71AA8B861008CF727 /* BalsamiqSansItalic.ttf */; };
+		932232BC1AA8B8C6008CF727 /* BalsamiqSansRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 932232B81AA8B861008CF727 /* BalsamiqSansRegular.ttf */; };
 		93ACAD891A83BC8D00CCC448 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93ACAD881A83BC8D00CCC448 /* main.m */; };
 		93ACAD8C1A83BC8D00CCC448 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93ACAD8B1A83BC8D00CCC448 /* AppDelegate.m */; };
 		93ACAD8F1A83BC8D00CCC448 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93ACAD8E1A83BC8D00CCC448 /* ViewController.m */; };
@@ -34,6 +39,11 @@
 /* Begin PBXFileReference section */
 		932232A81A95F416008CF727 /* BLQEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLQEvent.h; path = ../../../common/objc/BLQEvent.h; sourceTree = "<group>"; };
 		932232A91A95F416008CF727 /* BLQEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLQEvent.m; path = ../../../common/objc/BLQEvent.m; sourceTree = "<group>"; };
+		932232B31AA8B7FC008CF727 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		932232B51AA8B861008CF727 /* BalsamiqSansBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansBold.ttf; path = ../../../../media.balsamiq.com/fonts/balsamiqsans/BalsamiqSansBold.ttf; sourceTree = "<group>"; };
+		932232B61AA8B861008CF727 /* BalsamiqSansBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansBoldItalic.ttf; path = ../../../../media.balsamiq.com/fonts/balsamiqsans/BalsamiqSansBoldItalic.ttf; sourceTree = "<group>"; };
+		932232B71AA8B861008CF727 /* BalsamiqSansItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansItalic.ttf; path = ../../../../media.balsamiq.com/fonts/balsamiqsans/BalsamiqSansItalic.ttf; sourceTree = "<group>"; };
+		932232B81AA8B861008CF727 /* BalsamiqSansRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansRegular.ttf; path = ../../../../media.balsamiq.com/fonts/balsamiqsans/BalsamiqSansRegular.ttf; sourceTree = "<group>"; };
 		93ACAD831A83BC8D00CCC448 /* Hello Ball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hello Ball.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93ACAD871A83BC8D00CCC448 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93ACAD881A83BC8D00CCC448 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -61,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				932232B41AA8B7FC008CF727 /* CoreText.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +88,7 @@
 		93ACAD7A1A83BC8D00CCC448 = {
 			isa = PBXGroup;
 			children = (
+				932232B31AA8B7FC008CF727 /* CoreText.framework */,
 				93ACAD851A83BC8D00CCC448 /* Hello Ball */,
 				93ACAD9F1A83BC8D00CCC448 /* Hello BallTests */,
 				93ACAD841A83BC8D00CCC448 /* Products */,
@@ -107,6 +119,10 @@
 				93ACADB31A83CAD300CCC448 /* BLQModelBridge.m */,
 				932232A81A95F416008CF727 /* BLQEvent.h */,
 				932232A91A95F416008CF727 /* BLQEvent.m */,
+				932232B51AA8B861008CF727 /* BalsamiqSansBold.ttf */,
+				932232B61AA8B861008CF727 /* BalsamiqSansBoldItalic.ttf */,
+				932232B71AA8B861008CF727 /* BalsamiqSansItalic.ttf */,
+				932232B81AA8B861008CF727 /* BalsamiqSansRegular.ttf */,
 				93ACAD931A83BC8D00CCC448 /* Images.xcassets */,
 				93ACAD901A83BC8D00CCC448 /* Main.storyboard */,
 				93ACAD951A83BC8D00CCC448 /* LaunchScreen.xib */,
@@ -223,7 +239,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				932232B91AA8B8BF008CF727 /* BalsamiqSansBold.ttf in Resources */,
+				932232BB1AA8B8C4008CF727 /* BalsamiqSansItalic.ttf in Resources */,
 				93ACAD921A83BC8D00CCC448 /* Main.storyboard in Resources */,
+				932232BA1AA8B8C2008CF727 /* BalsamiqSansBoldItalic.ttf in Resources */,
+				932232BC1AA8B8C6008CF727 /* BalsamiqSansRegular.ttf in Resources */,
 				93ACAD971A83BC8D00CCC448 /* LaunchScreen.xib in Resources */,
 				93E03E911A88D09D00E4F12B /* model.js in Resources */,
 				93ACAD941A83BC8D00CCC448 /* Images.xcassets in Resources */,

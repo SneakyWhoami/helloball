@@ -35,6 +35,8 @@ namespace Hello_Ball_WPF
         private static JavaScriptNativeFunction onDisplayListChanged = OnDisplayListChanged;
         private static JavaScriptNativeFunction onEventsPerSecond = OnEventsPerSecond;
         private static JavaScriptNativeFunction onPhaseChanged = OnPhaseChanged;
+        private static JavaScriptNativeFunction onMeasureText = MeasureText;
+        private static JavaScriptNativeFunction onLog = Log;
        
         public MainWindow()
         {
@@ -64,6 +66,8 @@ namespace Hello_Ball_WPF
                 DefineHostCallback(delegateObject, "displayListChanged", onDisplayListChanged, IntPtr.Zero);
                 DefineHostCallback(delegateObject, "eventsPerSecond", onEventsPerSecond, IntPtr.Zero);
                 DefineHostCallback(delegateObject, "phaseChanged", onPhaseChanged, IntPtr.Zero);
+                DefineHostCallback(delegateObject, "measureText", onMeasureText, IntPtr.Zero);
+                DefineHostCallback(delegateObject, "log", onLog, IntPtr.Zero);
 
                 Uri uri = new Uri("/model.js", UriKind.Relative);
                 StreamResourceInfo info = Application.GetContentStream(uri);
@@ -380,6 +384,29 @@ namespace Hello_Ball_WPF
                     JavaScriptContext.RunScript("controller.task();");
                 }));
             }
+        }
+
+        private static JavaScriptValue MeasureText(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
+        {
+            string text = (string)ConvertJavaScriptValue(arguments[5]);
+            double fontSize = (double)ConvertJavaScriptValue(arguments[2]);
+            FontFamily ff = new FontFamily(new Uri("pack://application:,,,/"), "./#Balsamiq Sans");
+            var formattedText = new FormattedText(
+                text,
+                System.Globalization.CultureInfo.CurrentUICulture,
+                FlowDirection.LeftToRight,
+                new Typeface(ff, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal),
+                fontSize,
+                Brushes.Black);
+            Size s = new Size(formattedText.Width, formattedText.Height);
+            return JavaScriptValue.FromDouble(s.Width);
+        }
+
+        private static JavaScriptValue Log(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
+        {
+            object p = ConvertJavaScriptValue(arguments[1]);
+            Console.WriteLine((string)p);
+            return JavaScriptValue.Undefined;
         }
     }
 }

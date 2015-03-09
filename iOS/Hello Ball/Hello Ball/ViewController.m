@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Balsamiq. All rights reserved.
 //
 
+#import <CoreText/CoreText.h>
+
 #import "ViewController.h"
 #import "BLQBall.h"
 #import "BLQModelBridge.h"
@@ -30,6 +32,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSArray *fontFileNames = @[ @"BalsamiqSansRegular", @"BalsamiqSansBold", @"BalsamiqSansItalic", @"BalsamiqSansBoldItalic" ];
+    for (NSUInteger i = 0; i < fontFileNames.count; i += 1) {
+        NSURL *url = [[NSBundle mainBundle] URLForResource:[fontFileNames objectAtIndex:i] withExtension:@"ttf"];
+        CFErrorRef *err = NULL;
+        BOOL ok = CTFontManagerRegisterFontsForURL((__bridge CFURLRef)url, kCTFontManagerScopeProcess, err);
+    }
+
     _model = [BLQModelBridge alloc];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onModelBallsChanged:) name:BLQModelBridgeDisplayListChangedNotification object:_model];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onModelEPSChanged:) name:BLQModelBridgeEPSChangedNotification object:_model];
