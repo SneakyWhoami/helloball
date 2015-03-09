@@ -45,7 +45,7 @@ public class ModelObserver implements IModelObserver {
     }
 
     @Override
-    public int measureText(String font, int fontSize, boolean bold, boolean italic, String text)
+    public float measureText(String font, int fontSize, boolean bold, boolean italic, String text)
     {
         return ruler.measureTextWidth(font, fontSize, bold, italic, text);
     }

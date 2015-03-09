@@ -93,17 +93,17 @@ void ModelObserver::log(const std::string& message)
     _env->DeleteLocalRef(dlJString);
 }
 
-int ModelObserver::measureText(const std::string& fontName, int fontSize, bool bold, bool italic, const std::string& text)
+float ModelObserver::measureText(const std::string& fontName, int fontSize, bool bold, bool italic, const std::string& text)
 {
     jclass cls = _env->GetObjectClass(_obj);
-    jmethodID mid = _env->GetMethodID(cls, "onTextSize", "(Ljava/lang/String;IZZLjava/lang/String;)I");
+    jmethodID mid = _env->GetMethodID(cls, "onTextSize", "(Ljava/lang/String;IZZLjava/lang/String;)F");
     if (mid == 0) {
         return 0;
     }
 
     jstring jfont = _env->NewStringUTF(fontName.c_str());
     jstring jtext = _env->NewStringUTF(text.c_str());
-    int width = _env->CallIntMethod(_obj, mid, jfont, fontSize, bold, italic, jtext);
+    float width = _env->CallFloatMethod(_obj, mid, jfont, fontSize, bold, italic, jtext);
     _env->DeleteLocalRef(jfont);
     _env->DeleteLocalRef(jtext);
     return width;

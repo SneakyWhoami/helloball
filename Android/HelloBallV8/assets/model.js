@@ -207,8 +207,16 @@ Controller.prototype.makeDisplayList = function () {
 };
 
 Controller.prototype.doText = function () {
-	var m = this.delegate.measureText("Balsamiq Sans", 18, false, false, "AVAVAVAVA");
-	this.delegate.log("text width: " + m);
+	var strs = ["", "A", "AV", "AVA", "AVAVAVAVAVA"];
+	var sizes = [10, 11, 12, 13, 16, 18, 24, 72];
+	var i, j;
+	var w;
+	for (i = 0; i < strs.length; i++) {
+		for (j = 0; j < sizes.length; j++) {
+			w = this.delegate.measureText("Balsamiq Sans", sizes[j], false, false, strs[i]);
+			this.delegate.log("string: \"" + strs[i] + "\" size: " + sizes[j] + " width: " + w);
+		}
+	}
 };
 
 Controller.prototype.task = function () {
@@ -227,5 +235,6 @@ var initApp = function (viewWidth, viewHeight, delegate) {
     delegate.ballCountChanged(model.balls.length);
     var controller = new Controller(model, delegate);
     controller.makeDisplayList();
+    controller.doText();
     return controller;
 };
