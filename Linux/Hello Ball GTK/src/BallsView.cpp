@@ -86,7 +86,7 @@ bool BallsView::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
 	cr->move_to(10, 100);
 	layout->show_in_cairo_context(cr);
 
-	m_h->fillText(cr->cobj(), 10, 200, "AVAVAVAVA", 18 * 96 / 72);
+	m_h->fillText(cr->cobj(), 10, 200, "AVAVAVA→ÀÁÂÃĀĂȦÄẢÅǍȀȂĄẠḀẦẤẪẨẰẮẴẲǠǞǺẬẶȺ", 18 * 96 / 72);
 
 	cr->restore();
 

@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using ChakraHost.Hosting;
 using System.Windows.Resources;
 using System.Timers;
+using System.Data.SQLite;
 
 namespace Hello_Ball_WPF
 {
@@ -390,7 +391,7 @@ namespace Hello_Ball_WPF
         {
             string text = (string)ConvertJavaScriptValue(arguments[5]);
             double fontSize = (double)ConvertJavaScriptValue(arguments[2]);
-            FontFamily ff = new FontFamily(new Uri("pack://application:,,,/"), "./#Balsamiq Sans");
+            FontFamily ff = new FontFamily(new Uri("pack://application:,,,/"), "./#BalsamiqSans");
             var formattedText = new FormattedText(
                 text,
                 System.Globalization.CultureInfo.CurrentUICulture,

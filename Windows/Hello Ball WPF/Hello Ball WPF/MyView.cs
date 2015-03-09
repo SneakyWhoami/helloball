@@ -26,7 +26,7 @@ namespace Hello_Ball_WPF
 
             FontFamily ff = new FontFamily(new Uri("pack://application:,,,/"), "./#Balsamiq Sans");
             var formattedText = new FormattedText(
-                "AVAVAVA",
+                "AVAVAVA and arabic العربية عربي/عربى",
                 System.Globalization.CultureInfo.CurrentUICulture,
                 FlowDirection.LeftToRight,
                 new Typeface(ff, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal),
