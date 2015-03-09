@@ -43,12 +43,12 @@ public class TextRuler {
             String fontToLoad;
             if (bold) {
                 if (italic) {
-                    fontToLoad = "BalsamiqSansBoldItalic.ttf";
+                    fontToLoad = "BalsamiqSansBoldItalic.otf";
                 } else {
-                    fontToLoad = "BalsamiqSansBold.ttf";
+                    fontToLoad = "BalsamiqSansBold.otf";
                 }
             } else if (italic) {
-                fontToLoad = "BalsamiqSansItalic.ttf";
+                fontToLoad = "BalsamiqSansItalic.otf";
             } else {
                 fontToLoad = "BalsamiqSansRegular.otf";
             }

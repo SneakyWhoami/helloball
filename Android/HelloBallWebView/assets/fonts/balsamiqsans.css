@@ -1,26 +1,26 @@
 @font-face {
-    src: url("balsamiqsansregular-webfont.ttf") format('truetype');
+    src: url("BalsamiqSansRegular.otf") format('opentype');
     font-family: "Balsamiq Sans";
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    src: url("balsamiqsansbold-webfont.ttf") format('truetype');
+    src: url("BalsamiqSansBold.otf") format('opentype');
     font-family: "Balsamiq Sans";
     font-style: normal;
     font-weight: bold;
 }
 
 @font-face {
-    src: url("balsamiqsansitalic-webfont.ttf") format('truetype');
+    src: url("BalsamiqSansItalic.otf") format('opentype');
     font-family: "Balsamiq Sans";
     font-style: italic;
     font-weight: normal;
 }
 
 @font-face {
-    src: url("balsamiqsansbolditalic-webfont.ttf") format('truetype');
+    src: url("BalsamiqSansBoldItalic.otf") format('opentype');
     font-family: "Balsamiq Sans";
     font-style: italic;
     font-weight: bold;
