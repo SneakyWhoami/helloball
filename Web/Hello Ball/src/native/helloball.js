@@ -1,13 +1,17 @@
-(function () {
+window.setTimeout(function () {
     'use strict';
 
     var svgroot = document.getElementById('svgmain');
+    var canvas = document.getElementById('canvasfortext');
+    var context = canvas.getContext("2d");
 
     var delegate = {
         displayListChanged: function () {},
         eventsPerSecond: function () {},
         ballCountChanged: function () {},
-        phaseChanged: function () {}
+        phaseChanged: function () {},
+        log: function (text) { console.log(text); },
+        measureText: measureText.bind(null, context)
     };
 
     var displayListStream = Rx.Observable.create(function (observer) {
@@ -99,4 +103,4 @@
         controller.task();
     }, 30);
 
-}());
+}, 1000);

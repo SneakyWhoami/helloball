@@ -1,14 +1,17 @@
 <html>
 <head>
+    <link rel="stylesheet" href="http://media.balsamiq.com/fonts/balsamiqsans/balsamiqsans.css" type="text/css" charset="utf-8">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/2.3.24/rx.js" ></script>
     <script type="text/javascript" src="./lib/rx.html.js" ></script>
     <script type="text/javascript" src="../../common/js/model.js"></script>
     <script type="text/javascript" src="./src/native/renderer.js"></script>
+    <script type="text/javascript" src="./src/native/textutils.js"></script>
 </head>
 <body style="overflow: hidden; margin:0">
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" style="border-style:solid;" id="svgmain"></svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" style="border-style:solid;" id="svgmain"></svg>
+    <canvas id="canvasfortext" style="text-rendering: optimizeLegibility; '-webkit-font-smoothing': antialiased"></canvas>
     <script type="text/javascript" src="./src/native/helloball.js"></script>
+    <div style="font-family: 'Balsamiq Sans'; text-rendering: optimizelegibility">AVAVA</div>
 </body>
-
 
 </html>
