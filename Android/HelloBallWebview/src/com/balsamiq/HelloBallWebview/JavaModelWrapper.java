@@ -18,11 +18,7 @@ public class JavaModelWrapper {
 
     public void start(float sizeX, float sizeY, WebView wv) {
         _webView = wv;
-
-        // TODO: it works but cannot debug
-//        String model = AssetUtilities.readFromfile(_activity, "model.js");
-//        _webView.evaluateJavascript(model, null);
-        String call = "vai(" + sizeX + ", " + sizeY + "); ModelObserver.controller.doText();";
+        String call = "modelStart(" + sizeX + ", " + sizeY + ");";
         _webView.evaluateJavascript(call, null);
     }
 

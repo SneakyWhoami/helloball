@@ -48,7 +48,6 @@ public class BallsDrawingView extends View  {
             _balls[balls.keyAt(i)] = balls.get(balls.keyAt(i));
         }
 
-        Log.d("BallsDrawingView", "" + new Date().getTime());
         if (!isDrawRequest()) {
             post(new Runnable() {
                 @Override
@@ -75,7 +74,6 @@ public class BallsDrawingView extends View  {
     @Override
     protected void onDraw(Canvas canvas) {
         // fill the background
-        Log.d("BallsDrawingView.onDraw", "" + new Date().getTime());
         SparseArray<Paint> paintSparseArray = new SparseArray<Paint>();
         canvas.drawPaint(mBackgroundPaint);
         if (_balls != null) {
