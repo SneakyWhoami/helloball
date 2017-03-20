@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "48803F890284C626A64E3A6D6026B32CEDEB91F0",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "48803F890284C626A64E3A6D6026B32CEDEB91F0" : 0,
+    "E4653A7E81DAF1767F3E92BD652CC7A4E75C1CBF" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7F7B3AF6-B7D3-4CDC-9F72-5F870D34BF5A",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "48803F890284C626A64E3A6D6026B32CEDEB91F0" : "helloball\/",
+    "E4653A7E81DAF1767F3E92BD652CC7A4E75C1CBF" : "media.balsamiq.com\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Hello Ball",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "iOS\/Hello Ball\/Hello Ball.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/balsamiq\/helloball.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "48803F890284C626A64E3A6D6026B32CEDEB91F0"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/balsamiq\/media.balsamiq.com.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E4653A7E81DAF1767F3E92BD652CC7A4E75C1CBF"
+    }
+  ]
+}

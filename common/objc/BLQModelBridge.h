@@ -10,10 +10,10 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import "BLQEvent.h"
 
-NSString *const BLQModelBridgeDisplayListChangedNotification;
-NSString *const BLQModelBridgeEPSChangedNotification;
-NSString *const BLQModelBridgeBallCountChangedNotification;
-NSString *const BLQModelBridgePhaseChangedNotification;
+extern NSString *const BLQModelBridgeDisplayListChangedNotification;
+extern NSString *const BLQModelBridgeEPSChangedNotification;
+extern NSString *const BLQModelBridgeBallCountChangedNotification;
+extern NSString *const BLQModelBridgePhaseChangedNotification;
 
 
 @interface BLQModelBridge : NSObject

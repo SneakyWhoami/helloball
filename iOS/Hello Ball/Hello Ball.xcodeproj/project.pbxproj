@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1812AB481E801497006A0D7E /* BalsamiqSansBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1812AB441E80148C006A0D7E /* BalsamiqSansBold.ttf */; };
+		1812AB491E801497006A0D7E /* BalsamiqSansBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1812AB451E80148C006A0D7E /* BalsamiqSansBoldItalic.ttf */; };
+		1812AB4A1E801497006A0D7E /* BalsamiqSansItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1812AB461E80148C006A0D7E /* BalsamiqSansItalic.ttf */; };
+		1812AB4B1E801497006A0D7E /* BalsamiqSansRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1812AB471E80148C006A0D7E /* BalsamiqSansRegular.ttf */; };
 		932232AA1A95F416008CF727 /* BLQEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 932232A91A95F416008CF727 /* BLQEvent.m */; };
 		932232B41AA8B7FC008CF727 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 932232B31AA8B7FC008CF727 /* CoreText.framework */; };
-		932232B91AA8B8BF008CF727 /* BalsamiqSansBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 932232B51AA8B861008CF727 /* BalsamiqSansBold.ttf */; };
-		932232BA1AA8B8C2008CF727 /* BalsamiqSansBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 932232B61AA8B861008CF727 /* BalsamiqSansBoldItalic.ttf */; };
-		932232BB1AA8B8C4008CF727 /* BalsamiqSansItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 932232B71AA8B861008CF727 /* BalsamiqSansItalic.ttf */; };
-		932232BC1AA8B8C6008CF727 /* BalsamiqSansRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 932232B81AA8B861008CF727 /* BalsamiqSansRegular.ttf */; };
 		93ACAD891A83BC8D00CCC448 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93ACAD881A83BC8D00CCC448 /* main.m */; };
 		93ACAD8C1A83BC8D00CCC448 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93ACAD8B1A83BC8D00CCC448 /* AppDelegate.m */; };
 		93ACAD8F1A83BC8D00CCC448 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93ACAD8E1A83BC8D00CCC448 /* ViewController.m */; };
@@ -37,13 +37,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1812AB441E80148C006A0D7E /* BalsamiqSansBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansBold.ttf; path = ../../../../media.balsamiq.com/fonts/balsamiqsans/BalsamiqSansDownload/BalsamiqSansBold.ttf; sourceTree = "<group>"; };
+		1812AB451E80148C006A0D7E /* BalsamiqSansBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansBoldItalic.ttf; path = ../../../../media.balsamiq.com/fonts/balsamiqsans/BalsamiqSansDownload/BalsamiqSansBoldItalic.ttf; sourceTree = "<group>"; };
+		1812AB461E80148C006A0D7E /* BalsamiqSansItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansItalic.ttf; path = ../../../../media.balsamiq.com/fonts/balsamiqsans/BalsamiqSansDownload/BalsamiqSansItalic.ttf; sourceTree = "<group>"; };
+		1812AB471E80148C006A0D7E /* BalsamiqSansRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansRegular.ttf; path = ../../../../media.balsamiq.com/fonts/balsamiqsans/BalsamiqSansDownload/BalsamiqSansRegular.ttf; sourceTree = "<group>"; };
 		932232A81A95F416008CF727 /* BLQEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLQEvent.h; path = ../../../common/objc/BLQEvent.h; sourceTree = "<group>"; };
 		932232A91A95F416008CF727 /* BLQEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLQEvent.m; path = ../../../common/objc/BLQEvent.m; sourceTree = "<group>"; };
 		932232B31AA8B7FC008CF727 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		932232B51AA8B861008CF727 /* BalsamiqSansBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansBold.ttf; path = ../../../../media.balsamiq.com/fonts/balsamiqsans/BalsamiqSansBold.ttf; sourceTree = "<group>"; };
-		932232B61AA8B861008CF727 /* BalsamiqSansBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansBoldItalic.ttf; path = ../../../../media.balsamiq.com/fonts/balsamiqsans/BalsamiqSansBoldItalic.ttf; sourceTree = "<group>"; };
-		932232B71AA8B861008CF727 /* BalsamiqSansItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansItalic.ttf; path = ../../../../media.balsamiq.com/fonts/balsamiqsans/BalsamiqSansItalic.ttf; sourceTree = "<group>"; };
-		932232B81AA8B861008CF727 /* BalsamiqSansRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansRegular.ttf; path = ../../../../media.balsamiq.com/fonts/balsamiqsans/BalsamiqSansRegular.ttf; sourceTree = "<group>"; };
 		93ACAD831A83BC8D00CCC448 /* Hello Ball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hello Ball.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93ACAD871A83BC8D00CCC448 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93ACAD881A83BC8D00CCC448 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -107,6 +107,10 @@
 		93ACAD851A83BC8D00CCC448 /* Hello Ball */ = {
 			isa = PBXGroup;
 			children = (
+				1812AB441E80148C006A0D7E /* BalsamiqSansBold.ttf */,
+				1812AB451E80148C006A0D7E /* BalsamiqSansBoldItalic.ttf */,
+				1812AB461E80148C006A0D7E /* BalsamiqSansItalic.ttf */,
+				1812AB471E80148C006A0D7E /* BalsamiqSansRegular.ttf */,
 				93ACAD8A1A83BC8D00CCC448 /* AppDelegate.h */,
 				93ACAD8B1A83BC8D00CCC448 /* AppDelegate.m */,
 				93ACAD8D1A83BC8D00CCC448 /* ViewController.h */,
@@ -119,10 +123,6 @@
 				93ACADB31A83CAD300CCC448 /* BLQModelBridge.m */,
 				932232A81A95F416008CF727 /* BLQEvent.h */,
 				932232A91A95F416008CF727 /* BLQEvent.m */,
-				932232B51AA8B861008CF727 /* BalsamiqSansBold.ttf */,
-				932232B61AA8B861008CF727 /* BalsamiqSansBoldItalic.ttf */,
-				932232B71AA8B861008CF727 /* BalsamiqSansItalic.ttf */,
-				932232B81AA8B861008CF727 /* BalsamiqSansRegular.ttf */,
 				93ACAD931A83BC8D00CCC448 /* Images.xcassets */,
 				93ACAD901A83BC8D00CCC448 /* Main.storyboard */,
 				93ACAD951A83BC8D00CCC448 /* LaunchScreen.xib */,
@@ -202,12 +202,12 @@
 		93ACAD7B1A83BC8D00CCC448 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = Balsamiq;
 				TargetAttributes = {
 					93ACAD821A83BC8D00CCC448 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 3DPKD72KQ7;
+						DevelopmentTeam = V9443FC6CU;
 					};
 					93ACAD9B1A83BC8D00CCC448 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -239,11 +239,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				932232B91AA8B8BF008CF727 /* BalsamiqSansBold.ttf in Resources */,
-				932232BB1AA8B8C4008CF727 /* BalsamiqSansItalic.ttf in Resources */,
+				1812AB481E801497006A0D7E /* BalsamiqSansBold.ttf in Resources */,
+				1812AB491E801497006A0D7E /* BalsamiqSansBoldItalic.ttf in Resources */,
+				1812AB4A1E801497006A0D7E /* BalsamiqSansItalic.ttf in Resources */,
+				1812AB4B1E801497006A0D7E /* BalsamiqSansRegular.ttf in Resources */,
 				93ACAD921A83BC8D00CCC448 /* Main.storyboard in Resources */,
-				932232BA1AA8B8C2008CF727 /* BalsamiqSansBoldItalic.ttf in Resources */,
-				932232BC1AA8B8C6008CF727 /* BalsamiqSansRegular.ttf in Resources */,
 				93ACAD971A83BC8D00CCC448 /* LaunchScreen.xib in Resources */,
 				93E03E911A88D09D00E4F12B /* model.js in Resources */,
 				93ACAD941A83BC8D00CCC448 /* Images.xcassets in Resources */,
@@ -325,15 +325,19 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -367,8 +371,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -376,6 +382,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -396,8 +403,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = V9443FC6CU;
 				INFOPLIST_FILE = "Hello Ball/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.balsamiq.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -409,8 +418,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = V9443FC6CU;
 				INFOPLIST_FILE = "Hello Ball/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.balsamiq.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -430,6 +441,7 @@
 				);
 				INFOPLIST_FILE = "Hello BallTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.balsamiq.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hello Ball.app/Hello Ball";
 			};
@@ -445,6 +457,7 @@
 				);
 				INFOPLIST_FILE = "Hello BallTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.balsamiq.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hello Ball.app/Hello Ball";
 			};

@@ -17,3 +17,4 @@ libv8*.a
 /Android/HelloBallV8JavaJNI/build/
 /Android/HelloBallV8JavaConsole/build/
 /Android/HelloBallV8JavaConsole/dist/
+output/
