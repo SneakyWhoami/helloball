@@ -40,11 +40,11 @@ var renderEps = function (svgRootNode, eps) {
         node.setAttributeNS(null,"x", 12);
         node.setAttributeNS(null,"y", 16);
         node.setAttributeNS(null,"font-size","18");
-        var textNode = document.createTextNode("EPS: " + Math.round(eps));
+        var textNode = document.createTextNode("FPS: " + Math.round(eps));
         node.appendChild(textNode);
         svgRootNode.appendChild(node);
     } else {
-        node.textContent = "EPS: " + Math.round(eps);
+        node.textContent = "FPS: " + Math.round(eps);
     }
 };
 
