@@ -37,10 +37,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1812AB441E80148C006A0D7E /* BalsamiqSansBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansBold.ttf; path = ../../../../media.balsamiq.com/fonts/balsamiqsans/BalsamiqSansDownload/BalsamiqSansBold.ttf; sourceTree = "<group>"; };
-		1812AB451E80148C006A0D7E /* BalsamiqSansBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansBoldItalic.ttf; path = ../../../../media.balsamiq.com/fonts/balsamiqsans/BalsamiqSansDownload/BalsamiqSansBoldItalic.ttf; sourceTree = "<group>"; };
-		1812AB461E80148C006A0D7E /* BalsamiqSansItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansItalic.ttf; path = ../../../../media.balsamiq.com/fonts/balsamiqsans/BalsamiqSansDownload/BalsamiqSansItalic.ttf; sourceTree = "<group>"; };
-		1812AB471E80148C006A0D7E /* BalsamiqSansRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansRegular.ttf; path = ../../../../media.balsamiq.com/fonts/balsamiqsans/BalsamiqSansDownload/BalsamiqSansRegular.ttf; sourceTree = "<group>"; };
+		1812AB441E80148C006A0D7E /* BalsamiqSansBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansBold.ttf; path = ../../../common/BalsamiqSansDownload/BalsamiqSansBold.ttf; sourceTree = "<group>"; };
+		1812AB451E80148C006A0D7E /* BalsamiqSansBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansBoldItalic.ttf; path = ../../../common/BalsamiqSansDownload/BalsamiqSansBoldItalic.ttf; sourceTree = "<group>"; };
+		1812AB461E80148C006A0D7E /* BalsamiqSansItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansItalic.ttf; path = ../../../common/BalsamiqSansDownload/BalsamiqSansItalic.ttf; sourceTree = "<group>"; };
+		1812AB471E80148C006A0D7E /* BalsamiqSansRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BalsamiqSansRegular.ttf; path = ../../../common/BalsamiqSansDownload/BalsamiqSansRegular.ttf; sourceTree = "<group>"; };
 		932232A81A95F416008CF727 /* BLQEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLQEvent.h; path = ../../../common/objc/BLQEvent.h; sourceTree = "<group>"; };
 		932232A91A95F416008CF727 /* BLQEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLQEvent.m; path = ../../../common/objc/BLQEvent.m; sourceTree = "<group>"; };
 		932232B31AA8B7FC008CF727 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
