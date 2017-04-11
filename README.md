@@ -1,11 +1,11 @@
 HelloBall
 ====
 
-HelloBall is an experiment we made to study how to rewrite Balsamiq Mockups application using native technologies in IOS, Windows, Android, MacOS and Linux.
+HelloBall is an experiment we made to study how to rewrite Balsamiq Mockups application using native technologies on IOS, Windows, Android, MacOS and Linux.
 
 The path we choose has been to write 
 
-1. a common Core Model in Javascript running inside a JVM containing data structures and algorithm
+1. a common Core Model, written in Javascript and running inside a JVM, containing data structures and algorithm
 2. native technologies for the UI layer and external access to each platform service 
 3. a double interface to communicate between javascript and native
 
