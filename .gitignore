@@ -17,3 +17,6 @@ libv8*.a
 /Android/HelloBallV8JavaConsole/build/
 /Android/HelloBallV8JavaConsole/dist/
 output/
+build
+.gradle
+libraries
