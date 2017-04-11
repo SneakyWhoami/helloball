@@ -3,7 +3,7 @@ HelloBall
 
 HelloBall is an experiment we made to study how to rewrite Balsamiq Mockups application using native technologies in IOS, Windows, Android, MacOS and Linux.
 
-The path we choose if to write 
+The path we choose has been to write 
 
 1. a common Core Model in Javascript running inside a JVM containing data structures and algorithm
 2. native technologies for the UI layer and external access to each platform service 
@@ -26,6 +26,11 @@ Building for Android
 -----------------
 
 Use IntelliJ Idea to open each project folder
+
+Building for Web
+-----------------
+
+There is nothing to build, just open the ```helloball.html``` to see the web app working
 
 Presentations
 =============
